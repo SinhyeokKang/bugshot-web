@@ -1,8 +1,23 @@
+import { Header } from "@/components/Header";
+import { Hero } from "@/components/Hero";
+import { FeatureCards } from "@/components/FeatureCards";
+import { HowItWorks } from "@/components/HowItWorks";
+import { Integrations } from "@/components/Integrations";
+import { BottomCta } from "@/components/BottomCta";
+import { Footer } from "@/components/Footer";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold">Bugshot</h1>
-      <p className="mt-4 text-muted-foreground">Landing page coming soon.</p>
-    </main>
+    <>
+      <Header />
+      <main>
+        <Hero />
+        <FeatureCards />
+        <HowItWorks />
+        <Integrations />
+        <BottomCta />
+      </main>
+      <Footer />
+    </>
   );
 }
