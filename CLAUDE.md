@@ -35,6 +35,10 @@ bugshot-web: Bugshot Chrome 확장의 랜딩 페이지. 싱글 페이지 정적 
 ## 디렉터리 구조
 
 ```
+docs/
+├── prd.md          # PRD
+├── design.md       # 기술 설계
+└── tasks.md        # 태스크 목록
 src/
 ├── app/
 │   ├── layout.tsx      # RootLayout — Pretendard 폰트, 메타데이터, JSON-LD
