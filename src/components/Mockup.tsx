@@ -46,7 +46,7 @@ export function Mockup() {
                 "flex h-10 items-center gap-1.5 rounded-xl px-3 text-sm font-medium transition-colors md:h-[42px] md:gap-2 md:px-4 md:text-base [&_svg]:size-4 md:[&_svg]:size-5",
                 active === i
                   ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-muted-foreground hover:bg-muted/80"
+                  : "bg-muted text-foreground hover:bg-muted-foreground/10"
               )}
             >
               <slide.icon />
