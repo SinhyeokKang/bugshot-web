@@ -26,7 +26,7 @@ export function Mockup() {
           <img
             src={current.image}
             alt={t(`slides.${current.key}.label`)}
-            className="block w-full"
+            className="-m-px block w-[calc(100%+2px)] max-w-none"
           />
         </div>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
