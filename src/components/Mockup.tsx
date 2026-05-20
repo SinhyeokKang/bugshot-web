@@ -6,11 +6,11 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 const slides = [
-  { key: "inspect", icon: MousePointerClick, image: "/images/mockup-inspect.png" },
-  { key: "record", icon: Video, image: "/images/mockup-record.png" },
-  { key: "log", icon: SquareTerminal, image: "/images/mockup-log.png" },
-  { key: "ai", icon: Wand2, image: "/images/mockup-ai.png" },
-  { key: "send", icon: Send, image: "/images/mockup-send.png" },
+  { key: "inspect", icon: MousePointerClick, image: "/images/mockup-inspect.webp" },
+  { key: "record", icon: Video, image: "/images/mockup-record.webp" },
+  { key: "log", icon: SquareTerminal, image: "/images/mockup-log.webp" },
+  { key: "ai", icon: Wand2, image: "/images/mockup-ai.webp" },
+  { key: "send", icon: Send, image: "/images/mockup-send.webp" },
 ] as const;
 
 export function Mockup() {
@@ -22,7 +22,7 @@ export function Mockup() {
     <section className="border-b pt-12 pb-20 md:pt-[60px] md:pb-[120px]">
       <div className="container mx-auto max-w-[1200px]">
         <h2 className="sr-only">{t("srHeading")}</h2>
-        <div className="overflow-hidden rounded-3xl border-[6px] border-border md:rounded-card md:border-[12px]">
+        <div className="overflow-hidden rounded-3xl border-[6px] border-border shadow-lg shadow-black/5 md:rounded-card md:border-[12px]">
           <img
             src={current.image}
             alt={t(`slides.${current.key}.label`)}
