@@ -17,13 +17,13 @@
         "label": "Inspect",
         "caption": "Click any element to view its applied styles and attributes."
       },
-      "capture": {
-        "label": "Capture",
-        "caption": "Take annotated screenshots with arrows, text, and highlights."
-      },
       "record": {
         "label": "Record",
-        "caption": "Record up to 60 seconds with console and network logs in sync."
+        "caption": "Capture screenshots or record up to 60 seconds — with annotations and logs."
+      },
+      "log": {
+        "label": "Log",
+        "caption": "View console errors and network requests collected during your session."
       },
       "ai": {
         "label": "AI Generation",
@@ -46,8 +46,12 @@
         "description": "Click any element to view its applied styles and attributes. Modify styles in the visual editor and see changes reflected on the page instantly."
       },
       "record": {
-        "title": "Record up to 60 seconds",
-        "description": "Capture the exact moment a bug happens with a built-in screen recorder. Console and network logs are collected alongside the video."
+        "title": "Capture & Record",
+        "description": "Take annotated screenshots or record up to 60 seconds of screen activity to capture the exact moment a bug happens."
+      },
+      "log": {
+        "title": "Console & Network logs",
+        "description": "Console errors, warnings, and network requests are captured automatically — so you never have to reproduce a bug just to grab the logs."
       },
       "autoCollect": {
         "title": "Auto-collect context",
@@ -84,10 +88,14 @@
       }
     }
   },
-  "footer": {
+  "bottomCta": {
     "heading": "All your bugs, <brand>one workflow</brand>.",
     "subcopy": ["Link your platforms from the Integrations tab.", "Connect multiple at once and choose where each ticket goes."],
     "cta": "Add to Chrome",
     "copyright": "© 2026 BugShot"
+  },
+  "footer": {
+    "github": "GitHub",
+    "privacy": "Privacy Policy"
   }
 }

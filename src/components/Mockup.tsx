@@ -1,14 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Camera, MousePointerClick, Send, Video, Wand2 } from "lucide-react";
+import { MousePointerClick, Send, SquareTerminal, Video, Wand2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 const slides = [
   { key: "inspect", icon: MousePointerClick },
-  { key: "capture", icon: Camera },
   { key: "record", icon: Video },
+  { key: "log", icon: SquareTerminal },
   { key: "ai", icon: Wand2 },
   { key: "send", icon: Send },
 ] as const;

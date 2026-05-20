@@ -1,19 +1,20 @@
 import {
   MousePointerClick,
   Video,
+  SquareTerminal,
   Magnet,
   Wand2,
   Send,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { cn } from "@/lib/utils";
 
 const features = [
-  { key: "inspect", icon: MousePointerClick, wide: true },
-  { key: "record", icon: Video, wide: false },
-  { key: "autoCollect", icon: Magnet, wide: false },
-  { key: "ai", icon: Wand2, wide: false },
-  { key: "send", icon: Send, wide: false },
+  { key: "inspect", icon: MousePointerClick },
+  { key: "record", icon: Video },
+  { key: "log", icon: SquareTerminal },
+  { key: "autoCollect", icon: Magnet },
+  { key: "ai", icon: Wand2 },
+  { key: "send", icon: Send },
 ] as const;
 
 export function FeatureCards() {
@@ -35,19 +36,9 @@ export function FeatureCards() {
           {features.map((f) => (
             <article
               key={f.key}
-              className={cn(
-                "grid grid-cols-1 overflow-hidden rounded-3xl bg-muted md:h-[360px] md:rounded-card",
-                f.wide
-                  ? "md:col-span-2 md:grid-cols-[448px_1fr]"
-                  : "md:grid-cols-[296px_1fr]"
-              )}
+              className="grid grid-cols-1 overflow-hidden rounded-3xl bg-muted md:h-[360px] md:rounded-card md:grid-cols-[296px_1fr]"
             >
-              <div
-                className={cn(
-                  "flex flex-col p-8 md:p-12",
-                  !f.wide && "md:pr-6"
-                )}
-              >
+              <div className="flex flex-col p-8 md:p-12 md:pr-6">
                 <f.icon
                   className="h-6 w-6 text-primary md:h-8 md:w-8"
                   strokeWidth={1.5}

@@ -1,41 +1,30 @@
-import { SiGooglechrome } from "@icons-pack/react-simple-icons";
 import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button";
-import { CHROME_WEB_STORE_URL } from "@/lib/constants";
+
+const GITHUB_URL = "https://github.com/SinhyeokKang/bugshot-2";
+const PRIVACY_POLICY_URL = "https://sinhyeokkang.github.io/bugshot-2/privacy";
 
 export function Footer() {
   const t = useTranslations("footer");
-  const subcopy = t.raw("subcopy") as string[];
 
   return (
-    <footer className="py-24 md:py-[200px]">
-      <div className="container mx-auto flex max-w-[1200px] flex-col items-center text-center">
-        <h2 className="text-4xl font-bold tracking-tight md:text-[60px] md:leading-[1.28]">
-          {t.rich("heading", {
-            brand: (chunks) => <span className="text-brand">{chunks}</span>,
-          })}
-        </h2>
-        <p className="mt-4 text-xl leading-snug text-foreground md:text-2xl">
-          {subcopy.map((line, i) => (
-            <span key={i}>
-              {line}
-              {i < subcopy.length - 1 && <br />}
-            </span>
-          ))}
-        </p>
-        <Button asChild size="xl" className="mt-8">
-          <a
-            href={CHROME_WEB_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <SiGooglechrome color="currentColor" />
-            {t("cta")}
-          </a>
-        </Button>
-        <span className="mt-8 text-base text-muted-foreground">
-          {t("copyright")}
-        </span>
+    <footer className="px-10 py-[60px]">
+      <div className="container mx-auto flex max-w-[1200px] items-center justify-center gap-10">
+        <a
+          href={GITHUB_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-base text-muted-foreground hover:text-foreground"
+        >
+          {t("github")}
+        </a>
+        <a
+          href={PRIVACY_POLICY_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-base text-muted-foreground hover:text-foreground"
+        >
+          {t("privacy")}
+        </a>
       </div>
     </footer>
   );
