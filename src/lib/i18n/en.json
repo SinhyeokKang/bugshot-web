@@ -8,7 +8,7 @@
     "heading": "Bug Reports in <brand>One Shot</brand>.",
     "subcopy": ["Discover, fix, capture,", "and report UI bugs in one workflow."],
     "cta": "Add to Chrome",
-    "note": "Free · No account required"
+    "note": "No sign-up required. Just install and go."
   },
   "mockup": {
     "srHeading": "Product preview",
@@ -89,7 +89,7 @@
     }
   },
   "bottomCta": {
-    "heading": "All your bugs, <brand>one workflow</brand>.",
+    "heading": "All your Bugs, <brand>One Workflow</brand>.",
     "subcopy": ["Link your platforms from the Integrations tab.", "Connect multiple at once and choose where each ticket goes."],
     "cta": "Add to Chrome",
     "copyright": "© 2026 BugShot"
