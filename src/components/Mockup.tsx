@@ -26,7 +26,7 @@ export function Mockup() {
           <img
             src={current.image}
             alt={t(`slides.${current.key}.label`)}
-            className="aspect-[5/3] w-full object-cover"
+            className="block w-full"
           />
         </div>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
