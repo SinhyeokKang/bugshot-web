@@ -34,7 +34,7 @@ export function BottomCta() {
           </a>
         </Button>
         <span className="mt-4 text-base text-muted-foreground">
-          {t("copyright")}
+          {t("note")}
         </span>
       </div>
     </section>

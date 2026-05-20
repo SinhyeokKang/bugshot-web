@@ -8,12 +8,13 @@ export function Footer() {
 
   return (
     <footer className="px-10 py-[60px]">
-      <div className="container mx-auto flex max-w-[1200px] items-center justify-center gap-10">
+      <div className="container mx-auto flex max-w-[1200px] items-center justify-center gap-10 text-base text-muted-foreground">
+        <span>{t("copyright")}</span>
         <a
           href={GITHUB_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-base text-muted-foreground hover:text-foreground"
+          className="hover:text-foreground"
         >
           {t("github")}
         </a>
@@ -21,7 +22,7 @@ export function Footer() {
           href={PRIVACY_POLICY_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-base text-muted-foreground hover:text-foreground"
+          className="hover:text-foreground"
         >
           {t("privacy")}
         </a>

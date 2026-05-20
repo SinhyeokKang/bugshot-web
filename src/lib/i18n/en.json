@@ -22,7 +22,7 @@
         "caption": "Capture screenshots or record up to 60 seconds — with annotations and logs."
       },
       "log": {
-        "label": "Log",
+        "label": "Logs",
         "caption": "View console errors and network requests collected during your session."
       },
       "ai": {
@@ -92,9 +92,10 @@
     "heading": "All your Bugs, <brand>One Workflow</brand>.",
     "subcopy": ["Link your platforms from the Integrations tab.", "Connect multiple at once and choose where each ticket goes."],
     "cta": "Add to Chrome",
-    "copyright": "© 2026 BugShot"
+    "note": "Takes less than 10 seconds to install."
   },
   "footer": {
+    "copyright": "© 2026 BugShot",
     "github": "GitHub",
     "privacy": "Privacy Policy"
   }
