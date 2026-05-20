@@ -8,7 +8,7 @@ export function Footer() {
 
   return (
     <footer className="px-10 py-[60px]">
-      <div className="container mx-auto flex max-w-[1200px] items-center justify-center gap-10 text-base text-muted-foreground">
+      <div className="container mx-auto flex max-w-[1200px] items-center justify-center gap-10 text-sm text-muted-foreground">
         <span>{t("copyright")}</span>
         <a
           href={GITHUB_URL}
