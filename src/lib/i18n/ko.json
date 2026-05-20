@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "BugShot — 브라우저에서 바로, 디자인 QA와 버그 리포트",
-    "description": "웹 요소를 검사하고 스타일을 실시간으로 편집하세요. diff·로그·스크린샷·녹화가 포함된 이슈를 Jira·GitHub·Linear·Notion에 바로 전송합니다."
+    "title": "BugShot — 한 번에 끝내는 버그 리포트",
+    "description": "버그 발견부터 수정, 캡처, 이슈 생성까지 한 번에."
   },
   "hero": {
     "logoAlt": "BugShot 로고",

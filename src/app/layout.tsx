@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
 
@@ -9,8 +9,12 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bugshot.co.kr"),
+  metadataBase: new URL("https://bug-shot.com"),
   twitter: { card: "summary_large_image" },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#2563EB",
 };
 
 export default function RootLayout({
@@ -20,21 +24,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={dmSans.variable}>
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "SoftwareApplication",
-              name: "BugShot",
-              applicationCategory: "DeveloperApplication",
-              operatingSystem: "Chrome",
-              offers: { "@type": "Offer", price: "0" },
-            }),
-          }}
-        />
-      </head>
       <body className="font-sans antialiased">{children}</body>
     </html>
   );

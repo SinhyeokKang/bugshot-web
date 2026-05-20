@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "BugShot — Design QA & Bug Reporting, Directly in Your Browser",
-    "description": "Inspect web elements, edit styles in real time, and submit fully documented issues — diffs, logs, screenshots, recordings — to Jira, GitHub, Linear, or Notion."
+    "title": "BugShot — Bug Reports in One Shot",
+    "description": "Discover, fix, capture, and report UI bugs in one workflow."
   },
   "hero": {
     "logoAlt": "BugShot logo",
