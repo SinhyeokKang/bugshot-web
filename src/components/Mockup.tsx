@@ -6,11 +6,11 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 const slides = [
-  { key: "inspect", icon: MousePointerClick },
-  { key: "record", icon: Video },
-  { key: "log", icon: SquareTerminal },
-  { key: "ai", icon: Wand2 },
-  { key: "send", icon: Send },
+  { key: "inspect", icon: MousePointerClick, image: "/images/mockup-inspect.png" },
+  { key: "record", icon: Video, image: "/images/mockup-record.png" },
+  { key: "log", icon: SquareTerminal, image: "/images/mockup-log.png" },
+  { key: "ai", icon: Wand2, image: "/images/mockup-ai.png" },
+  { key: "send", icon: Send, image: "/images/mockup-send.png" },
 ] as const;
 
 export function Mockup() {
@@ -22,10 +22,12 @@ export function Mockup() {
     <section className="border-b pt-12 pb-20 md:pt-[60px] md:pb-[120px]">
       <div className="container mx-auto max-w-[1200px]">
         <h2 className="sr-only">{t("srHeading")}</h2>
-        <div className="flex aspect-[5/3] w-full items-center justify-center rounded-3xl border-[6px] border-border bg-muted md:rounded-card md:border-[12px]">
-          <span className="text-base text-muted-foreground">
-            {t(`slides.${current.key}.label`)}
-          </span>
+        <div className="overflow-hidden rounded-3xl border-[6px] border-border bg-muted md:rounded-card md:border-[12px]">
+          <img
+            src={current.image}
+            alt={t(`slides.${current.key}.label`)}
+            className="aspect-[5/3] w-full object-cover"
+          />
         </div>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           {slides.map((slide, i) => (
