@@ -10,10 +10,10 @@ import { cn } from "@/lib/utils";
 
 const features = [
   { key: "inspect", icon: MousePointerClick, wide: true },
-  { key: "record", icon: Video },
-  { key: "autoCollect", icon: Magnet },
-  { key: "ai", icon: Wand2 },
-  { key: "send", icon: Send },
+  { key: "record", icon: Video, wide: false },
+  { key: "autoCollect", icon: Magnet, wide: false },
+  { key: "ai", icon: Wand2, wide: false },
+  { key: "send", icon: Send, wide: false },
 ] as const;
 
 export function FeatureCards() {
