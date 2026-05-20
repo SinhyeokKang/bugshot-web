@@ -61,7 +61,7 @@
     }
   },
   "how": {
-    "heading": ["How to use", "BugShot"],
+    "heading": "How to use BugShot",
     "steps": {
       "launch": {
         "title": "Launch",

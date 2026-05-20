@@ -4,7 +4,6 @@ import { Mockup } from "@/components/Mockup";
 import { FeatureCards } from "@/components/FeatureCards";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Footer } from "@/components/Footer";
-import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 
 export default async function Home({
   params,
@@ -16,7 +15,6 @@ export default async function Home({
 
   return (
     <>
-      <LocaleSwitcher />
       <main>
         <Hero />
         <Mockup />

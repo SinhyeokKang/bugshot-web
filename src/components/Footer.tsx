@@ -13,7 +13,7 @@ export function Footer() {
         <h2 className="text-4xl font-bold tracking-tight md:text-[60px] md:leading-[1.28]">
           {t("heading")}
         </h2>
-        <p className="mt-4 text-xl leading-snug text-muted-foreground md:text-2xl">
+        <p className="mt-4 text-xl leading-snug text-foreground md:text-2xl">
           {subcopy.map((line, i) => (
             <span key={i}>
               {line}

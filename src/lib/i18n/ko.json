@@ -61,7 +61,7 @@
     }
   },
   "how": {
-    "heading": ["BugShot", "사용법"],
+    "heading": "BugShot 사용법",
     "steps": {
       "launch": {
         "title": "실행",

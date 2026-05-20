@@ -10,15 +10,12 @@ const steps = [
 
 export function HowItWorks() {
   const t = useTranslations("how");
-  const heading = t.raw("heading") as string[];
 
   return (
     <section className="border-b py-20 md:py-[120px]">
       <div className="container mx-auto max-w-[1200px]">
         <h2 className="text-center text-3xl font-bold leading-tight tracking-tight md:text-[40px] md:leading-[48px]">
-          {heading[0]}
-          <br />
-          {heading[1]}
+          {t("heading")}
         </h2>
         <ol className="mt-10 grid list-none grid-cols-1 gap-10 md:grid-cols-4">
           {steps.map((step) => (
