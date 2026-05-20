@@ -18,6 +18,7 @@ bugshot-web: BugShot Chrome 확장의 랜딩 페이지. 싱글 페이지 정적 
 - Tailwind CSS v3 + shadcn/ui (style `new-york`, base color `gray`)
 - 아이콘: lucide-react (UI 일반), `@icons-pack/react-simple-icons` (브랜드 — `Si{Name}` import, `color="default"` + GitHub만 `dark:invert`)
 - 폰트: DM Sans (next/font/google)
+- i18n: next-intl (locale routing `/en`, `/ko`, `localePrefix: "always"`)
 - 배포: Vercel (정적 호스팅)
 - 패키지 매니저: pnpm
 
@@ -41,24 +42,32 @@ docs/
 └── tasks.md        # 태스크 목록
 src/
 ├── app/
-│   ├── layout.tsx      # RootLayout — Pretendard 폰트, 메타데이터, JSON-LD
-│   ├── page.tsx        # 랜딩 페이지 (섹션 컴포넌트 조합)
-│   └── globals.css     # Tailwind directives + shadcn CSS 변수 (light only)
+│   ├── layout.tsx          # 최상위 RootLayout — DM Sans, JSON-LD, metadataBase
+│   ├── page.tsx            # 루트 / — navigator 무시하고 /en으로 client redirect
+│   ├── globals.css         # Tailwind directives + shadcn CSS 변수 (light only)
+│   └── [locale]/
+│       ├── layout.tsx      # NextIntlClientProvider + generateStaticParams + generateMetadata
+│       └── page.tsx        # 랜딩 페이지 (섹션 컴포넌트 조합)
 ├── components/
-│   ├── ui/             # shadcn/ui 컴포넌트
-│   ├── Header.tsx      # sticky 헤더 — 로고 + CTA
-│   ├── Hero.tsx        # 히어로 — 헤드라인·서브카피·CTA·목업
-│   ├── FeatureCards.tsx # 기능 카드 5개 그리드
-│   ├── HowItWorks.tsx  # 워크플로우 4스텝 시각화
-│   ├── Integrations.tsx# 플랫폼 로고 + 한 줄 설명
-│   ├── BottomCta.tsx   # 하단 CTA 배너
-│   └── Footer.tsx      # 링크·저작권
+│   ├── ui/                 # shadcn/ui 컴포넌트
+│   ├── Hero.tsx            # 히어로 — 로고·헤드라인·서브카피·CTA
+│   ├── Mockup.tsx          # 제품 미리보기 (client) — 5탭 슬라이드 + 캡션
+│   ├── FeatureCards.tsx    # 기능 카드 5개 (wide 1 + 2×2 비대칭 그리드)
+│   ├── HowItWorks.tsx      # 4-step 가로 플로우
+│   ├── Footer.tsx          # 하단 CTA + 카피라이트
+│   └── LocaleSwitcher.tsx  # locale 토글 (fixed top-right, 현재 page에서 미사용)
+├── i18n/
+│   ├── routing.ts          # next-intl routing config (locales, defaultLocale)
+│   └── request.ts          # getRequestConfig — messages 로딩
 └── lib/
-    ├── constants.ts    # 웹스토어 URL, 외부 링크 상수
-    └── utils.ts        # cn() 유틸 (clsx + tailwind-merge)
+    ├── constants.ts        # 웹스토어 URL, 외부 링크 상수
+    ├── utils.ts            # cn() 유틸 (clsx + tailwind-merge)
+    └── i18n/
+        ├── en.json         # 영문 메시지
+        ├── ko.json         # 한글 메시지
+        └── index.ts        # (deprecated, request.ts에서 직접 import)
 public/
-├── images/             # 목업 이미지·로고·OG 이미지
-└── favicon.ico
+└── bugshot-symbol.svg      # BugShot 로고 (Hero에서 next/image로 사용)
 ```
 
 ## 릴리스 & 버전
