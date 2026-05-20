@@ -93,8 +93,9 @@ semver(`MAJOR.MINOR.PATCH`). `package.json`의 `version` 기준.
 /code-review    → origin/main 대비 변경 코드 시급도별 리포트
 /audit          → 코드베이스 전체 컨벤션·패턴 감사
 /push           → main push (큰 변경 직전엔 /build 먼저 권장)
-/deploy         → 빌드 검증 + Vercel 배포 상태 확인
 ```
+
+main push 시 Vercel이 자동 빌드·배포한다. 별도 deploy 액션 불필요.
 
 ### 문서 신선도
 
