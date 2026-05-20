@@ -61,6 +61,8 @@ src/
 │   ├── BottomCta.tsx       # 하단 CTA 배너 + 카피라이트
 │   ├── Footer.tsx          # GitHub·Privacy Policy 링크
 │   └── LocaleSwitcher.tsx  # locale 토글 (fixed top-right, 현재 page에서 미사용)
+├── hooks/
+│   └── useScrollReveal.ts  # Intersection Observer 기반 스크롤 reveal 훅
 ├── i18n/
 │   ├── routing.ts          # next-intl routing config (locales, defaultLocale)
 │   └── request.ts          # getRequestConfig — messages 로딩
