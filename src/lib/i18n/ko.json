@@ -37,7 +37,7 @@
   },
   "features": {
     "heading": {
-      "line1": "<brand>BugShot</brand>으로",
+      "line1": "BugShot으로",
       "line2": "할 수 있는 것"
     },
     "items": {
@@ -64,7 +64,7 @@
     }
   },
   "how": {
-    "heading": "<brand>BugShot</brand> 사용법",
+    "heading": "BugShot 사용법",
     "steps": {
       "launch": {
         "title": "실행",

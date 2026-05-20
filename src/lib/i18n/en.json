@@ -38,7 +38,7 @@
   "features": {
     "heading": {
       "line1": "What you can do",
-      "line2": "with <brand>BugShot</brand>"
+      "line2": "with BugShot"
     },
     "items": {
       "inspect": {
@@ -64,7 +64,7 @@
     }
   },
   "how": {
-    "heading": "How to use <brand>BugShot</brand>",
+    "heading": "How to use BugShot",
     "steps": {
       "launch": {
         "title": "Launch",
