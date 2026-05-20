@@ -46,7 +46,7 @@ export function Mockup() {
             </button>
           ))}
         </div>
-        <p className="mt-6 text-center text-base text-foreground">
+        <p className="mt-6 text-center text-lg text-foreground md:text-xl">
           {t(`slides.${current.key}.caption`)}
         </p>
       </div>
