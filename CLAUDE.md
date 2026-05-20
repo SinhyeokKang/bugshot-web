@@ -78,8 +78,9 @@ semver(`MAJOR.MINOR.PATCH`). `package.json`의 `version` 기준.
 
 ### 브랜치 정책
 
-- 작업 브랜치: **`dev`** — 자유롭게 push (force push 허용).
-- 메인 브랜치: **`main`** — PR squash 머지만 허용.
+- 단일 브랜치 **`main`** 직접 작업. 평소엔 main에 바로 push.
+- 큰 변경(브레이킹·실험적 리팩터)은 임시 feature 브랜치 → PR로 머지.
+- Vercel production branch = `main`. main push 시 자동 배포.
 
 ### 워크플로우 (스킬 라인업)
 
@@ -87,14 +88,12 @@ semver(`MAJOR.MINOR.PATCH`). `package.json`의 `version` 기준.
 /feature        → 기능 아이디어 → PRD·기술 설계·태스크 문서 산출
 /feature-review → feature 산출물을 CPO·CDO·CTO·QA Lead 4명이 병렬 검수
 /tdd            → 테스트만 작성 (구현·픽스·커밋 안 함)
-/pull           → dev 최신 받고 작업 맥락 브리핑
+/pull           → main 최신 받고 작업 맥락 브리핑
 /build          → pnpm build + 테스트 체크리스트
 /code-review    → origin/main 대비 변경 코드 시급도별 리포트
 /audit          → 코드베이스 전체 컨벤션·패턴 감사
-/push           → dev push (main에서 호출 차단)
-/merge          → dev에서 버전 bump 커밋 + dev → main squash PR
+/push           → main push (큰 변경 직전엔 /build 먼저 권장)
 /deploy         → 빌드 검증 + Vercel 배포 상태 확인
-/sync           → dev를 origin/main으로 hard reset + force push
 ```
 
 ### 문서 신선도
