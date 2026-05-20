@@ -11,6 +11,12 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://bug-shot.com"),
   twitter: { card: "summary_large_image" },
+  verification: {
+    other: {
+      "naver-site-verification":
+        "79f463827c65e552ad423cf396466a6d9aea1984",
+    },
+  },
 };
 
 export const viewport: Viewport = {
