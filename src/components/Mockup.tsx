@@ -15,7 +15,7 @@ export function Mockup() {
     <section className="border-b pt-12 pb-20 md:pt-[60px] md:pb-[120px]">
       <div className="container mx-auto max-w-[1200px]">
         <h2 className="sr-only">{t("srHeading")}</h2>
-        <div className="flex aspect-[5/3] w-full items-center justify-center rounded-card border-[8px] border-border bg-muted md:border-[12px]">
+        <div className="flex aspect-[5/3] w-full items-center justify-center rounded-3xl border-[8px] border-border bg-muted md:rounded-card md:border-[12px]">
           <span className="text-base text-muted-foreground">
             {t(`slides.${currentKey}.label`)}
           </span>

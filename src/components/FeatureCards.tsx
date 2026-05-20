@@ -36,7 +36,7 @@ export function FeatureCards() {
             <article
               key={f.key}
               className={cn(
-                "grid grid-cols-1 overflow-hidden rounded-card bg-muted md:h-[360px]",
+                "grid grid-cols-1 overflow-hidden rounded-3xl bg-muted md:h-[360px] md:rounded-card",
                 f.wide
                   ? "md:col-span-2 md:grid-cols-[448px_1fr]"
                   : "md:grid-cols-[296px_1fr]"
