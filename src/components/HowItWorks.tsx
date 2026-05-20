@@ -4,27 +4,27 @@ import { Search, Wrench, MonitorUp, Truck } from "lucide-react";
 const steps = [
   {
     icon: Search,
-    title: "Detect",
+    title: "Launch",
     description:
-      "Select a DOM element to extract CSS tokens and the full style chain in real time.",
-  },
-  {
-    icon: Wrench,
-    title: "Resolve",
-    description:
-      "Recognize design tokens and auto-generate style edits with before/after comparison.",
+      "Click the BugShot icon or open the side panel with a keyboard shortcut.",
   },
   {
     icon: MonitorUp,
-    title: "Capture",
+    title: "Record & inspect",
     description:
-      "Collect screenshots, recordings, network & console logs to complete the context.",
+      "Capture up to 60 seconds with logs, or select any element to edit styles live.",
+  },
+  {
+    icon: Wrench,
+    title: "AI report",
+    description:
+      "Get a structured draft with reproduction steps, expected and actual behavior — built from your captured data.",
   },
   {
     icon: Truck,
-    title: "Deliver",
+    title: "Send or export",
     description:
-      "Auto-generate and file issues in the right format for Jira, GitHub, Linear, or Notion.",
+      "Share via Markdown, your issue tracker, or any format your team prefers.",
   },
 ];
 
@@ -34,10 +34,10 @@ export function HowItWorks() {
       <div className="container max-w-screen-xl">
         <div className="mb-12 text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            How it works
+            How to use BugShot
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Four steps from bug discovery to issue filed.
+            From launch to issue filed in four quick steps.
           </p>
         </div>
         <div className="relative grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0">

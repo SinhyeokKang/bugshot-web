@@ -18,18 +18,13 @@ const config: Config = {
     },
     extend: {
       fontFamily: {
-        pretendard: [
-          "Pretendard Variable",
-          "Pretendard",
+        sans: [
+          "var(--font-dm-sans)",
           "-apple-system",
           "BlinkMacSystemFont",
           "system-ui",
-          "Roboto",
-          "Helvetica Neue",
           "Segoe UI",
-          "Apple SD Gothic Neo",
-          "Noto Sans KR",
-          "Malgun Gothic",
+          "Helvetica Neue",
           "sans-serif",
         ],
       },

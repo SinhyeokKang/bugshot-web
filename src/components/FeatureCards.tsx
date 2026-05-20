@@ -16,33 +16,33 @@ import {
 const features = [
   {
     icon: MousePointerClick,
-    title: "Pick & Edit CSS",
+    title: "Inspect & edit CSS live",
     description:
-      "Select any DOM element, inspect its styles, and edit CSS in real time. Bugshot recognizes design tokens and generates before/after diffs automatically.",
+      "Click any element to view its applied styles and attributes. Modify styles in the visual editor and see changes reflected on the page instantly.",
   },
   {
     icon: Camera,
-    title: "Capture Everything",
+    title: "Record up to 60 seconds",
     description:
-      "Take annotated screenshots or record up to 60 seconds of screen activity. Crop, highlight, and redact — all without leaving the page.",
+      "Capture the exact moment a bug happens with a built-in screen recorder. Console and network logs are collected alongside the video.",
   },
   {
     icon: Network,
-    title: "Auto-Collect Logs",
+    title: "Auto-collect context",
     description:
-      "Network requests and console logs are captured automatically and attached to your issue. No more asking developers to reproduce the bug.",
+      "Browser, screen resolution, DOM details, console and network logs are gathered for you — with noise filtered out so the important signals stand out.",
   },
   {
     icon: Sparkles,
-    title: "AI-Powered Drafts",
+    title: "AI bug reports",
     description:
-      "Bring your own API key and let AI draft issue descriptions and suggest style fixes. Cut writing time and ship clearer reports.",
+      "Turn collected data into a structured report covering steps to reproduce, expected behavior, and actual behavior.",
   },
   {
     icon: Send,
-    title: "One-Click Issue Filing",
+    title: "One-click issue filing",
     description:
-      "File issues to Jira, GitHub, Linear, or Notion in one click. Metadata, screenshots, and logs are attached and formatted automatically.",
+      "Create and send tickets with full attachments to Jira, GitHub, Linear, or Notion — with a single click.",
   },
 ];
 
@@ -51,7 +51,7 @@ export function FeatureCards() {
     <section className="container max-w-screen-xl py-16 lg:py-24">
       <div className="mb-12 text-center">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          Everything you need to report bugs
+          What you can do with BugShot
         </h2>
         <p className="mt-4 text-lg text-muted-foreground">
           From inspection to issue filing — all in one side panel.

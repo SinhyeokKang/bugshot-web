@@ -9,25 +9,25 @@ const platforms = [
   {
     name: "Jira",
     icon: SiJirasoftware,
-    description: "OAuth · Auto-upload · Metadata sync",
+    description: "OAuth or API Token",
     invert: false,
   },
   {
     name: "GitHub",
     icon: SiGithub,
-    description: "Issues & labels · Markdown formatting",
+    description: "OAuth or Personal Access Token",
     invert: true,
   },
   {
     name: "Linear",
     icon: SiLinear,
-    description: "Team workflows · Priority mapping",
+    description: "OAuth or API Key",
     invert: false,
   },
   {
     name: "Notion",
     icon: SiNotion,
-    description: "Database entries · Rich content blocks",
+    description: "OAuth or Internal Integration Token",
     invert: true,
   },
 ];
@@ -37,10 +37,11 @@ export function Integrations() {
     <section className="container max-w-screen-xl py-16 lg:py-24">
       <div className="mb-12 text-center">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          Integrates with your tools
+          Connect straight to your issue tracker
         </h2>
         <p className="mt-4 text-lg text-muted-foreground">
-          File issues directly to the platforms your team already uses.
+          Link your platforms from the Integrations tab. Connect multiple at
+          once and choose where each ticket goes.
         </p>
       </div>
       <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">

@@ -1,6 +1,6 @@
-# Bugshot Web
+# BugShot Web
 
-Landing page for the [Bugshot](https://chromewebstore.google.com/detail/bugshot/ohakhekagkodklkickemonmifdcbhmig) Chrome extension. A single-page static site that introduces the product and drives users to install from the Chrome Web Store.
+Landing page for the [BugShot](https://chromewebstore.google.com/detail/bugshot/ohakhekagkodklkickemonmifdcbhmig) Chrome extension. A single-page static site that introduces the product and drives users to install from the Chrome Web Store.
 
 ## Stack
 
@@ -38,6 +38,6 @@ src/
 
 ## Links
 
-- [Chrome Web Store](https://chromewebstore.google.com/detail/bugshot/ohakhekagkodklkickemonmifdcbmmig)
+- [Chrome Web Store](https://chromewebstore.google.com/detail/bugshot/ohakhekagkodklkickemonmifdcbhmig)
 - [GitHub (Extension)](https://github.com/sinhyeokkang/bugshot-2)
 - [Privacy Policy](https://sinhyeokkang.github.io/bugshot-2/privacy)

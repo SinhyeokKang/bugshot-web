@@ -6,11 +6,11 @@ export function BottomCta() {
     <section className="border-t bg-primary py-16 lg:py-24">
       <div className="container flex max-w-screen-xl flex-col items-center gap-6 text-center">
         <h2 className="text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl">
-          Ready to streamline bug reporting?
+          Stop jumping between tools
         </h2>
         <p className="max-w-lg text-primary-foreground/80">
-          Install Bugshot and start filing detailed issues in seconds — for
-          free.
+          Install BugShot and ship fully documented issues — diffs, logs,
+          screenshots, recordings — in seconds.
         </p>
         <Button
           asChild

@@ -124,7 +124,7 @@ bugshot-web/
 
 ```tsx
 // 3-column: Product (Chrome Web Store) | Legal (Privacy Policy) | Source (GitHub)
-// 하단: © 2026 Bugshot
+// 하단: © 2026 BugShot
 ```
 
 ## 인터페이스 설계
@@ -145,11 +145,11 @@ export const PRIVACY_POLICY_URL =
 ```typescript
 // src/app/layout.tsx — Next.js Metadata API
 export const metadata: Metadata = {
-  title: "Bugshot — Bug Reporting Chrome Extension",
+  title: "BugShot — Bug Reporting Chrome Extension",
   description:
     "Pick elements, edit CSS, capture screenshots & recordings, and file issues to Jira, GitHub, Linear, or Notion — all from a side panel.",
   openGraph: {
-    title: "Bugshot — Bug Reporting Chrome Extension",
+    title: "BugShot — Bug Reporting Chrome Extension",
     description: "...",
     images: [{ url: "/images/og-image.png", width: 1200, height: 630 }],
     type: "website",
@@ -163,7 +163,7 @@ JSON-LD `SoftwareApplication` 스키마로 검색 리치 결과 노출:
 ```json
 {
   "@type": "SoftwareApplication",
-  "name": "Bugshot",
+  "name": "BugShot",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Chrome",
   "offers": { "@type": "Offer", "price": "0" }

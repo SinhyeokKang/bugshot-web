@@ -39,7 +39,7 @@
 - **변경 대상**: `src/components/Header.tsx`
 - **작업 내용**:
   - sticky 헤더 (scroll 시 backdrop-blur + border-bottom)
-  - 좌: Bugshot 로고 (SVG 또는 텍스트)
+  - 좌: BugShot 로고 (SVG 또는 텍스트)
   - 우: "Add to Chrome" Button (shadcn Button, 웹스토어 링크)
   - 모바일 반응형 (로고 + CTA만)
 - **검증**:
@@ -127,7 +127,7 @@
 - **변경 대상**: `src/app/layout.tsx`, `public/`
 - **작업 내용**:
   - OG 이미지 (1200×630) 플레이스홀더 배치
-  - favicon.ico 배치 (Bugshot 로고 기반)
+  - favicon.ico 배치 (BugShot 로고 기반)
   - JSON-LD SoftwareApplication 스키마 삽입
   - robots.txt, sitemap.xml (next-sitemap 또는 수동)
 - **검증**:

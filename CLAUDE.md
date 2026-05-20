@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-bugshot-web: Bugshot Chrome 확장의 랜딩 페이지. 싱글 페이지 정적 사이트로, 제품 소개 + 웹스토어 설치 CTA를 제공한다.
+bugshot-web: BugShot Chrome 확장의 랜딩 페이지. 싱글 페이지 정적 사이트로, 제품 소개 + 웹스토어 설치 CTA를 제공한다.
 
 사용자는 한국어로 간결한 답변을 선호한다. 불필요한 꾸밈말·서두 금지.
 
@@ -15,9 +15,9 @@ bugshot-web: Bugshot Chrome 확장의 랜딩 페이지. 싱글 페이지 정적 
 
 - Next.js 14 App Router + TypeScript
 - `output: 'export'` (정적 내보내기) + `images: { unoptimized: true }`
-- Tailwind CSS v3 + shadcn/ui (style `new-york`, base color `slate`)
+- Tailwind CSS v3 + shadcn/ui (style `new-york`, base color `gray`)
 - 아이콘: lucide-react (UI 일반), `@icons-pack/react-simple-icons` (브랜드 — `Si{Name}` import, `color="default"` + GitHub만 `dark:invert`)
-- 폰트: Pretendard (CDN)
+- 폰트: DM Sans (next/font/google)
 - 배포: Vercel (정적 호스팅)
 - 패키지 매니저: pnpm
 
@@ -103,7 +103,7 @@ semver(`MAJOR.MINOR.PATCH`). `package.json`의 `version` 기준.
 - 경로: `@/` → `src/`
 - **UI 컴포넌트**: shadcn/ui 우선. 없으면 `npx shadcn@latest add <component>`로 설치.
 - Tailwind: shadcn CSS 변수 사용, 커스텀 색상 남발 금지.
-- CTA 버튼: 모든 CTA는 `size="xl"` (h-11 px-10 text-base). 모바일에서 텍스트 조건부 변경 (모바일: "View in Web Store", 데스크톱: "Add to Chrome").
+- CTA 버튼: 모든 CTA는 `size="xl"` (h-14 px-8 text-base, rounded-2xl=16px). 텍스트는 "Add to Chrome" 단일 (모바일 분기 없음). Figma 디자인 기준.
 - 커밋 메시지·PR title/body는 **영문**으로 작성.
 - 주석 최소화. WHY가 비자명할 때만 한 줄.
 - Dark mode는 스코프 외 (light only).

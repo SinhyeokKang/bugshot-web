@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
+import { DM_Sans } from "next/font/google";
 import "./globals.css";
 
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bugshot.dev"),
-  title: "Bugshot — Bug Reporting Chrome Extension",
+  metadataBase: new URL("https://bugshot.co.kr"),
+  title: "BugShot — Design QA & Bug Reporting, Directly in Your Browser",
   description:
-    "Pick elements, edit CSS, capture screenshots & recordings, and file issues to Jira, GitHub, Linear, or Notion — all from a side panel.",
+    "Inspect web elements, edit styles in real time, and submit fully documented issues — diffs, logs, screenshots, recordings — to Jira, GitHub, Linear, or Notion.",
   openGraph: {
-    title: "Bugshot — Bug Reporting Chrome Extension",
+    title: "BugShot — Design QA & Bug Reporting, Directly in Your Browser",
     description:
-      "Pick elements, edit CSS, capture screenshots & recordings, and file issues to Jira, GitHub, Linear, or Notion — all from a side panel.",
+      "Inspect web elements, edit styles in real time, and submit fully documented issues — diffs, logs, screenshots, recordings — to Jira, GitHub, Linear, or Notion.",
     images: [{ url: "/images/og-image.png", width: 1200, height: 630 }],
     type: "website",
   },
@@ -22,21 +29,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={dmSans.variable}>
       <head>
-        <link
-          rel="stylesheet"
-          as="style"
-          crossOrigin="anonymous"
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "SoftwareApplication",
-              name: "Bugshot",
+              name: "BugShot",
               applicationCategory: "DeveloperApplication",
               operatingSystem: "Chrome",
               offers: { "@type": "Offer", price: "0" },
@@ -44,7 +45,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-pretendard antialiased">{children}</body>
+      <body className="font-sans antialiased">{children}</body>
     </html>
   );
 }
