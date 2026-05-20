@@ -11,7 +11,9 @@ export function Footer() {
     <footer className="py-24 md:py-[200px]">
       <div className="container mx-auto flex max-w-[1200px] flex-col items-center text-center">
         <h2 className="text-4xl font-bold tracking-tight md:text-[60px] md:leading-[1.28]">
-          {t("heading")}
+          {t.rich("heading", {
+            brand: (chunks) => <span className="text-brand">{chunks}</span>,
+          })}
         </h2>
         <p className="mt-4 text-xl leading-snug text-foreground md:text-2xl">
           {subcopy.map((line, i) => (

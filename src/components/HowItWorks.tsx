@@ -14,23 +14,25 @@ export function HowItWorks() {
   return (
     <section className="border-b py-20 md:py-[120px]">
       <div className="container mx-auto max-w-[1200px]">
-        <h2 className="text-center text-3xl font-bold leading-tight tracking-tight md:text-[40px] md:leading-[48px]">
-          {t("heading")}
+        <h2 className="text-center text-3xl font-bold leading-tight tracking-tight md:text-5xl md:leading-[56px]">
+          {t.rich("heading", {
+            brand: (chunks) => <span className="text-brand">{chunks}</span>,
+          })}
         </h2>
-        <ol className="mt-10 grid list-none grid-cols-1 gap-10 md:grid-cols-4">
-          {steps.map((step) => (
+        <ol className="mt-12 grid list-none grid-cols-1 gap-10 md:grid-cols-4">
+          {steps.map((step, i) => (
             <li
               key={step.key}
               className="flex flex-col items-center text-center"
             >
               <step.icon
-                className="h-8 w-8 text-primary"
+                className="h-6 w-6 text-primary md:h-8 md:w-8"
                 strokeWidth={1.5}
               />
-              <h3 className="mt-3 text-2xl font-bold leading-snug">
-                {t(`steps.${step.key}.title`)}
+              <h3 className="mt-3 text-xl font-bold leading-snug md:text-2xl">
+                {i + 1}. {t(`steps.${step.key}.title`)}
               </h3>
-              <p className="mt-3 text-base leading-snug text-muted-foreground">
+              <p className="mt-3 text-sm leading-snug text-muted-foreground md:text-base">
                 {t(`steps.${step.key}.description`)}
               </p>
             </li>

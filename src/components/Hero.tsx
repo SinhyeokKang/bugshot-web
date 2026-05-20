@@ -20,7 +20,9 @@ export function Hero() {
           className="h-16 w-16 md:h-[88px] md:w-[88px]"
         />
         <h1 className="mt-8 text-4xl font-bold tracking-tight md:text-[60px] md:leading-[1.28]">
-          {t("heading")}
+          {t.rich("heading", {
+            brand: (chunks) => <span className="text-brand">{chunks}</span>,
+          })}
         </h1>
         <p className="mt-4 text-xl leading-snug text-foreground md:text-2xl">
           {subcopy.map((line, i) => (

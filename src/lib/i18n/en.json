@@ -5,7 +5,7 @@
   },
   "hero": {
     "logoAlt": "BugShot logo",
-    "heading": "Bug Reports in One Shot",
+    "heading": "Bug Reports in <brand>One Shot</brand>",
     "subcopy": ["Discover, fix, capture,", "and report UI bugs in one workflow."],
     "cta": "Add to Chrome",
     "note": "Free · No account required"
@@ -36,7 +36,10 @@
     }
   },
   "features": {
-    "heading": ["What you can do", "with BugShot"],
+    "heading": {
+      "line1": "What you can do",
+      "line2": "with <brand>BugShot</brand>"
+    },
     "items": {
       "inspect": {
         "title": "Inspect & Edit CSS",
@@ -61,7 +64,7 @@
     }
   },
   "how": {
-    "heading": "How to use BugShot",
+    "heading": "How to use <brand>BugShot</brand>",
     "steps": {
       "launch": {
         "title": "Launch",
@@ -82,7 +85,7 @@
     }
   },
   "footer": {
-    "heading": "Stop jumping between tools",
+    "heading": "All your bugs, <brand>one workflow</brand>.",
     "subcopy": ["Link your platforms from the Integrations tab.", "Connect multiple at once and choose where each ticket goes."],
     "cta": "Add to Chrome",
     "copyright": "© 2026 BugShot"

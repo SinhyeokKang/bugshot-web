@@ -18,17 +18,20 @@ const features = [
 
 export function FeatureCards() {
   const t = useTranslations("features");
-  const heading = t.raw("heading") as string[];
 
   return (
     <section className="border-b py-20 md:py-[120px]">
       <div className="container mx-auto max-w-[1200px]">
-        <h2 className="text-center text-3xl font-bold leading-tight tracking-tight md:text-[40px] md:leading-[48px]">
-          {heading[0]}
+        <h2 className="text-center text-3xl font-bold leading-tight tracking-tight md:text-5xl md:leading-[56px]">
+          {t.rich("heading.line1", {
+            brand: (chunks) => <span className="text-brand">{chunks}</span>,
+          })}
           <br />
-          {heading[1]}
+          {t.rich("heading.line2", {
+            brand: (chunks) => <span className="text-brand">{chunks}</span>,
+          })}
         </h2>
-        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
           {features.map((f) => (
             <article
               key={f.key}
@@ -46,13 +49,13 @@ export function FeatureCards() {
                 )}
               >
                 <f.icon
-                  className="h-8 w-8 text-primary"
+                  className="h-6 w-6 text-primary md:h-8 md:w-8"
                   strokeWidth={1.5}
                 />
-                <h3 className="mt-3 text-2xl font-bold leading-snug">
+                <h3 className="mt-3 text-xl font-bold leading-snug md:text-2xl">
                   {t(`items.${f.key}.title`)}
                 </h3>
-                <p className="mt-4 text-base leading-snug text-muted-foreground">
+                <p className="mt-4 text-sm leading-snug text-muted-foreground md:text-base">
                   {t(`items.${f.key}.description`)}
                 </p>
               </div>
