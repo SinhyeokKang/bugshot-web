@@ -1,5 +1,9 @@
+"use client";
+
 import { Rocket, Crosshair, Sparkles, Share2 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const steps = [
   { key: "launch", icon: Rocket },
@@ -10,9 +14,10 @@ const steps = [
 
 export function HowItWorks() {
   const t = useTranslations("how");
+  const { ref, revealed } = useScrollReveal<HTMLElement>();
 
   return (
-    <section className="border-b py-20 md:py-[120px]">
+    <section ref={ref} className={cn("border-b py-20 md:py-[120px] transition-all duration-1000 ease-out", revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
       <div className="container mx-auto max-w-[1200px]">
         <h2 className="text-center text-3xl font-bold leading-tight tracking-tight md:text-[40px] md:leading-[48px]">
           {t.rich("heading", {

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { MousePointerClick, Send, SquareTerminal, Video, Wand2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const slides = [
   { key: "inspect", icon: MousePointerClick, image: "/images/mockup-inspect.webp" },
@@ -15,11 +16,12 @@ const slides = [
 
 export function Mockup() {
   const t = useTranslations("mockup");
+  const { ref, revealed } = useScrollReveal<HTMLElement>();
   const [active, setActive] = useState(0);
   const current = slides[active];
 
   return (
-    <section className="border-b pt-12 pb-20 md:pt-[60px] md:pb-[120px]">
+    <section ref={ref} className={cn("border-b pt-12 pb-20 md:pt-[60px] md:pb-[120px] transition-all duration-1000 ease-out", revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
       <div className="container mx-auto max-w-[1200px]">
         <h2 className="sr-only">{t("srHeading")}</h2>
         <div className="relative overflow-hidden rounded-3xl border-[6px] border-border md:rounded-card md:border-[12px]">
