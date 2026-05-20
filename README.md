@@ -6,7 +6,8 @@ Landing page for the [BugShot](https://chromewebstore.google.com/detail/bugshot/
 
 - Next.js 14 (App Router, static export)
 - Tailwind CSS v3 + shadcn/ui
-- Pretendard font (CDN)
+- DM Sans (next/font/google)
+- next-intl (locale routing: `/en`, `/ko`)
 - Deployed on Vercel
 
 ## Getting Started
@@ -31,9 +32,14 @@ Outputs a static site to `out/`.
 ```
 docs/           — Feature planning (PRD, design, tasks)
 src/
-├── app/        — Next.js App Router (layout, page, globals)
-├── components/ — Section components + shadcn/ui
-└── lib/        — Constants, utilities
+├── app/
+│   ├── [locale]/  — Localized routes (/en, /ko)
+│   └── page.tsx   — Root redirect to /en
+├── components/    — Section components + shadcn/ui
+├── i18n/          — next-intl routing and request config
+└── lib/
+    ├── i18n/      — Message catalogs (en.json, ko.json)
+    └── ...        — Constants, utilities
 ```
 
 ## Links
