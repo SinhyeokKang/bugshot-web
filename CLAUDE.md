@@ -11,6 +11,13 @@ bugshot-web: BugShot Chrome 확장의 랜딩 페이지. 싱글 페이지 정적 
 - **외과적 변경**: 요청과 직접 관련 없는 인접 코드 개선·리팩터 금지. 기존 스타일 따르기.
 - **검증 가능한 목표로 전환**: 멀티스텝 작업은 단계별 검증 체크를 포함한 플랜을 먼저 제시.
 
+## 스코프 & 제약
+
+- **스코프 외**: 블로그·docs·프라이싱·후기 섹션·뉴스레터 폼 등은 추가 안 함. 폼 같은 동적 기능 필요 시 외부 서비스(Tally 등) 검토.
+- **품질 목표**: Lighthouse Performance ≥ 90, SEO ≥ 90.
+- **정적 export 제약**: `output: 'export'`라 API Routes·서버 동적 기능 사용 불가. `next/image`는 `images.unoptimized: true` 필수.
+- **참고 사이트**: ui-inspector.com, jam.dev (디자인·메시징 참고용).
+
 ## 스택
 
 - Next.js 14 App Router + TypeScript
@@ -36,10 +43,6 @@ bugshot-web: BugShot Chrome 확장의 랜딩 페이지. 싱글 페이지 정적 
 ## 디렉터리 구조
 
 ```
-docs/
-├── prd.md          # PRD
-├── design.md       # 기술 설계
-└── tasks.md        # 태스크 목록
 src/
 ├── app/
 │   ├── layout.tsx          # 최상위 RootLayout — DM Sans, JSON-LD, metadataBase
@@ -115,7 +118,7 @@ main push 시 Vercel이 자동 빌드·배포한다. 별도 deploy 액션 불필
 - 브랜드 컬러: `--brand` (HSL `221 83% 53%` = #2563EB) → `text-brand` / `bg-brand`. 헤드라인 안 wordplay 강조에만 사용 (next-intl `t.rich` + i18n 메시지의 `<brand>...</brand>` 토큰).
 - **반응형**: 브레이크포인트는 `md:` (768px) **단일**만 사용. 모바일 기본값 → `md:`에서 데스크톱 사이즈로 전환. 각 요소는 최솟값(모바일)과 최댓값(데스크톱)만 정의 — `sm:`·`lg:`·`xl:` 등 중간값 사용 금지.
 - **섹션 구조**: outer `<section>`은 뷰포트 full width + `border-b`(divider, viewport 가로지름) + padding-y. inner `<div className="container mx-auto max-w-[1200px]">`가 콘텐츠 컨테이너. Hero·Footer는 border-b 없음.
-- CTA 버튼: 모든 CTA는 `size="xl"` (h-14 gap-3 rounded-2xl pl-7 pr-8 text-lg, svg 20). 좌측 Chrome 아이콘(`SiGooglechrome color="currentColor"`) + "Add to Chrome" 단일 텍스트 (모바일 분기 없음). Figma 디자인 기준.
+- CTA 버튼: 모든 CTA는 `size="xl"`. 모바일 `h-12 / pl-6 pr-7 / text-base`, md+ `h-14 / pl-7 pr-8 / text-lg`. 공통: `gap-3 rounded-2xl`, svg 20. 좌측 Chrome 아이콘(`SiGooglechrome color="currentColor"`) + "Add to Chrome" 단일 텍스트. Figma 디자인 기준.
 - 커밋 메시지·PR title/body는 **영문**으로 작성.
 - 주석 최소화. WHY가 비자명할 때만 한 줄.
 - Dark mode는 스코프 외 (light only).
