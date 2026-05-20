@@ -55,9 +55,10 @@ src/
 │   ├── ui/                 # shadcn/ui 컴포넌트
 │   ├── Hero.tsx            # 히어로 — 로고·헤드라인·서브카피·CTA
 │   ├── Mockup.tsx          # 제품 미리보기 (client) — 5탭 슬라이드 + 캡션
-│   ├── FeatureCards.tsx    # 기능 카드 5개 (wide 1 + 2×2 비대칭 그리드)
+│   ├── FeatureCards.tsx    # 기능 카드 6개 (2×2×2 균등 그리드)
 │   ├── HowItWorks.tsx      # 4-step 가로 플로우
-│   ├── Footer.tsx          # 하단 CTA + 카피라이트
+│   ├── BottomCta.tsx       # 하단 CTA 배너 + 카피라이트
+│   ├── Footer.tsx          # GitHub·Privacy Policy 링크
 │   └── LocaleSwitcher.tsx  # locale 토글 (fixed top-right, 현재 page에서 미사용)
 ├── i18n/
 │   ├── routing.ts          # next-intl routing config (locales, defaultLocale)
