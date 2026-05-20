@@ -13,7 +13,7 @@ bugshot-web: BugShot Chrome 확장의 랜딩 페이지. 싱글 페이지 정적 
 
 ## 스코프 & 제약
 
-- **스코프 외**: 블로그·docs·프라이싱·후기 섹션·뉴스레터 폼 등은 추가 안 함. 폼 같은 동적 기능 필요 시 외부 서비스(Tally 등) 검토.
+- **스코프 외**: 블로그·docs·프라이싱·뉴스레터 폼 등은 추가 안 함. 폼 같은 동적 기능 필요 시 외부 서비스(Tally 등) 검토.
 - **품질 목표**: Lighthouse Performance ≥ 90, SEO ≥ 90.
 - **정적 export 제약**: `output: 'export'`라 API Routes·서버 동적 기능 사용 불가. `next/image`는 `images.unoptimized: true` 필수.
 - **참고 사이트**: ui-inspector.com, jam.dev (디자인·메시징 참고용).
@@ -57,6 +57,7 @@ src/
 │   ├── Mockup.tsx          # 제품 미리보기 (client) — 5탭 슬라이드 + 캡션
 │   ├── FeatureCards.tsx    # 기능 카드 6개 (2×2×2 균등 그리드)
 │   ├── HowItWorks.tsx      # 4-step 가로 플로우
+│   ├── Review.tsx          # 사용자 리뷰 인용
 │   ├── BottomCta.tsx       # 하단 CTA 배너 + 카피라이트
 │   ├── Footer.tsx          # GitHub·Privacy Policy 링크
 │   └── LocaleSwitcher.tsx  # locale 토글 (fixed top-right, 현재 page에서 미사용)

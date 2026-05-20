@@ -29,9 +29,9 @@
         "label": "AI Generation",
         "caption": "Turn collected data into a structured bug report with reproduction steps."
       },
-      "send": {
-        "label": "Send Issue",
-        "caption": "Send tickets with full attachments to Jira, GitHub, Linear, or Notion."
+      "submit": {
+        "label": "Submit Issue",
+        "caption": "Submit tickets with full attachments to Jira, GitHub, Linear, or Notion."
       }
     }
   },
@@ -61,9 +61,9 @@
         "title": "AI bug reports",
         "description": "Turn collected data into a structured report covering steps to reproduce, expected behavior, and actual behavior."
       },
-      "send": {
+      "submit": {
         "title": "One-click issue filing",
-        "description": "Create and send tickets with full attachments to Jira, GitHub, Linear, or Notion — with a single click."
+        "description": "Create and submit tickets with full attachments to Jira, GitHub, Linear, or Notion — with a single click."
       }
     }
   },
@@ -82,11 +82,16 @@
         "title": "AI report",
         "description": "Get a structured draft with reproduction steps, expected and actual behavior — built from your captured data."
       },
-      "send": {
-        "title": "Send or export",
+      "submit": {
+        "title": "Submit or export",
         "description": "Share via Markdown, your issue tracker, or any format your team prefers."
       }
     }
+  },
+  "review": {
+    "author": "안**, QA Engineer",
+    "quote": "I used to juggle DevTools, screenshots, and Jira separately — now it all happens in the browser without breaking my flow. Replacing text explanations with visual diffs and recordings cut our back-and-forth way down.",
+    "source": "Chrome Web Store Review"
   },
   "bottomCta": {
     "heading": "All your Bugs, <brand>One Workflow</brand>.",

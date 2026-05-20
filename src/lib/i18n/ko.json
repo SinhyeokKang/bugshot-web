@@ -29,7 +29,7 @@
         "label": "AI 생성",
         "caption": "수집된 데이터를 재현 단계가 담긴 리포트로 변환합니다."
       },
-      "send": {
+      "submit": {
         "label": "이슈 전송",
         "caption": "Jira·GitHub·Linear·Notion에 첨부 파일까지 한 번에."
       }
@@ -61,7 +61,7 @@
         "title": "AI 버그 리포트",
         "description": "수집된 데이터를 재현 단계, 기대 동작, 실제 동작이 담긴 리포트로 변환합니다."
       },
-      "send": {
+      "submit": {
         "title": "원클릭 이슈 등록",
         "description": "Jira·GitHub·Linear·Notion에 첨부 파일까지 클릭 한 번으로 전송합니다."
       }
@@ -82,11 +82,16 @@
         "title": "AI 리포트",
         "description": "수집된 데이터로 재현 단계와 기대·실제 동작이 담긴 초안을 자동 생성합니다."
       },
-      "send": {
+      "submit": {
         "title": "전송 또는 내보내기",
         "description": "Markdown, 이슈 트래커 등 팀이 원하는 형식으로 공유합니다."
       }
     }
+  },
+  "review": {
+    "author": "안**, QA Engineer",
+    "quote": "DevTools 열고, 스크린샷 찍고, Jira에 따로 정리하던 과정이 브라우저 안에서 다 끝나니까 흐름이 안 끊깁니다. 텍스트로 풀어쓰던 걸 수정 결과 + diff + 영상으로 대체하니 핑퐁이 확 줄었어요.",
+    "source": "Chrome Web Store Review"
   },
   "bottomCta": {
     "heading": "모든 버그를, <brand>하나의 흐름</brand>으로.",

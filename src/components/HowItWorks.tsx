@@ -5,7 +5,7 @@ const steps = [
   { key: "launch", icon: Rocket },
   { key: "recordInspect", icon: Crosshair },
   { key: "aiReport", icon: Sparkles },
-  { key: "send", icon: Share2 },
+  { key: "submit", icon: Share2 },
 ] as const;
 
 export function HowItWorks() {
@@ -14,7 +14,7 @@ export function HowItWorks() {
   return (
     <section className="border-b py-20 md:py-[120px]">
       <div className="container mx-auto max-w-[1200px]">
-        <h2 className="text-center text-3xl font-bold leading-tight tracking-tight md:text-5xl md:leading-[56px]">
+        <h2 className="text-center text-3xl font-bold leading-tight tracking-tight md:text-[40px] md:leading-[48px]">
           {t.rich("heading", {
             brand: (chunks) => <span className="text-brand">{chunks}</span>,
           })}
@@ -23,7 +23,7 @@ export function HowItWorks() {
           {steps.map((step, i) => (
             <li
               key={step.key}
-              className="flex flex-col items-center text-center"
+              className="flex flex-col items-center py-5 text-center"
             >
               <step.icon
                 className="h-6 w-6 text-primary md:h-8 md:w-8"

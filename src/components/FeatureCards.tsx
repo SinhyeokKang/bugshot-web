@@ -14,7 +14,7 @@ const features = [
   { key: "log", icon: SquareTerminal },
   { key: "autoCollect", icon: Magnet },
   { key: "ai", icon: Wand2 },
-  { key: "send", icon: Send },
+  { key: "submit", icon: Send },
 ] as const;
 
 export function FeatureCards() {
@@ -23,7 +23,7 @@ export function FeatureCards() {
   return (
     <section className="border-b py-20 md:py-[120px]">
       <div className="container mx-auto max-w-[1200px]">
-        <h2 className="text-center text-3xl font-bold leading-tight tracking-tight md:text-5xl md:leading-[56px]">
+        <h2 className="text-center text-3xl font-bold leading-tight tracking-tight md:text-[40px] md:leading-[48px]">
           {t.rich("heading.line1", {
             brand: (chunks) => <span className="text-brand">{chunks}</span>,
           })}
