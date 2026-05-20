@@ -22,12 +22,18 @@ export function Mockup() {
     <section className="border-b pt-12 pb-20 md:pt-[60px] md:pb-[120px]">
       <div className="container mx-auto max-w-[1200px]">
         <h2 className="sr-only">{t("srHeading")}</h2>
-        <div className="overflow-hidden rounded-3xl border-[6px] border-border shadow-lg shadow-black/5 md:rounded-card md:border-[12px]">
-          <img
-            src={current.image}
-            alt={t(`slides.${current.key}.label`)}
-            className="-m-px block w-[calc(100%+2px)] max-w-none"
-          />
+        <div className="relative overflow-hidden rounded-3xl border-[6px] border-border shadow-lg shadow-black/5 md:rounded-card md:border-[12px]">
+          {slides.map((slide, i) => (
+            <img
+              key={slide.key}
+              src={slide.image}
+              alt={t(`slides.${slide.key}.label`)}
+              className={cn(
+                "-m-px w-[calc(100%+2px)] max-w-none",
+                i === active ? "block" : "hidden"
+              )}
+            />
+          ))}
         </div>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           {slides.map((slide, i) => (
