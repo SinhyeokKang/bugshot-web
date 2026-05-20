@@ -1,10 +1,10 @@
-import { Rocket, Crosshair, ScrollText, Share2 } from "lucide-react";
+import { Rocket, Crosshair, Sparkles, Share2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 const steps = [
   { key: "launch", icon: Rocket },
   { key: "recordInspect", icon: Crosshair },
-  { key: "aiReport", icon: ScrollText },
+  { key: "aiReport", icon: Sparkles },
   { key: "send", icon: Share2 },
 ] as const;
 
@@ -32,7 +32,7 @@ export function HowItWorks() {
               <h3 className="mt-3 text-xl font-bold leading-snug md:text-2xl">
                 {i + 1}. {t(`steps.${step.key}.title`)}
               </h3>
-              <p className="mt-3 text-sm leading-snug text-muted-foreground md:text-base">
+              <p className="mt-3 text-sm leading-snug text-foreground md:text-base">
                 {t(`steps.${step.key}.description`)}
               </p>
             </li>
