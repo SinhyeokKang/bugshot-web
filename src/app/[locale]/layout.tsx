@@ -7,6 +7,7 @@ import {
 } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { SITE_URL } from "@/lib/constants";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -47,6 +48,16 @@ export async function generateMetadata({
         },
       ],
     },
+    twitter: {
+      title: t("title"),
+      description: t("description"),
+      images: [
+        {
+          url: "/og-image.png",
+          alt: t("title"),
+        },
+      ],
+    },
   };
 }
 
@@ -70,10 +81,12 @@ export default async function LocaleLayout({
     "@type": "SoftwareApplication",
     name: "BugShot",
     description: t("description"),
+    url: `${SITE_URL}/${locale}`,
+    image: `${SITE_URL}/og-image.png`,
     applicationCategory: "DeveloperApplication",
     operatingSystem: "Chrome",
     inLanguage: locale,
-    offers: { "@type": "Offer", price: "0" },
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   };
 
   return (

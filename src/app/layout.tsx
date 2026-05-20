@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
+import { SITE_URL } from "@/lib/constants";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -9,8 +10,12 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bug-shot.com"),
-  twitter: { card: "summary_large_image" },
+  metadataBase: new URL(SITE_URL),
+  title: "BugShot",
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og-image.png"],
+  },
   verification: {
     other: {
       "naver-site-verification":

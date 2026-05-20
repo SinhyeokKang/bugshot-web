@@ -1,15 +1,14 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
-
-const baseUrl = "https://bug-shot.com";
+import { SITE_URL } from "@/lib/constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const languages = Object.fromEntries(
-    routing.locales.map((l) => [l, `${baseUrl}/${l}`])
+    routing.locales.map((l) => [l, `${SITE_URL}/${l}`])
   );
 
   return routing.locales.map((locale) => ({
-    url: `${baseUrl}/${locale}`,
+    url: `${SITE_URL}/${locale}`,
     lastModified: new Date(),
     changeFrequency: "monthly",
     priority: 1,
