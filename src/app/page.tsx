@@ -1,19 +1,13 @@
-import { Hero } from "@/components/Hero";
-import { Mockup } from "@/components/Mockup";
-import { FeatureCards } from "@/components/FeatureCards";
-import { HowItWorks } from "@/components/HowItWorks";
-import { Footer } from "@/components/Footer";
+"use client";
 
-export default function Home() {
-  return (
-    <>
-      <main>
-        <Hero />
-        <Mockup />
-        <FeatureCards />
-        <HowItWorks />
-      </main>
-      <Footer />
-    </>
-  );
+import { useEffect } from "react";
+
+export default function RootPage() {
+  useEffect(() => {
+    const lang = navigator.language.toLowerCase();
+    const target = lang.startsWith("ko") ? "/ko" : "/en";
+    window.location.replace(target);
+  }, []);
+
+  return null;
 }

@@ -10,16 +10,6 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bugshot.co.kr"),
-  title: "BugShot — Design QA & Bug Reporting, Directly in Your Browser",
-  description:
-    "Inspect web elements, edit styles in real time, and submit fully documented issues — diffs, logs, screenshots, recordings — to Jira, GitHub, Linear, or Notion.",
-  openGraph: {
-    title: "BugShot — Design QA & Bug Reporting, Directly in Your Browser",
-    description:
-      "Inspect web elements, edit styles in real time, and submit fully documented issues — diffs, logs, screenshots, recordings — to Jira, GitHub, Linear, or Notion.",
-    images: [{ url: "/images/og-image.png", width: 1200, height: 630 }],
-    type: "website",
-  },
   twitter: { card: "summary_large_image" },
 };
 

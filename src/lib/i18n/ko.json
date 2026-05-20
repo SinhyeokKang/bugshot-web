@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "title": "BugShot — 브라우저에서 바로, 디자인 QA와 버그 리포트",
+    "description": "웹 요소를 검사하고 스타일을 실시간으로 편집하세요. diff·로그·스크린샷·녹화가 포함된 이슈를 Jira·GitHub·Linear·Notion에 바로 전송합니다."
+  },
+  "hero": {
+    "logoAlt": "BugShot 로고",
+    "heading": "한 번에 끝내는 버그 리포트",
+    "subcopy": ["버그 발견부터 수정, 캡처,", "이슈 생성까지 한 번에."],
+    "cta": "Chrome에 추가",
+    "note": "무료 · 회원가입 불필요"
+  },
+  "mockup": {
+    "srHeading": "제품 미리보기",
+    "slides": {
+      "inspect": {
+        "label": "요소 검사",
+        "caption": "요소를 클릭해 적용된 스타일과 속성을 확인하세요."
+      },
+      "capture": {
+        "label": "스크린샷",
+        "caption": "화살표, 텍스트, 하이라이트로 주석을 더한 스크린샷."
+      },
+      "record": {
+        "label": "녹화",
+        "caption": "콘솔과 네트워크 로그가 함께 담기는 60초 녹화."
+      },
+      "ai": {
+        "label": "AI 생성",
+        "caption": "수집된 데이터를 재현 단계가 담긴 리포트로 변환합니다."
+      },
+      "send": {
+        "label": "이슈 전송",
+        "caption": "Jira·GitHub·Linear·Notion에 첨부 파일까지 한 번에."
+      }
+    }
+  },
+  "features": {
+    "heading": ["BugShot으로", "할 수 있는 것"],
+    "items": {
+      "inspect": {
+        "title": "요소 검사와 CSS 편집",
+        "description": "요소를 클릭해 적용된 스타일과 속성을 확인하고, 비주얼 에디터에서 수정하면 페이지에 즉시 반영됩니다."
+      },
+      "record": {
+        "title": "최대 60초 녹화",
+        "description": "내장된 화면 녹화로 버그 발생 순간을 정확히 포착하고, 콘솔·네트워크 로그가 영상과 함께 수집됩니다."
+      },
+      "autoCollect": {
+        "title": "컨텍스트 자동 수집",
+        "description": "브라우저·해상도·DOM 정보·콘솔·네트워크 로그가 자동으로 수집됩니다. 노이즈는 걸러내 중요한 신호만 남깁니다."
+      },
+      "ai": {
+        "title": "AI 버그 리포트",
+        "description": "수집된 데이터를 재현 단계, 기대 동작, 실제 동작이 담긴 리포트로 변환합니다."
+      },
+      "send": {
+        "title": "원클릭 이슈 등록",
+        "description": "Jira·GitHub·Linear·Notion에 첨부 파일까지 클릭 한 번으로 전송합니다."
+      }
+    }
+  },
+  "how": {
+    "heading": ["BugShot", "사용법"],
+    "steps": {
+      "launch": {
+        "title": "실행",
+        "description": "BugShot 아이콘을 클릭하거나 단축키로 사이드 패널을 엽니다."
+      },
+      "recordInspect": {
+        "title": "녹화와 검사",
+        "description": "최대 60초 녹화하거나, 요소를 선택해 스타일을 실시간으로 편집합니다."
+      },
+      "aiReport": {
+        "title": "AI 리포트",
+        "description": "수집된 데이터로 재현 단계와 기대·실제 동작이 담긴 초안을 자동 생성합니다."
+      },
+      "send": {
+        "title": "전송 또는 내보내기",
+        "description": "Markdown, 이슈 트래커 등 팀이 원하는 형식으로 공유합니다."
+      }
+    }
+  },
+  "footer": {
+    "heading": "도구 사이를 오가지 마세요",
+    "subcopy": ["Integrations 탭에서 플랫폼을 연결하고,", "티켓을 보낼 곳을 선택하세요."],
+    "cta": "Chrome에 추가",
+    "copyright": "© 2026 BugShot"
+  }
+}

@@ -12,9 +12,6 @@ const config: Config = {
     container: {
       center: true,
       padding: "1.5rem",
-      screens: {
-        "2xl": "1400px",
-      },
     },
     extend: {
       fontFamily: {
@@ -67,6 +64,7 @@ const config: Config = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        card: "var(--radius-card)",
       },
     },
   },
