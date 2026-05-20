@@ -30,7 +30,6 @@ Outputs a static site to `out/`.
 ## Project Structure
 
 ```
-docs/           — Feature planning (PRD, design, tasks)
 src/
 ├── app/
 │   ├── [locale]/  — Localized routes (/en, /ko)
