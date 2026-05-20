@@ -1,39 +1,34 @@
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
   MousePointerClick,
-  Camera,
-  Network,
-  Sparkles,
+  Video,
+  Magnet,
+  Wand2,
   Send,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const features = [
   {
     icon: MousePointerClick,
-    title: "Inspect & edit CSS live",
+    title: "Inspect & Edit CSS",
     description:
       "Click any element to view its applied styles and attributes. Modify styles in the visual editor and see changes reflected on the page instantly.",
+    wide: true,
   },
   {
-    icon: Camera,
+    icon: Video,
     title: "Record up to 60 seconds",
     description:
       "Capture the exact moment a bug happens with a built-in screen recorder. Console and network logs are collected alongside the video.",
   },
   {
-    icon: Network,
+    icon: Magnet,
     title: "Auto-collect context",
     description:
       "Browser, screen resolution, DOM details, console and network logs are gathered for you — with noise filtered out so the important signals stand out.",
   },
   {
-    icon: Sparkles,
+    icon: Wand2,
     title: "AI bug reports",
     description:
       "Turn collected data into a structured report covering steps to reproduce, expected behavior, and actual behavior.",
@@ -48,34 +43,45 @@ const features = [
 
 export function FeatureCards() {
   return (
-    <section className="container max-w-screen-xl py-16 lg:py-24">
-      <div className="mb-12 text-center">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          What you can do with BugShot
+    <section className="border-b py-20 md:py-[120px]">
+      <div className="container mx-auto max-w-[1200px]">
+        <h2 className="text-center text-3xl font-bold leading-tight tracking-tight md:text-[40px] md:leading-[48px]">
+          What you can do
+          <br />
+          with BugShot
         </h2>
-        <p className="mt-4 text-lg text-muted-foreground">
-          From inspection to issue filing — all in one side panel.
-        </p>
-      </div>
-      <div className="grid gap-6 sm:grid-cols-2">
-        {features.map((feature, i) => (
-          <Card
-            key={feature.title}
-            className={i === features.length - 1 ? "sm:col-span-2 sm:max-w-lg sm:mx-auto" : ""}
-          >
-            <CardHeader>
-              <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                <feature.icon className="h-5 w-5 text-primary" />
+        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+          {features.map((f) => (
+            <article
+              key={f.title}
+              className={cn(
+                "grid grid-cols-1 overflow-hidden rounded-[40px] bg-muted md:h-[360px]",
+                f.wide
+                  ? "md:col-span-2 md:grid-cols-[448px_1fr]"
+                  : "md:grid-cols-[296px_1fr]"
+              )}
+            >
+              <div
+                className={cn(
+                  "flex flex-col p-8 md:p-12",
+                  !f.wide && "md:pr-6"
+                )}
+              >
+                <f.icon
+                  className="h-8 w-8 text-primary"
+                  strokeWidth={1.5}
+                />
+                <h3 className="mt-3 text-2xl font-bold leading-snug">
+                  {f.title}
+                </h3>
+                <p className="mt-4 text-base leading-snug text-muted-foreground">
+                  {f.description}
+                </p>
               </div>
-              <CardTitle>{feature.title}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <CardDescription className="text-sm leading-relaxed">
-                {feature.description}
-              </CardDescription>
-            </CardContent>
-          </Card>
-        ))}
+              <div className="aspect-video md:aspect-auto" />
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

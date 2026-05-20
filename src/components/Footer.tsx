@@ -1,27 +1,18 @@
-import Image from "next/image";
 import { SiGooglechrome } from "@icons-pack/react-simple-icons";
 import { Button } from "@/components/ui/button";
 import { CHROME_WEB_STORE_URL } from "@/lib/constants";
 
-export function Hero() {
+export function Footer() {
   return (
-    <section className="pt-20 pb-12 md:pt-[120px] md:pb-[60px]">
+    <footer className="py-24 md:py-[200px]">
       <div className="container mx-auto flex max-w-[1200px] flex-col items-center text-center">
-        <Image
-          src="/bugshot-symbol.svg"
-          alt="BugShot"
-          width={88}
-          height={88}
-          priority
-          className="h-16 w-16 md:h-[88px] md:w-[88px]"
-        />
-        <h1 className="mt-8 text-4xl font-bold tracking-tight md:text-[60px] md:leading-[1.28]">
-          Bug Reports in One Shot
-        </h1>
+        <h2 className="text-4xl font-bold tracking-tight md:text-[60px] md:leading-[1.28]">
+          Stop jumping between tools
+        </h2>
         <p className="mt-4 text-base font-medium leading-snug text-muted-foreground md:text-lg">
-          Discover, fix, capture,
+          Link your platforms from the Integrations tab.
           <br />
-          and report UI bugs in one workflow.
+          Connect multiple at once and choose where each ticket goes.
         </p>
         <Button asChild size="xl" className="mt-8">
           <a
@@ -33,10 +24,10 @@ export function Hero() {
             Add to Chrome
           </a>
         </Button>
-        <span className="mt-4 text-base text-muted-foreground">
-          Free · No account required
+        <span className="mt-8 text-base text-muted-foreground">
+          © 2026 BugShot
         </span>
       </div>
-    </section>
+    </footer>
   );
 }

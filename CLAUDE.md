@@ -103,7 +103,9 @@ semver(`MAJOR.MINOR.PATCH`). `package.json`의 `version` 기준.
 - 경로: `@/` → `src/`
 - **UI 컴포넌트**: shadcn/ui 우선. 없으면 `npx shadcn@latest add <component>`로 설치.
 - Tailwind: shadcn CSS 변수 사용, 커스텀 색상 남발 금지.
-- CTA 버튼: 모든 CTA는 `size="xl"` (h-14 px-8 text-base, rounded-2xl=16px). 텍스트는 "Add to Chrome" 단일 (모바일 분기 없음). Figma 디자인 기준.
+- **반응형**: 브레이크포인트는 `md:` (768px) **단일**만 사용. 모바일 기본값 → `md:`에서 데스크톱 사이즈로 전환. 각 요소는 최솟값(모바일)과 최댓값(데스크톱)만 정의 — `sm:`·`lg:`·`xl:` 등 중간값 사용 금지.
+- **섹션 구조**: outer `<section>`은 뷰포트 full width + `border-b`(divider, viewport 가로지름) + padding-y. inner `<div className="container mx-auto max-w-[1200px]">`가 콘텐츠 컨테이너. Hero·Footer는 border-b 없음.
+- CTA 버튼: 모든 CTA는 `size="xl"` (h-14 gap-3 rounded-2xl pl-7 pr-8 text-lg, svg 20). 좌측 Chrome 아이콘(`SiGooglechrome color="currentColor"`) + "Add to Chrome" 단일 텍스트 (모바일 분기 없음). Figma 디자인 기준.
 - 커밋 메시지·PR title/body는 **영문**으로 작성.
 - 주석 최소화. WHY가 비자명할 때만 한 줄.
 - Dark mode는 스코프 외 (light only).
