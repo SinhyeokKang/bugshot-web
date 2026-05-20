@@ -13,7 +13,7 @@ export function BottomCta() {
   const subcopy = t.raw("subcopy") as string[];
 
   return (
-    <section ref={ref} className={cn("py-24 md:py-[200px] transition-all duration-1500 ease-out", revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
+    <section ref={ref} className={cn("py-24 md:py-[200px] transition-all duration-1000 ease-out", revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
       <div className="container mx-auto flex max-w-[1200px] flex-col items-center text-center">
         <h2 className="text-4xl font-bold tracking-tight md:text-[60px] md:leading-[1.28]">
           {t.rich("heading", {

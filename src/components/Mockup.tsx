@@ -21,7 +21,7 @@ export function Mockup() {
   const current = slides[active];
 
   return (
-    <section ref={ref} className={cn("border-b pt-12 pb-20 md:pt-[60px] md:pb-[120px] transition-all duration-1500 ease-out", revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
+    <section ref={ref} className={cn("border-b pt-12 pb-20 md:pt-[60px] md:pb-[120px] transition-all duration-1000 ease-out", revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
       <div className="container mx-auto max-w-[1200px]">
         <h2 className="sr-only">{t("srHeading")}</h2>
         <div className="relative overflow-hidden rounded-3xl border-[6px] border-border md:rounded-card md:border-[12px]">
