@@ -48,6 +48,10 @@ src/
 │   ├── layout.tsx          # 최상위 RootLayout — DM Sans, JSON-LD, metadataBase
 │   ├── page.tsx            # 루트 / — navigator 무시하고 /en으로 client redirect
 │   ├── globals.css         # Tailwind directives + shadcn CSS 변수 (light only)
+│   ├── icon.svg            # Favicon (SVG, Next.js metadata file)
+│   ├── favicon.ico         # Favicon (16/32/48 multi-size ICO, Google SERP용)
+│   ├── apple-icon.png      # Apple touch icon (180×180, iOS 자동 라운드 마스킹)
+│   ├── sitemap.ts          # /sitemap.xml — locale별 alternate languages 포함
 │   └── [locale]/
 │       ├── layout.tsx      # NextIntlClientProvider + generateStaticParams + generateMetadata
 │       └── page.tsx        # 랜딩 페이지 (섹션 컴포넌트 조합)
