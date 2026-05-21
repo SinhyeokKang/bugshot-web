@@ -37,11 +37,11 @@ export function FeatureCards() {
             brand: (chunks) => <span className="text-brand">{chunks}</span>,
           })}
         </h2>
-        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="mt-12 grid grid-cols-1 gap-6 min-[1200px]:grid-cols-2">
           {features.map((f) => (
             <article
               key={f.key}
-              className="grid grid-cols-1 overflow-hidden rounded-3xl bg-muted md:h-[360px] md:rounded-card md:grid-cols-[240px_1fr]"
+              className="grid w-full grid-cols-1 overflow-hidden rounded-3xl bg-muted md:h-[360px] md:rounded-card md:grid-cols-[1fr_324px]"
             >
               <div className="flex flex-col p-8 pb-0 md:p-10 md:pr-0">
                 <f.icon
