@@ -74,7 +74,9 @@ src/
         ├── ko.json         # 한글 메시지
         └── index.ts        # (deprecated, request.ts에서 직접 import)
 public/
-├── images/                 # Mockup 스크린샷 (mockup-*.png)
+├── images/
+│   ├── mockup-*.webp       # Mockup 슬라이드 스크린샷
+│   └── how/                # FeatureCards 카드 미리보기 (PC/Mobile 분기, *-pc.png / *-mobile.png)
 └── bugshot-symbol.svg      # BugShot 로고 (Hero에서 next/image로 사용)
 ```
 
