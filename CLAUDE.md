@@ -76,7 +76,7 @@ src/
 public/
 ├── images/
 │   ├── mockup-*.webp       # Mockup 슬라이드 스크린샷
-│   └── how/                # FeatureCards 카드 미리보기 (PC/Mobile 분기, *-pc.png / *-mobile.png)
+│   └── how/                # FeatureCards 카드 미리보기 (PC/Mobile 분기, *-pc.webp / *-mobile.webp)
 └── bugshot-symbol.svg      # BugShot 로고 (Hero에서 next/image로 사용)
 ```
 
