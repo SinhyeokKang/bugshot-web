@@ -1,7 +1,5 @@
 import { useTranslations } from "next-intl";
-
-const GITHUB_URL = "https://github.com/SinhyeokKang/bugshot-2";
-const PRIVACY_POLICY_URL = "https://sinhyeokkang.github.io/bugshot-2/privacy";
+import { GITHUB_URL, PRIVACY_POLICY_URL } from "@/lib/constants";
 
 export function Footer() {
   const t = useTranslations("footer");
@@ -14,7 +12,7 @@ export function Footer() {
           href={GITHUB_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-foreground"
+          className="hover:text-foreground focus-visible:text-foreground focus-visible:outline-none"
         >
           {t("github")}
         </a>
@@ -22,7 +20,7 @@ export function Footer() {
           href={PRIVACY_POLICY_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-foreground"
+          className="hover:text-foreground focus-visible:text-foreground focus-visible:outline-none"
         >
           {t("privacy")}
         </a>

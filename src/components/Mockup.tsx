@@ -37,6 +37,8 @@ export function Mockup() {
                 key={slide.key}
                 src={slide.image}
                 alt={t(`slides.${slide.key}.label`)}
+                width={2256}
+                height={1354}
                 aria-hidden={i !== active}
                 className={cn(
                   "col-start-1 row-start-1 -m-px w-[calc(100%+2px)] max-w-none transition-opacity duration-300 ease-out",

@@ -64,6 +64,7 @@ export async function generateMetadata({
       ],
     },
     twitter: {
+      card: "summary_large_image",
       title: t("title"),
       description: t("description"),
       images: [
@@ -101,6 +102,11 @@ export default async function LocaleLayout({
     applicationCategory: "DeveloperApplication",
     operatingSystem: "Chrome",
     inLanguage: locale,
+    author: {
+      "@type": "Person",
+      name: "Sinhyeok Kang",
+      url: "https://github.com/SinhyeokKang",
+    },
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   };
 

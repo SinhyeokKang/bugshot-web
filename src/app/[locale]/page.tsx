@@ -7,6 +7,7 @@ import { Review } from "@/components/Review";
 import { BottomCta } from "@/components/BottomCta";
 import { Footer } from "@/components/Footer";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
+import { ScrollReveal } from "@/components/ScrollReveal";
 
 export default async function Home({
   params,
@@ -18,15 +19,29 @@ export default async function Home({
 
   return (
     <>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-background focus:text-foreground"
+      >
+        Skip to main content
+      </a>
       <LocaleSwitcher />
-      <main>
+      <main id="main">
         <Hero />
         <Mockup />
-        <FeatureCards />
-        <Review />
-        <HowItWorks />
+        <ScrollReveal className="border-b py-20 md:py-[120px]">
+          <FeatureCards />
+        </ScrollReveal>
+        <ScrollReveal className="border-b py-20 md:py-[120px]">
+          <Review />
+        </ScrollReveal>
+        <ScrollReveal className="border-b py-20 md:py-[120px]">
+          <HowItWorks />
+        </ScrollReveal>
       </main>
-      <BottomCta />
+      <ScrollReveal className="py-24 md:py-[200px]">
+        <BottomCta />
+      </ScrollReveal>
       <Footer />
     </>
   );
