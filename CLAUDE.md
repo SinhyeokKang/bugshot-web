@@ -20,12 +20,12 @@ bugshot-web: BugShot Chrome 확장의 랜딩 페이지. 싱글 페이지 정적 
 
 ## 스택
 
-- Next.js 14 App Router + TypeScript
+- Next.js 15 App Router + TypeScript + React 19
 - `output: 'export'` (정적 내보내기) + `images: { unoptimized: true }`
 - Tailwind CSS v3 + shadcn/ui (style `new-york`, base color `gray`)
 - 아이콘: lucide-react (UI 일반), `@icons-pack/react-simple-icons` (브랜드 — `Si{Name}` import, `color="default"` + GitHub만 `dark:invert`)
-- 폰트: DM Sans (next/font/google)
-- i18n: next-intl (locale routing `/en`, `/ko`, `localePrefix: "always"`)
+- 폰트: DM Sans (next/font/google, Latin) + Pretendard Variable (CDN, 한글). font stack에서 문자 기반 자동 분기.
+- i18n: next-intl (`defaultLocale: "ko"`, `localePrefix: "always"`, routing `/ko`, `/en`). Vercel rewrite로 `/` → `/ko` 서빙.
 - 배포: Vercel (정적 호스팅)
 - 패키지 매니저: pnpm
 
@@ -45,15 +45,14 @@ bugshot-web: BugShot Chrome 확장의 랜딩 페이지. 싱글 페이지 정적 
 ```
 src/
 ├── app/
-│   ├── layout.tsx          # 최상위 RootLayout — DM Sans, JSON-LD, metadataBase
-│   ├── page.tsx            # 루트 / — navigator 무시하고 /en으로 client redirect
-│   ├── globals.css         # Tailwind directives + shadcn CSS 변수 (light only)
+│   ├── layout.tsx          # 최상위 RootLayout — DM Sans, <html>/<body>, globals.css
+│   ├── globals.css         # Tailwind directives + Pretendard CDN import + shadcn CSS 변수 (light only)
 │   ├── icon.svg            # Favicon (SVG, Next.js metadata file)
 │   ├── favicon.ico         # Favicon (16/32/48 multi-size ICO, Google SERP용)
 │   ├── apple-icon.png      # Apple touch icon (180×180, iOS 자동 라운드 마스킹)
 │   ├── sitemap.ts          # /sitemap.xml — locale별 alternate languages 포함
 │   └── [locale]/
-│       ├── layout.tsx      # NextIntlClientProvider + generateStaticParams + generateMetadata
+│       ├── layout.tsx      # NextIntlClientProvider + generateStaticParams + generateMetadata + html lang 설정
 │       └── page.tsx        # 랜딩 페이지 (섹션 컴포넌트 조합)
 ├── components/
 │   ├── ui/                 # shadcn/ui 컴포넌트
@@ -62,13 +61,14 @@ src/
 │   ├── FeatureCards.tsx    # 기능 카드 6개 (2×2×2 균등 그리드)
 │   ├── HowItWorks.tsx      # 4-step 가로 플로우 (이미지 카드)
 │   ├── Review.tsx          # 사용자 리뷰 인용
-│   ├── BottomCta.tsx       # 하단 CTA 배너 + 카피라이트
+│   ├── BottomCta.tsx       # 하단 CTA 배너
 │   ├── Footer.tsx          # GitHub·Privacy Policy 링크
-│   └── LocaleSwitcher.tsx  # locale 토글 (fixed top-right, 현재 page에서 미사용)
+│   └── LocaleSwitcher.tsx  # locale 토글 (fixed top-right, shadcn Button 기반)
 ├── hooks/
 │   └── useScrollReveal.ts  # Intersection Observer 기반 스크롤 reveal 훅
 ├── i18n/
-│   ├── routing.ts          # next-intl routing config (locales, defaultLocale)
+│   ├── routing.ts          # next-intl routing config (locales, defaultLocale: ko)
+│   ├── navigation.ts       # createNavigation — locale-aware Link, useRouter, usePathname
 │   └── request.ts          # getRequestConfig — messages 로딩
 └── lib/
     ├── constants.ts        # 웹스토어 URL, 외부 링크 상수
@@ -83,6 +83,7 @@ public/
 │   ├── how/                # FeatureCards 카드 미리보기 (PC/Mobile 분기, *-pc.webp / *-mobile.webp)
 │   └── how-steps/          # HowItWorks 스텝별 미리보기 (HowItWorks-1~4.png)
 └── bugshot-symbol.svg      # BugShot 로고 (Hero에서 next/image로 사용)
+vercel.json                 # Vercel rewrite (/ → /ko)
 ```
 
 ## 릴리스 & 버전

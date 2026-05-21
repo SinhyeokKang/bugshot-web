@@ -4,11 +4,11 @@ Landing page for the [BugShot](https://chromewebstore.google.com/detail/bugshot/
 
 ## Stack
 
-- Next.js 14 (App Router, static export)
+- Next.js 15 (App Router, static export) + React 19
 - Tailwind CSS v3 + shadcn/ui
-- DM Sans (next/font/google)
-- next-intl (locale routing: `/en`, `/ko`)
-- Deployed on Vercel
+- DM Sans (Latin) + Pretendard Variable (Korean)
+- next-intl (defaultLocale: `ko`, routes: `/ko`, `/en`)
+- Deployed on Vercel (rewrite `/` → `/ko`)
 
 ## Getting Started
 
@@ -32,13 +32,13 @@ Outputs a static site to `out/`.
 ```
 src/
 ├── app/
-│   ├── [locale]/  — Localized routes (/en, /ko)
-│   └── page.tsx   — Root redirect to /en
-├── components/    — Section components + shadcn/ui
-├── i18n/          — next-intl routing and request config
+│   ├── layout.tsx    — Root layout (<html>, <body>, DM Sans)
+│   └── [locale]/     — Localized routes (/ko, /en)
+├── components/       — Section components + shadcn/ui + LocaleSwitcher
+├── i18n/             — next-intl routing, navigation, request config
 └── lib/
-    ├── i18n/      — Message catalogs (en.json, ko.json)
-    └── ...        — Constants, utilities
+    ├── i18n/         — Message catalogs (en.json, ko.json)
+    └── ...           — Constants, utilities
 ```
 
 ## Links
