@@ -58,6 +58,7 @@ src/
 │   ├── ui/                 # shadcn/ui 컴포넌트
 │   ├── Hero.tsx            # 히어로 — 로고·헤드라인·서브카피·CTA
 │   ├── Mockup.tsx          # 제품 미리보기 (client) — 5탭 슬라이드 + 캡션
+│   ├── ScrollReveal.tsx    # 스크롤 reveal 래퍼 (client) — section + Intersection Observer 애니메이션
 │   ├── FeatureCards.tsx    # 기능 카드 6개 (2×2×2 균등 그리드)
 │   ├── HowItWorks.tsx      # 4-step 가로 플로우 (이미지 카드)
 │   ├── Review.tsx          # 사용자 리뷰 인용
@@ -71,17 +72,16 @@ src/
 │   ├── navigation.ts       # createNavigation — locale-aware Link, useRouter, usePathname
 │   └── request.ts          # getRequestConfig — messages 로딩
 └── lib/
-    ├── constants.ts        # 웹스토어 URL, 외부 링크 상수
+    ├── constants.ts        # 외부 링크 상수 (웹스토어·GitHub·Privacy Policy 등)
     ├── utils.ts            # cn() 유틸 (clsx + tailwind-merge)
     └── i18n/
         ├── en.json         # 영문 메시지
-        ├── ko.json         # 한글 메시지
-        └── index.ts        # (deprecated, request.ts에서 직접 import)
+        └── ko.json         # 한글 메시지
 public/
 ├── images/
 │   ├── mockup-*.webp       # Mockup 슬라이드 스크린샷
 │   ├── how/                # FeatureCards 카드 미리보기 (PC/Mobile 분기, *-pc.webp / *-mobile.webp)
-│   └── how-steps/          # HowItWorks 스텝별 미리보기 (HowItWorks-1~4.png)
+│   └── how-steps/          # HowItWorks 스텝별 미리보기 (HowItWorks-1~4.webp)
 └── bugshot-symbol.svg      # BugShot 로고 (Hero에서 next/image로 사용)
 vercel.json                 # Vercel rewrite (/ → /ko)
 ```
