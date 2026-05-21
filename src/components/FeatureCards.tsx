@@ -51,7 +51,7 @@ export function FeatureCards() {
                 <h3 className="mt-4 text-xl font-bold leading-snug md:text-2xl">
                   {t(`items.${f.key}.title`)}
                 </h3>
-                <p className="mt-4 text-sm leading-snug text-foreground md:text-base">
+                <p className="mt-4 text-base leading-snug text-foreground">
                   {t(`items.${f.key}.description`)}
                 </p>
               </div>

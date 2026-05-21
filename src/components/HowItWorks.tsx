@@ -37,7 +37,7 @@ export function HowItWorks() {
               <h3 className="mt-4 text-xl font-bold leading-snug md:text-2xl">
                 {i + 1}. {t(`steps.${step.key}.title`)}
               </h3>
-              <p className="mt-3 text-sm leading-snug text-foreground md:text-base">
+              <p className="mt-3 text-base leading-snug text-foreground">
                 {t(`steps.${step.key}.description`)}
               </p>
             </li>
