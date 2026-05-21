@@ -16,7 +16,6 @@ bugshot-web: BugShot Chrome 확장의 랜딩 페이지. 싱글 페이지 정적 
 - **스코프 외**: 블로그·docs·프라이싱·뉴스레터 폼 등은 추가 안 함. 폼 같은 동적 기능 필요 시 외부 서비스(Tally 등) 검토.
 - **품질 목표**: Lighthouse Performance ≥ 90, SEO ≥ 90.
 - **정적 export 제약**: `output: 'export'`라 API Routes·서버 동적 기능 사용 불가. `next/image`는 `images.unoptimized: true` 필수.
-- **참고 사이트**: ui-inspector.com, jam.dev (디자인·메시징 참고용).
 
 ## 스택
 
