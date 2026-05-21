@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { ScrollReveal } from "@/components/ScrollReveal";
 
 const steps = [
   { key: "launch", image: "HowItWorks-1" },
@@ -12,14 +13,16 @@ export async function HowItWorks() {
 
   return (
     <div className="container mx-auto max-w-[1200px]">
-      <h2 className="text-center text-3xl font-bold leading-tight tracking-tight md:text-[40px] md:leading-[48px]">
-        {t.rich("heading", {
-          brand: (chunks) => <span className="text-brand">{chunks}</span>,
-        })}
-      </h2>
+      <ScrollReveal as="div">
+        <h2 className="text-center text-3xl font-bold leading-tight tracking-tight md:text-[40px] md:leading-[48px]">
+          {t.rich("heading", {
+            brand: (chunks) => <span className="text-brand">{chunks}</span>,
+          })}
+        </h2>
+      </ScrollReveal>
       <ol className="mt-12 grid list-none grid-cols-1 gap-6 md:grid-cols-4">
         {steps.map((step, i) => (
-          <li key={step.key} className="flex flex-col">
+          <ScrollReveal key={step.key} as="li" className="mb-4 flex flex-col">
             <img
               src={`/images/how-steps/${step.image}.webp`}
               alt={t(`steps.${step.key}.title`)}
@@ -33,7 +36,7 @@ export async function HowItWorks() {
             <p className="mt-2 text-base leading-snug text-foreground">
               {t(`steps.${step.key}.description`)}
             </p>
-          </li>
+          </ScrollReveal>
         ))}
       </ol>
     </div>

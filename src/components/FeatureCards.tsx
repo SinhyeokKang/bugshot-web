@@ -7,6 +7,7 @@ import {
   Send,
 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { ScrollReveal } from "@/components/ScrollReveal";
 
 const features = [
   { key: "inspect", icon: MousePointerClick, image: "inspect" },
@@ -22,19 +23,22 @@ export async function FeatureCards() {
 
   return (
     <div className="container mx-auto max-w-[1200px]">
-      <h2 className="text-center text-3xl font-bold leading-tight tracking-tight md:text-[40px] md:leading-[48px]">
-        {t.rich("heading.line1", {
-          brand: (chunks) => <span className="text-brand">{chunks}</span>,
-        })}
-        <br />
-        {t.rich("heading.line2", {
-          brand: (chunks) => <span className="text-brand">{chunks}</span>,
-        })}
-      </h2>
+      <ScrollReveal as="div">
+        <h2 className="text-center text-3xl font-bold leading-tight tracking-tight md:text-[40px] md:leading-[48px]">
+          {t.rich("heading.line1", {
+            brand: (chunks) => <span className="text-brand">{chunks}</span>,
+          })}
+          <br />
+          {t.rich("heading.line2", {
+            brand: (chunks) => <span className="text-brand">{chunks}</span>,
+          })}
+        </h2>
+      </ScrollReveal>
       <div className="mt-12 grid grid-cols-1 gap-6 min-[1200px]:grid-cols-2">
         {features.map((f) => (
-          <article
+          <ScrollReveal
             key={f.key}
+            as="article"
             className="grid w-full grid-cols-1 overflow-hidden rounded-3xl bg-muted md:h-[360px] md:rounded-card md:grid-cols-[1fr_324px]"
           >
             <div className="flex flex-col p-8 pb-0 md:p-10 md:pr-0">
@@ -69,7 +73,7 @@ export async function FeatureCards() {
                 </>
               )}
             </div>
-          </article>
+          </ScrollReveal>
         ))}
       </div>
     </div>
