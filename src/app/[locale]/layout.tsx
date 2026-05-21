@@ -13,6 +13,10 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+function localeUrl(locale: string) {
+  return `/${locale}`;
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -20,15 +24,24 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "meta" });
+  const url = localeUrl(locale);
+
   return {
+    metadataBase: new URL(SITE_URL),
     title: t("title"),
     description: t("description"),
+    verification: {
+      other: {
+        "naver-site-verification":
+          "79f463827c65e552ad423cf396466a6d9aea1984",
+      },
+    },
     alternates: {
-      canonical: `/${locale}`,
+      canonical: url,
       languages: {
         en: "/en",
         ko: "/ko",
-        "x-default": "/en",
+        "x-default": "/ko",
       },
     },
     openGraph: {
@@ -38,7 +51,7 @@ export async function generateMetadata({
       siteName: "BugShot",
       locale,
       alternateLocale: routing.locales.filter((l) => l !== locale),
-      url: `/${locale}`,
+      url,
       images: [
         {
           url: "/og-image.png",
@@ -81,7 +94,7 @@ export default async function LocaleLayout({
     "@type": "SoftwareApplication",
     name: "BugShot",
     description: t("description"),
-    url: `${SITE_URL}/${locale}`,
+    url: `${SITE_URL}${localeUrl(locale)}`,
     image: `${SITE_URL}/og-image.png`,
     applicationCategory: "DeveloperApplication",
     operatingSystem: "Chrome",
@@ -91,6 +104,11 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `document.documentElement.lang="${locale}"`,
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

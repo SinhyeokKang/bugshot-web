@@ -6,6 +6,7 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { Review } from "@/components/Review";
 import { BottomCta } from "@/components/BottomCta";
 import { Footer } from "@/components/Footer";
+import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 
 export default async function Home({
   params,
@@ -17,6 +18,7 @@ export default async function Home({
 
   return (
     <>
+      <LocaleSwitcher />
       <main>
         <Hero />
         <Mockup />

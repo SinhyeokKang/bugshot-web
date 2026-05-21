@@ -16,6 +16,7 @@ const config: Config = {
       fontFamily: {
         sans: [
           "var(--font-dm-sans)",
+          "Pretendard Variable",
           "-apple-system",
           "BlinkMacSystemFont",
           "system-ui",
