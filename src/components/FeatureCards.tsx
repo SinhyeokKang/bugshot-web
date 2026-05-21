@@ -13,12 +13,12 @@ import { cn } from "@/lib/utils";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const features = [
-  { key: "inspect", icon: MousePointerClick },
-  { key: "record", icon: Video },
-  { key: "log", icon: SquareTerminal },
-  { key: "autoCollect", icon: Magnet },
-  { key: "ai", icon: Wand2 },
-  { key: "submit", icon: Send },
+  { key: "inspect", icon: MousePointerClick, image: "inspect" },
+  { key: "record", icon: Video, image: null },
+  { key: "log", icon: SquareTerminal, image: null },
+  { key: "autoCollect", icon: Magnet, image: "auto-collect" },
+  { key: "ai", icon: Wand2, image: "ai-reports" },
+  { key: "submit", icon: Send, image: "integrations" },
 ] as const;
 
 export function FeatureCards() {
@@ -41,11 +41,11 @@ export function FeatureCards() {
           {features.map((f) => (
             <article
               key={f.key}
-              className="grid grid-cols-1 overflow-hidden rounded-3xl bg-muted md:h-[360px] md:rounded-card md:grid-cols-[296px_1fr]"
+              className="grid grid-cols-1 overflow-hidden rounded-3xl bg-muted md:h-[360px] md:rounded-card md:grid-cols-[240px_1fr]"
             >
-              <div className="flex flex-col p-8 md:p-12 md:pr-6">
+              <div className="flex flex-col p-8 pb-0 md:p-10 md:pr-0">
                 <f.icon
-                  className="h-6 w-6 text-primary md:h-8 md:w-8"
+                  className="h-6 w-6 text-primary md:h-7 md:w-7"
                   strokeWidth={1.5}
                 />
                 <h3 className="mt-4 text-xl font-bold leading-snug md:text-2xl">
@@ -55,7 +55,22 @@ export function FeatureCards() {
                   {t(`items.${f.key}.description`)}
                 </p>
               </div>
-              <div className="aspect-video md:aspect-auto" />
+              <div className="aspect-video overflow-hidden md:aspect-auto">
+                {f.image && (
+                  <>
+                    <img
+                      src={`/images/how/${f.image}-mobile.png`}
+                      alt=""
+                      className="h-full w-full object-cover md:hidden"
+                    />
+                    <img
+                      src={`/images/how/${f.image}-pc.png`}
+                      alt=""
+                      className="hidden h-full w-full object-cover md:block"
+                    />
+                  </>
+                )}
+              </div>
             </article>
           ))}
         </div>

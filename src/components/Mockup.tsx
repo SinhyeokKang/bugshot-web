@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MousePointerClick, Send, SquareTerminal, Video, Wand2 } from "lucide-react";
+import { ChevronRight, MousePointerClick, Send, SquareTerminal, Video, Wand2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
@@ -19,23 +19,40 @@ export function Mockup() {
   const { ref, revealed } = useScrollReveal<HTMLElement>();
   const [active, setActive] = useState(0);
   const current = slides[active];
+  const handleNext = () => setActive((prev) => (prev + 1) % slides.length);
 
   return (
     <section ref={ref} className={cn("border-b pt-12 pb-20 md:pt-[60px] md:pb-[120px] transition-all duration-1000 ease-out", revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
       <div className="container mx-auto max-w-[1200px]">
         <h2 className="sr-only">{t("srHeading")}</h2>
-        <div className="relative overflow-hidden rounded-3xl border-[6px] border-border md:rounded-card md:border-[12px]">
-          {slides.map((slide, i) => (
-            <img
-              key={slide.key}
-              src={slide.image}
-              alt={t(`slides.${slide.key}.label`)}
-              className={cn(
-                "-m-px w-[calc(100%+2px)] max-w-none",
-                i === active ? "block" : "hidden"
-              )}
-            />
-          ))}
+        <div className="relative">
+          <button
+            type="button"
+            onClick={handleNext}
+            aria-label={t("next")}
+            className="grid w-full cursor-pointer overflow-hidden rounded-3xl border-[6px] border-border md:rounded-card md:border-[12px]"
+          >
+            {slides.map((slide, i) => (
+              <img
+                key={slide.key}
+                src={slide.image}
+                alt={t(`slides.${slide.key}.label`)}
+                aria-hidden={i !== active}
+                className={cn(
+                  "col-start-1 row-start-1 -m-px w-[calc(100%+2px)] max-w-none transition-opacity duration-300 ease-out",
+                  i === active ? "opacity-100" : "opacity-0"
+                )}
+              />
+            ))}
+          </button>
+          <button
+            type="button"
+            onClick={handleNext}
+            aria-label={t("next")}
+            className="absolute right-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-background/90 text-foreground shadow-lg backdrop-blur transition-colors hover:bg-background md:right-6 md:h-12 md:w-12"
+          >
+            <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
+          </button>
         </div>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           {slides.map((slide, i) => (

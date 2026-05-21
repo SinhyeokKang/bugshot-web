@@ -12,6 +12,7 @@
   },
   "mockup": {
     "srHeading": "Product preview",
+    "next": "Next slide",
     "slides": {
       "inspect": {
         "label": "Inspect",
@@ -43,27 +44,27 @@
     "items": {
       "inspect": {
         "title": "Inspect & Edit CSS",
-        "description": "Click any element to view its applied styles and attributes. Modify styles in the visual editor and see changes reflected on the page instantly."
+        "description": "Click any element to view its styles, then tweak them live in the visual editor."
       },
       "record": {
         "title": "Capture & Record",
-        "description": "Take annotated screenshots or record up to 60 seconds of screen activity to capture the exact moment a bug happens."
+        "description": "Take annotated screenshots or record up to 60 seconds to catch the exact moment a bug happens."
       },
       "log": {
         "title": "Console & Network logs",
-        "description": "Console errors, warnings, and network requests are captured automatically — so you never have to reproduce a bug just to grab the logs."
+        "description": "Console errors and network requests are captured automatically — no need to reproduce the bug."
       },
       "autoCollect": {
         "title": "Auto-collect context",
-        "description": "Browser, screen resolution, DOM details, console and network logs are gathered for you — with noise filtered out so the important signals stand out."
+        "description": "Browser, resolution, DOM, console, and network logs collected — with noise filtered out."
       },
       "ai": {
         "title": "AI bug reports",
-        "description": "Turn collected data into a structured report covering steps to reproduce, expected behavior, and actual behavior."
+        "description": "Turn captured data into a structured report with steps, expected, and actual behavior."
       },
       "submit": {
         "title": "One-click issue filing",
-        "description": "Create and submit tickets with full attachments to Jira, GitHub, Linear, or Notion — with a single click."
+        "description": "Submit tickets with full attachments to Jira, GitHub, Linear, or Notion in one click."
       }
     }
   },

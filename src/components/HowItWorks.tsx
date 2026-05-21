@@ -31,7 +31,7 @@ export function HowItWorks() {
               className="flex flex-col items-center py-5 text-center"
             >
               <step.icon
-                className="h-6 w-6 text-primary md:h-8 md:w-8"
+                className="h-6 w-6 text-primary md:h-7 md:w-7"
                 strokeWidth={1.5}
               />
               <h3 className="mt-4 text-xl font-bold leading-snug md:text-2xl">
