@@ -9,11 +9,33 @@ const dmSans = DM_Sans({
   display: "swap",
 });
 
+const DEFAULT_TITLE = "BugShot — Bug Reports in One Shot";
+const DEFAULT_DESCRIPTION =
+  "Discover, fix, capture, and report UI bugs in one workflow.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "BugShot",
+  title: DEFAULT_TITLE,
+  description: DEFAULT_DESCRIPTION,
+  openGraph: {
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    type: "website",
+    siteName: "BugShot",
+    url: "/",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "BugShot",
+      },
+    ],
+  },
   twitter: {
     card: "summary_large_image",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
     images: ["/og-image.png"],
   },
   verification: {
