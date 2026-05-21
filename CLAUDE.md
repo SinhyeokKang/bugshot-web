@@ -60,7 +60,7 @@ src/
 │   ├── Hero.tsx            # 히어로 — 로고·헤드라인·서브카피·CTA
 │   ├── Mockup.tsx          # 제품 미리보기 (client) — 5탭 슬라이드 + 캡션
 │   ├── FeatureCards.tsx    # 기능 카드 6개 (2×2×2 균등 그리드)
-│   ├── HowItWorks.tsx      # 4-step 가로 플로우
+│   ├── HowItWorks.tsx      # 4-step 가로 플로우 (이미지 카드)
 │   ├── Review.tsx          # 사용자 리뷰 인용
 │   ├── BottomCta.tsx       # 하단 CTA 배너 + 카피라이트
 │   ├── Footer.tsx          # GitHub·Privacy Policy 링크
@@ -80,7 +80,8 @@ src/
 public/
 ├── images/
 │   ├── mockup-*.webp       # Mockup 슬라이드 스크린샷
-│   └── how/                # FeatureCards 카드 미리보기 (PC/Mobile 분기, *-pc.webp / *-mobile.webp)
+│   ├── how/                # FeatureCards 카드 미리보기 (PC/Mobile 분기, *-pc.webp / *-mobile.webp)
+│   └── how-steps/          # HowItWorks 스텝별 미리보기 (HowItWorks-1~4.png)
 └── bugshot-symbol.svg      # BugShot 로고 (Hero에서 next/image로 사용)
 ```
 
