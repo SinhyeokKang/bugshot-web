@@ -96,9 +96,8 @@
   },
   "bottomCta": {
     "heading": "All your Bugs, <brand>One Workflow</brand>.",
-    "subcopy": ["Link your platforms from the Integrations tab.", "Connect multiple at once and choose where each ticket goes."],
-    "cta": "Add to Chrome",
-    "note": "Takes less than 10 seconds to install."
+    "subcopy": ["From bug discovery to issue submission —", "all without leaving the browser."],
+    "cta": "Add to Chrome"
   },
   "footer": {
     "copyright": "© 2026 BugShot",

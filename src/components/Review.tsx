@@ -10,7 +10,7 @@ export function Review() {
 
   return (
     <section ref={ref} className={cn("border-b py-20 md:py-[120px] transition-all duration-1000 ease-out", revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-      <div className="container mx-auto max-w-[1200px] flex flex-col items-center gap-5">
+      <div className="container mx-auto max-w-[960px] flex flex-col items-center gap-5">
         <p className="text-sm text-muted-foreground md:text-base">
           {t("author")}
         </p>

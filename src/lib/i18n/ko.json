@@ -5,10 +5,10 @@
   },
   "hero": {
     "logoAlt": "BugShot 로고",
-    "heading": "<brand>한 번에</brand> 끝내는 버그 리포트.",
-    "subcopy": ["버그 발견부터 수정, 캡처,", "이슈 생성까지 한 번에."],
+    "heading": "<brand>한 번에</brand> 끝내는 버그 리포트",
+    "subcopy": ["버그 발견부터 수정, 캡처,", "이슈 제출까지 하나의 흐름으로"],
     "cta": "Chrome에 추가",
-    "note": "가입 없이, 설치하면 바로."
+    "note": "가입 없이 설치 후 바로 사용 가능합니다."
   },
   "mockup": {
     "srHeading": "제품 미리보기",
@@ -16,60 +16,60 @@
     "slides": {
       "inspect": {
         "label": "요소 검사",
-        "caption": "요소를 클릭해 적용된 스타일과 속성을 확인하세요."
+        "caption": "클릭한 요소의 스타일과 속성을 바로 확인할 수 있습니다."
       },
       "record": {
         "label": "녹화",
-        "caption": "스크린샷 캡처 또는 최대 60초 녹화 — 주석과 로그를 함께 담습니다."
+        "caption": "스크린샷이나 최대 60초 화면 녹화로 버그 상황을 그대로 기록하세요."
       },
       "log": {
         "label": "로그",
-        "caption": "세션 중 수집된 콘솔 에러와 네트워크 요청을 확인하세요."
+        "caption": "녹화 중 발생한 콘솔 에러와 네트워크 요청을 함께 수집합니다."
       },
       "ai": {
         "label": "AI 생성",
-        "caption": "수집된 데이터를 재현 단계가 담긴 리포트로 변환합니다."
+        "caption": "AI가 수집된 데이터를 바탕으로 버그 리포트를 자동 생성합니다."
       },
       "submit": {
         "label": "이슈 전송",
-        "caption": "Jira·GitHub·Linear·Notion에 첨부 파일까지 한 번에."
+        "caption": "Jira·GitHub·Linear·Notion으로 리포트를 바로 전송하세요."
       }
     }
   },
   "features": {
     "heading": {
-      "line1": "BugShot으로",
-      "line2": "할 수 있는 것"
+      "line1": "BugShot의",
+      "line2": "핵심 기능"
     },
     "items": {
       "inspect": {
-        "title": "요소 검사와 CSS 편집",
-        "description": "요소를 클릭해 스타일을 확인하고, 비주얼 에디터에서 바로 수정하세요."
+        "title": "요소 검사와 편집",
+        "description": "요소를 클릭해 스타일을 확인하고, 페이지 위에서 바로 수정할 수 있습니다."
       },
       "record": {
-        "title": "캡처 & 녹화",
-        "description": "주석 스크린샷이나 최대 60초 녹화로 버그 순간을 정확히 포착합니다."
+        "title": "스크린샷 & 녹화",
+        "description": "스크린샷과 최대 60초 화면 녹화로 버그 상황을 그대로 기록하세요."
       },
       "log": {
-        "title": "콘솔 & 네트워크 로그",
-        "description": "콘솔 에러와 네트워크 요청이 자동 수집되어, 로그 때문에 재현할 필요가 없습니다."
+        "title": "콘솔 & 네트워크",
+        "description": "콘솔 에러와 네트워크 요청을 자동으로 수집해 디버깅에 필요한 정보를 함께 전달합니다."
       },
       "autoCollect": {
-        "title": "컨텍스트 자동 수집",
-        "description": "브라우저·해상도·DOM·콘솔·네트워크가 자동 수집되고, 노이즈는 걸러냅니다."
+        "title": "환경 정보 자동 수집",
+        "description": "브라우저·해상도·DOM·콘솔·네트워크 정보를 자동으로 수집합니다."
       },
       "ai": {
-        "title": "AI 버그 리포트",
-        "description": "수집된 데이터를 재현 단계·기대·실제 동작이 담긴 리포트로 변환합니다."
+        "title": "AI 리포트 생성",
+        "description": "수집된 정보를 바탕으로 재현 단계와 환경 정보가 포함된 리포트를 자동으로 작성합니다."
       },
       "submit": {
-        "title": "원클릭 이슈 등록",
-        "description": "Jira·GitHub·Linear·Notion에 첨부 파일까지 클릭 한 번으로 전송합니다."
+        "title": "이슈 트래커 제출",
+        "description": "Jira·GitHub·Linear·Notion으로 리포트와 첨부 파일을 바로 전송할 수 있습니다."
       }
     }
   },
   "how": {
-    "heading": "BugShot 사용법",
+    "heading": "BugShot 시작하기",
     "steps": {
       "launch": {
         "title": "실행",
@@ -77,28 +77,27 @@
       },
       "recordInspect": {
         "title": "녹화와 검사",
-        "description": "최대 60초 녹화하거나, 요소를 선택해 스타일을 실시간으로 편집합니다."
+        "description": "최대 60초 화면을 녹화하거나, 요소를 선택해 스타일을 실시간으로 수정합니다."
       },
       "aiReport": {
         "title": "AI 리포트",
-        "description": "수집된 데이터로 재현 단계와 기대·실제 동작이 담긴 초안을 자동 생성합니다."
+        "description": "수집된 정보를 바탕으로 재현 단계, 기대 동작, 실제 동작이 정리된 리포트를 자동으로 작성합니다."
       },
       "submit": {
-        "title": "전송 또는 내보내기",
-        "description": "Markdown, 이슈 트래커 등 팀이 원하는 형식으로 공유합니다."
+        "title": "이슈 제출",
+        "description": "작성된 리포트를 Markdown으로 내보내거나, 이슈 트래커로 바로 전송합니다."
       }
     }
   },
   "review": {
     "author": "안**, QA Engineer",
-    "quote": "DevTools 열고, 스크린샷 찍고, Jira에 따로 정리하던 과정이 브라우저 안에서 다 끝나니까 흐름이 안 끊깁니다. 텍스트로 풀어쓰던 걸 수정 결과 + diff + 영상으로 대체하니 핑퐁이 확 줄었어요.",
+    "quote": "DevTools 열고, 스크린샷 찍고, Jira에 따로 정리하던 작업을 브라우저 안에서 한 번에 끝낼 수 있어서 편합니다. 수정 결과와 diff, 영상까지 함께 전달되니까 커뮤니케이션 비용도 많이 줄었어요.",
     "source": "Chrome Web Store Review"
   },
   "bottomCta": {
-    "heading": "모든 버그를, <brand>하나의 흐름</brand>으로.",
-    "subcopy": ["Integrations 탭에서 플랫폼을 연결하고,", "티켓을 보낼 곳을 선택하세요."],
-    "cta": "Chrome에 추가",
-    "note": "설치는 10초면 충분합니다."
+    "heading": "모든 버그 리포팅을, 단 <brand>하나의 흐름</brand>으로",
+    "subcopy": ["버그 발견부터 이슈 제출까지,", "브라우저 안에서 한 번에 끝내세요."],
+    "cta": "Chrome에 추가"
   },
   "footer": {
     "copyright": "© 2026 BugShot",

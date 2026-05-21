@@ -29,7 +29,7 @@ export function HowItWorks() {
             brand: (chunks) => <span className="text-brand">{chunks}</span>,
           })}
         </h2>
-        <ol className="mt-12 grid list-none grid-cols-1 gap-8 md:grid-cols-4">
+        <ol className="mt-12 grid list-none grid-cols-1 gap-6 md:grid-cols-4">
           {steps.map((step, i) => (
             <li key={step.key} className="flex flex-col">
               <img
