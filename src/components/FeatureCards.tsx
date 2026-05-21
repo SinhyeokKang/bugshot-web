@@ -14,8 +14,8 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const features = [
   { key: "inspect", icon: MousePointerClick, image: "inspect" },
-  { key: "record", icon: Video, image: null },
-  { key: "log", icon: SquareTerminal, image: null },
+  { key: "record", icon: Video, image: "capture" },
+  { key: "log", icon: SquareTerminal, image: "logs" },
   { key: "autoCollect", icon: Magnet, image: "auto-collect" },
   { key: "ai", icon: Wand2, image: "ai-reports" },
   { key: "submit", icon: Send, image: "integrations" },
@@ -59,12 +59,12 @@ export function FeatureCards() {
                 {f.image && (
                   <>
                     <img
-                      src={`/images/how/${f.image}-mobile.png`}
+                      src={`/images/how/${f.image}-mobile.webp`}
                       alt=""
                       className="h-full w-full object-cover md:hidden"
                     />
                     <img
-                      src={`/images/how/${f.image}-pc.png`}
+                      src={`/images/how/${f.image}-pc.webp`}
                       alt=""
                       className="hidden h-full w-full object-cover md:block"
                     />
