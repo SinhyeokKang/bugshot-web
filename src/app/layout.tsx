@@ -11,7 +11,7 @@ const dmSans = DM_Sans({
 
 const DEFAULT_TITLE = "BugShot — Bug Reports in One Shot";
 const DEFAULT_DESCRIPTION =
-  "Discover, fix, capture, and report UI bugs in one workflow.";
+  "From design review and bug reporting to style fixes and issue creation. Stop jumping between DevTools, screenshot tools, and issue trackers.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

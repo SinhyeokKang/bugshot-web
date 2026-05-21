@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "BugShot — 한 번에 끝내는 버그 리포트",
-    "description": "버그 발견부터 수정, 캡처, 이슈 생성까지 한 번에."
+    "description": "디자인 리뷰, 버그 제보, 스타일 수정, 이슈 생성까지. DevTools·스크린샷 툴·이슈 트래커를 오가지 마세요."
   },
   "hero": {
     "logoAlt": "BugShot 로고",

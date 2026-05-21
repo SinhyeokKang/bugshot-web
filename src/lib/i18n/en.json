@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "BugShot — Bug Reports in One Shot",
-    "description": "Discover, fix, capture, and report UI bugs in one workflow."
+    "description": "From design review and bug reporting to style fixes and issue creation. Stop jumping between DevTools, screenshot tools, and issue trackers."
   },
   "hero": {
     "logoAlt": "BugShot logo",
