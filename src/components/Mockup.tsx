@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronRight, MousePointerClick, Send, SquareTerminal, Video, Wand2 } from "lucide-react";
+import { MousePointerClick, Send, SquareTerminal, Video, Wand2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
@@ -44,14 +44,6 @@ export function Mockup() {
                 )}
               />
             ))}
-          </button>
-          <button
-            type="button"
-            onClick={handleNext}
-            aria-label={t("next")}
-            className="absolute right-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-background/90 text-foreground shadow-lg backdrop-blur transition-colors hover:bg-background md:right-6 md:h-12 md:w-12"
-          >
-            <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
           </button>
         </div>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
