@@ -42,7 +42,7 @@
 
 #### 2. 무료인가요?
 
-**ko**: 네, 완전히 무료이고 가입도 필요 없습니다. 설치 후 바로 사용할 수 있습니다.
+**ko**: 네, 완전히 무료이며 가입도 필요 없습니다. 설치 후 바로 사용할 수 있습니다.
 
 **en**: Yes, completely free with no sign-up required. Install and start reporting right away.
 

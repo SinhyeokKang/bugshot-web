@@ -100,6 +100,31 @@
     "subcopy": ["From bug discovery to issue submission —", "all without leaving the browser."],
     "cta": "Add to Chrome"
   },
+  "faq": {
+    "heading": "Frequently Asked Questions",
+    "items": {
+      "browser": {
+        "q": "Which browsers are supported?",
+        "a": "BugShot works on Chrome and Chromium-based browsers like Edge, Brave, and Arc. Chrome 116 or later is required."
+      },
+      "pricing": {
+        "q": "Is it free?",
+        "a": "Yes, completely free with no sign-up required. Install and start reporting right away."
+      },
+      "ai": {
+        "q": "What do I need to use the AI feature?",
+        "a": "Chrome's built-in AI works out of the box with no setup. To use external LLMs like OpenAI, Anthropic, or Gemini, just enter your own API key."
+      },
+      "integrations": {
+        "q": "Which issue trackers are supported?",
+        "a": "Submit reports with attachments directly to Jira, GitHub, Linear, or Notion. You can also copy as Markdown and paste it wherever your team works."
+      },
+      "privacy": {
+        "q": "How is collected data handled?",
+        "a": "All data is stored locally in your browser and is never sent to BugShot's servers. Data is only shared with the services you use — your issue tracker or AI provider — and local data is automatically deleted after submission."
+      }
+    }
+  },
   "footer": {
     "copyright": "© 2026 BugShot",
     "github": "GitHub",

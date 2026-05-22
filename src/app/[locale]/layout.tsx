@@ -9,7 +9,7 @@ import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { routing } from "@/i18n/routing";
-import { SITE_URL, CHROME_WEB_STORE_URL } from "@/lib/constants";
+import { SITE_URL, CHROME_WEB_STORE_URL, FAQ_KEYS } from "@/lib/constants";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -92,6 +92,7 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
   const messages = await getMessages();
   const t = await getTranslations({ locale, namespace: "meta" });
+  const faqT = await getTranslations({ locale, namespace: "faq" });
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -112,6 +113,20 @@ export default async function LocaleLayout({
     downloadUrl: CHROME_WEB_STORE_URL,
   };
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    url: `${SITE_URL}/${locale}`,
+    mainEntity: FAQ_KEYS.map((key) => ({
+      "@type": "Question",
+      name: faqT(`items.${key}.q`),
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faqT(`items.${key}.a`),
+      },
+    })),
+  };
+
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
       <script
@@ -122,6 +137,10 @@ export default async function LocaleLayout({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       {children}
       <Analytics />

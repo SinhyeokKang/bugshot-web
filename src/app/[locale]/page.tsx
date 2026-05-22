@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import { Hero } from "@/components/Hero";
 import { Mockup } from "@/components/Mockup";
 import { FeatureCards } from "@/components/FeatureCards";
+import { Faq } from "@/components/Faq";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Review } from "@/components/Review";
 import { BottomCta } from "@/components/BottomCta";
@@ -37,6 +38,9 @@ export default async function Home({
         </ScrollReveal>
         <section aria-labelledby="how-heading" className="border-b py-20 md:py-[120px]">
           <HowItWorks />
+        </section>
+        <section aria-labelledby="faq-heading" className="border-b py-20 md:py-[120px]">
+          <Faq />
         </section>
         <ScrollReveal className="py-24 md:py-[200px]">
           <BottomCta />
