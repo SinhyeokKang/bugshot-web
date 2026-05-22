@@ -26,7 +26,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "meta" });
-  const url = localeUrl(locale);
+  const url = `${SITE_URL}${localeUrl(locale)}`;
 
   return {
     metadataBase: new URL(SITE_URL),
@@ -42,9 +42,9 @@ export async function generateMetadata({
     alternates: {
       canonical: url,
       languages: {
-        en: "/en",
-        ko: "/ko",
-        "x-default": "/ko",
+        en: `${SITE_URL}/en`,
+        ko: `${SITE_URL}/ko`,
+        "x-default": `${SITE_URL}/ko`,
       },
     },
     openGraph: {
@@ -57,7 +57,7 @@ export async function generateMetadata({
       url,
       images: [
         {
-          url: "/og-image.png",
+          url: `${SITE_URL}/og-image.png`,
           width: 1200,
           height: 630,
           alt: t("title"),
@@ -70,7 +70,7 @@ export async function generateMetadata({
       description: t("description"),
       images: [
         {
-          url: "/og-image.png",
+          url: `${SITE_URL}/og-image.png`,
           alt: t("title"),
         },
       ],
