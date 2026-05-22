@@ -25,7 +25,7 @@ export async function Faq() {
         <Accordion type="single" collapsible defaultValue={FAQ_KEYS[0]}>
           {FAQ_KEYS.map((key) => (
             <AccordionItem key={key} value={key}>
-              <AccordionTrigger className="text-base md:text-lg">
+              <AccordionTrigger className="text-base font-semibold md:text-lg">
                 {t(`items.${key}.q`)}
               </AccordionTrigger>
               <AccordionContent className="text-base text-foreground">
