@@ -30,12 +30,14 @@ export async function HowItWorks() {
               height={330}
               className="aspect-[16/10] w-full rounded-2xl border object-cover"
             />
-            <h3 className="mt-4 text-xl font-bold leading-snug md:text-2xl">
-              {i + 1}. {t(`steps.${step.key}.title`)}
-            </h3>
-            <p className="mt-2 text-base leading-snug text-foreground">
-              {t(`steps.${step.key}.description`)}
-            </p>
+            <div className="px-1.5">
+              <h3 className="mt-4 text-[18px] font-semibold leading-snug md:text-[20px]">
+                {i + 1}. {t(`steps.${step.key}.title`)}
+              </h3>
+              <p className="mt-2 text-base leading-snug text-foreground">
+                {t(`steps.${step.key}.description`)}
+              </p>
+            </div>
           </ScrollReveal>
         ))}
       </ol>

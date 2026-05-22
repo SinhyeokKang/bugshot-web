@@ -61,7 +61,7 @@ src/
 │   ├── Faq.tsx             # FAQ 아코디언 (서버 컴포넌트, shadcn Accordion)
 │   ├── FeatureCards.tsx    # 기능 카드 6개 (2×2×2 균등 그리드)
 │   ├── HowItWorks.tsx      # 4-step 가로 플로우 (이미지 카드)
-│   ├── Review.tsx          # 사용자 리뷰 인용
+│   ├── Review.tsx          # 사용자 리뷰 캐러셀 (client) — grid 스택 opacity 페이드 + dot navigation + 5초 자동 전환
 │   ├── BottomCta.tsx       # 하단 CTA 배너
 │   ├── Footer.tsx          # GitHub·Privacy Policy 링크
 │   └── LocaleSwitcher.tsx  # locale 토글 (fixed top-right, shadcn Button 기반)
@@ -72,7 +72,7 @@ src/
 │   ├── navigation.ts       # createNavigation — locale-aware Link, useRouter, usePathname
 │   └── request.ts          # getRequestConfig — messages 로딩
 └── lib/
-    ├── constants.ts        # 외부 링크 상수 + FAQ_KEYS (Faq.tsx·layout.tsx JSON-LD 공유)
+    ├── constants.ts        # 외부 링크 상수 + FAQ_KEYS + REVIEW_KEYS
     ├── utils.ts            # cn() 유틸 (clsx + tailwind-merge)
     └── i18n/
         ├── en.json         # 영문 메시지

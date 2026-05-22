@@ -6,7 +6,7 @@
   "hero": {
     "logoAlt": "BugShot logo",
     "heading": "Bug Reports in <brand>One Shot</brand>.",
-    "subcopy": ["Discover, fix, capture,", "and report UI bugs in one workflow."],
+    "subcopy": ["Discover, fix, capture, and report bugs", "— all with BugShot."],
     "cta": "Add to Chrome",
     "note": "No sign-up required. Just install and go."
   },
@@ -19,11 +19,11 @@
         "caption": "Click any element to view its applied styles and attributes."
       },
       "record": {
-        "label": "Record",
+        "label": "Capture & Record",
         "caption": "Capture screenshots or record up to 60 seconds — with annotations and logs."
       },
       "log": {
-        "label": "Logs",
+        "label": "Collect Logs",
         "caption": "View console errors and network requests collected during your session."
       },
       "ai": {
@@ -72,7 +72,7 @@
     "heading": "How to use BugShot",
     "steps": {
       "launch": {
-        "title": "Launch",
+        "title": "Launch BugShot",
         "description": "Click the BugShot icon or open the side panel with a keyboard shortcut."
       },
       "recordInspect": {
@@ -90,10 +90,20 @@
     }
   },
   "review": {
-    "srHeading": "User review",
-    "author": "안**, QA Engineer",
-    "quote": "I used to juggle DevTools, screenshots, and Jira separately — now it all happens in the browser without breaking my flow. Replacing text explanations with visual diffs and recordings cut our back-and-forth way down.",
-    "source": "Chrome Web Store Review"
+    "srHeading": "User reviews",
+    "dotLabel": "Review {index}",
+    "items": {
+      "qe": {
+        "author": "안**, QA Engineer",
+        "quote": "I used to juggle DevTools, screenshots, and Jira separately — now it all happens in the browser without breaking my flow. Replacing text explanations with visual diffs and recordings cut our back-and-forth way down.",
+        "source": "Chrome Web Store Review"
+      },
+      "designer": {
+        "author": "김**, Product Designer",
+        "quote": "During design QA, I used to dig through DevTools to find element positions and capture changes separately. Now I can inspect and share fixes right on the page — the whole process is so much smoother.",
+        "source": "Chrome Web Store Review"
+      }
+    }
   },
   "bottomCta": {
     "heading": "All your Bugs, <brand>One Workflow</brand>.",

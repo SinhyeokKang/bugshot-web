@@ -12,3 +12,5 @@ export const FAQ_KEYS = [
   "integrations",
   "privacy",
 ] as const;
+
+export const REVIEW_KEYS = ["qe", "designer"] as const;

@@ -27,8 +27,7 @@ export async function FeatureCards() {
         <h2 id="features-heading" className="text-center text-3xl font-bold leading-tight tracking-tight md:text-[40px] md:leading-[48px]">
           {t.rich("heading.line1", {
             brand: (chunks) => <span className="text-brand">{chunks}</span>,
-          })}
-          <br />
+          })}{" "}
           {t.rich("heading.line2", {
             brand: (chunks) => <span className="text-brand">{chunks}</span>,
           })}
@@ -46,7 +45,7 @@ export async function FeatureCards() {
                 className="h-6 w-6 text-primary md:h-7 md:w-7"
                 strokeWidth={1.5}
               />
-              <h3 className="mt-4 text-xl font-bold leading-snug md:text-2xl">
+              <h3 className="mt-4 text-xl font-semibold leading-snug md:text-2xl">
                 {t(`items.${f.key}.title`)}
               </h3>
               <p className="mt-4 text-base leading-snug text-foreground">
