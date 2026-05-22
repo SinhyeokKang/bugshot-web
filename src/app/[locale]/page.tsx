@@ -29,19 +29,19 @@ export default async function Home({
       <main id="main">
         <Hero />
         <Mockup />
-        <section className="border-b py-20 md:py-[120px]">
+        <section aria-labelledby="features-heading" className="border-b py-20 md:py-[120px]">
           <FeatureCards />
         </section>
         <ScrollReveal className="border-b py-20 md:py-[120px]">
           <Review />
         </ScrollReveal>
-        <section className="border-b py-20 md:py-[120px]">
+        <section aria-labelledby="how-heading" className="border-b py-20 md:py-[120px]">
           <HowItWorks />
         </section>
+        <ScrollReveal className="py-24 md:py-[200px]">
+          <BottomCta />
+        </ScrollReveal>
       </main>
-      <ScrollReveal className="py-24 md:py-[200px]">
-        <BottomCta />
-      </ScrollReveal>
       <Footer />
     </>
   );

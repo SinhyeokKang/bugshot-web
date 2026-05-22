@@ -90,6 +90,7 @@
     }
   },
   "review": {
+    "srHeading": "사용자 리뷰",
     "author": "안**, QA Engineer",
     "quote": "DevTools 열고, 스크린샷 찍고, Jira에 따로 정리하던 작업을 브라우저 안에서 한 번에 끝낼 수 있어서 편합니다. 수정 결과와 diff, 영상까지 함께 전달되니까 커뮤니케이션 비용도 많이 줄었어요.",
     "source": "Chrome Web Store Review"

@@ -9,7 +9,7 @@ import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { routing } from "@/i18n/routing";
-import { SITE_URL } from "@/lib/constants";
+import { SITE_URL, CHROME_WEB_STORE_URL } from "@/lib/constants";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -38,6 +38,7 @@ export async function generateMetadata({
           "79f463827c65e552ad423cf396466a6d9aea1984",
       },
     },
+    robots: { index: true, follow: true },
     alternates: {
       canonical: url,
       languages: {
@@ -108,6 +109,7 @@ export default async function LocaleLayout({
       url: "https://github.com/SinhyeokKang",
     },
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    downloadUrl: CHROME_WEB_STORE_URL,
   };
 
   return (

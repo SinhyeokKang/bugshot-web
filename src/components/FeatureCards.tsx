@@ -24,7 +24,7 @@ export async function FeatureCards() {
   return (
     <div className="container mx-auto max-w-[1200px]">
       <ScrollReveal as="div">
-        <h2 className="text-center text-3xl font-bold leading-tight tracking-tight md:text-[40px] md:leading-[48px]">
+        <h2 id="features-heading" className="text-center text-3xl font-bold leading-tight tracking-tight md:text-[40px] md:leading-[48px]">
           {t.rich("heading.line1", {
             brand: (chunks) => <span className="text-brand">{chunks}</span>,
           })}

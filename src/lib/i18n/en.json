@@ -90,6 +90,7 @@
     }
   },
   "review": {
+    "srHeading": "User review",
     "author": "안**, QA Engineer",
     "quote": "I used to juggle DevTools, screenshots, and Jira separately — now it all happens in the browser without breaking my flow. Replacing text explanations with visual diffs and recordings cut our back-and-forth way down.",
     "source": "Chrome Web Store Review"
