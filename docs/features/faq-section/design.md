@@ -26,6 +26,7 @@ Hero → Mockup → FeatureCards → Review → HowItWorks → FAQ(신규) → B
 | `src/lib/i18n/ko.json` | 한글 메시지 | `faq` 네임스페이스 추가 |
 | `src/lib/i18n/en.json` | 영문 메시지 | `faq` 네임스페이스 추가 |
 | `src/app/[locale]/page.tsx` | 랜딩 페이지 조합 | HowItWorks section 아래에 Faq section 추가 |
+| `src/lib/constants.ts` | 외부 링크 상수 | `FAQ_KEYS` 상수 추가 |
 | `src/app/[locale]/layout.tsx` | 메타데이터·JSON-LD | FAQPage JSON-LD script 태그 추가 |
 
 ### 건드리지 않는 파일
@@ -50,7 +51,7 @@ i18n/ko.json (또는 en.json)
 {
   heading: string;
   items: {
-    [key in "whatIs" | "browser" | "pricing" | "ai" | "integrations" | "privacy"]: {
+    [key in "browser" | "pricing" | "ai" | "integrations" | "privacy"]: {
       q: string;
       a: string;
     };
@@ -68,25 +69,30 @@ export async function Faq(): Promise<JSX.Element>
 
 **핵심 결정**:
 - **서버 컴포넌트**: `getTranslations`는 서버 전용. shadcn Accordion은 내부적으로 클라이언트 컴포넌트이지만, 서버 컴포넌트에서 렌더 가능 (React RSC 규칙).
-- **`Accordion type="multiple"`**: 여러 항목 동시 펼치기 허용.
-- **컨테이너**: `container mx-auto max-w-[800px]` — 텍스트 전용 콘텐츠이므로 가독성 위해 좁게. Review 섹션(960px)보다 약간 좁음.
-- **ScrollReveal**: 헤딩 + 아코디언 블록 각각 1개씩 (섹션 레벨). 개별 AccordionItem에 걸지 않음 — 아코디언은 하나의 인터랙티브 블록.
+- **`Accordion type="single" collapsible`**: 한 번에 하나만 펼침. 항목 간 비교 필요 없는 FAQ에 적합. `collapsible`로 열린 항목을 다시 클릭해 접기 허용.
+- **컨테이너**: `container mx-auto max-w-[960px]` — 텍스트 전용 콘텐츠이므로 가독성 위해 좁게. Review 섹션과 동일 너비.
+- **ScrollReveal**: 헤딩(`<ScrollReveal as="div">`) + 아코디언 블록(`<ScrollReveal as="div">`) 각각 1개씩 (섹션 레벨). 개별 AccordionItem에 걸지 않음 — 아코디언은 하나의 인터랙티브 블록. page.tsx에서 outer `<section aria-labelledby="faq-heading">`으로 감싼다.
 
 ### 스타일링
 
 - 헤딩: 기존 섹션 헤딩과 동일 — `text-center text-3xl font-bold leading-tight tracking-tight md:text-[40px] md:leading-[48px]`. `t("heading")` 사용 (brand 하이라이트 불필요).
-- AccordionTrigger: 기본 shadcn 스타일에 `text-base md:text-lg` 오버라이드 (기본 `text-sm`이 랜딩 페이지에 비해 작음).
-- AccordionContent: `text-muted-foreground` 추가로 Q/A 시각 위계 구분.
+- AccordionTrigger: className prop으로 `cn()` 병합 — `text-base md:text-lg` 오버라이드 (기본 `text-sm`이 랜딩 페이지에 비해 작음). `accordion.tsx` 자체는 수정하지 않음.
+- AccordionContent: className prop으로 `text-base text-muted-foreground` 추가. 기본 `text-sm`을 다른 섹션 본문과 동일한 `text-base`로 맞추고, Q/A 시각 위계 구분.
 - 아코디언 상단 여백: `mt-12` (헤딩과 아코디언 사이, 기존 섹션들과 동일).
 
 ### FAQPage JSON-LD
 
 ```typescript
 // layout.tsx에 추가
+import { FAQ_KEYS } from "@/lib/constants";
+
+const faqT = await getTranslations({ locale, namespace: "faq" });
+
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: faqKeys.map((key) => ({
+  url: `https://bugshot.dev/${locale}`,
+  mainEntity: FAQ_KEYS.map((key) => ({
     "@type": "Question",
     name: faqT(`items.${key}.q`),
     acceptedAnswer: {
@@ -101,7 +107,7 @@ const faqJsonLd = {
 
 ## 기존 패턴 준수
 
-- **섹션 구조**: outer `<section>` (border-b + padding)은 page.tsx에 배치. Faq.tsx 내부에 section을 넣지 않음. FeatureCards·HowItWorks와 동일 패턴.
+- **섹션 구조**: outer `<section aria-labelledby="faq-heading">` (border-b + padding)은 page.tsx에 배치. Faq.tsx 내부에 section을 넣지 않음. FeatureCards·HowItWorks와 동일 패턴.
 - **반응형**: `md:` 브레이크포인트만 사용.
 - **i18n**: `getTranslations` (서버) 패턴. `useTranslations` (클라이언트) 아님.
 - **shadcn/ui 우선**: Accordion은 `npx shadcn@latest add accordion`으로 설치.
@@ -109,9 +115,9 @@ const faqJsonLd = {
 
 ## 대안 검토
 
-**정적 리스트 (채택하지 않음)**: 모든 Q&A가 펼쳐진 채 보이는 방식. 추가 의존성 불필요하나, 6개 항목이 모두 보이면 페이지가 길어지고 사용자가 관심 있는 항목을 찾기 어려움. 아코디언이 FAQ UX의 표준 패턴이고 FAQPage 리치 스니펫과도 자연스럽게 대응.
+**정적 리스트 (채택하지 않음)**: 모든 Q&A가 펼쳐진 채 보이는 방식. 추가 의존성 불필요하나, 5개 항목이 모두 보이면 페이지가 길어지고 사용자가 관심 있는 항목을 찾기 어려움. 아코디언이 FAQ UX의 표준 패턴이고 FAQPage 리치 스니펫과도 자연스럽게 대응.
 
 ## 위험 요소
 
 - **`output: 'export'` 환경에서 Radix Accordion 동작**: Radix UI 컴포넌트는 정적 빌드에서 정상 동작한다 (클라이언트 JS로 번들됨). 기존 Mockup.tsx도 클라이언트 인터랙션을 사용 중이므로 동일 패턴.
-- **faqKeys 중복**: `Faq.tsx`와 `layout.tsx`에 각각 키 배열 정의. 6개 문자열이라 공유 파일 추출은 과도한 추상화. 항목 추가/삭제 시 양쪽 모두 업데이트 필요.
+- **faqKeys 공유**: `FAQ_KEYS` 상수를 `constants.ts`에 `as const`로 export. `Faq.tsx`와 `layout.tsx`에서 import하여 사용. 항목 추가/삭제 시 i18n JSON + 상수 2곳만 수정.
