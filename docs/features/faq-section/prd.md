@@ -24,13 +24,45 @@
 
 ### FAQ 항목 (5개)
 
-| # | 질문 (ko) | 요약 |
-|---|-----------|------|
-| 1 | 어떤 브라우저에서 사용할 수 있나요? | Chrome + Chromium 기반(Edge, Brave, Arc) |
-| 2 | 무료인가요? | 무료, 가입 불필요 |
-| 3 | AI 리포트는 어떻게 생성되나요? | 수집 데이터 → AI 분석 → 구조화된 리포트 |
-| 4 | 어떤 이슈 트래커를 지원하나요? | Jira, GitHub, Linear, Notion + Markdown 내보내기 |
-| 5 | 수집된 데이터는 어떻게 처리되나요? | 로컬 처리, 외부 저장 없음 |
+| # | i18n key | 질문 (ko) | 질문 (en) |
+|---|----------|-----------|-----------|
+| 1 | browser | 어떤 브라우저에서 사용할 수 있나요? | Which browsers are supported? |
+| 2 | pricing | 무료인가요? | Is it free? |
+| 3 | ai | AI 기능을 쓰려면 무엇이 필요한가요? | What do I need to use the AI feature? |
+| 4 | integrations | 어떤 이슈 트래커를 지원하나요? | Which issue trackers are supported? |
+| 5 | privacy | 수집된 데이터는 어떻게 처리되나요? | How is collected data handled? |
+
+### FAQ 답변
+
+#### 1. 어떤 브라우저에서 사용할 수 있나요?
+
+**ko**: Chrome 및 Chromium 기반 브라우저(Edge, Brave, Arc 등)에서 사용할 수 있습니다. Chrome 116 이상이 필요합니다.
+
+**en**: BugShot works on Chrome and Chromium-based browsers like Edge, Brave, and Arc. Chrome 116 or later is required.
+
+#### 2. 무료인가요?
+
+**ko**: 네, 완전히 무료이고 가입도 필요 없습니다. 설치 후 바로 사용할 수 있습니다.
+
+**en**: Yes, completely free with no sign-up required. Install and start reporting right away.
+
+#### 3. AI 기능을 쓰려면 무엇이 필요한가요?
+
+**ko**: Chrome 내장 AI를 사용하면 별도 설정 없이 바로 쓸 수 있습니다. OpenAI·Anthropic·Gemini 등 외부 LLM을 사용하려면 본인의 API 키만 입력하면 됩니다.
+
+**en**: Chrome's built-in AI works out of the box with no setup. To use external LLMs like OpenAI, Anthropic, or Gemini, just enter your own API key.
+
+#### 4. 어떤 이슈 트래커를 지원하나요?
+
+**ko**: Jira·GitHub·Linear·Notion으로 리포트와 첨부 파일을 바로 제출할 수 있습니다. 이슈 트래커를 사용하지 않는 경우 Markdown으로 복사해 원하는 곳에 붙여넣을 수도 있습니다.
+
+**en**: Submit reports with attachments directly to Jira, GitHub, Linear, or Notion. You can also copy as Markdown and paste it wherever your team works.
+
+#### 5. 수집된 데이터는 어떻게 처리되나요?
+
+**ko**: 모든 데이터는 브라우저 로컬에만 저장되며, BugShot 서버로 전송되지 않습니다. 이슈 제출이나 AI 리포트 생성 시에만 해당 서비스로 데이터가 전달되고, 제출이 완료되면 로컬 데이터는 자동으로 삭제됩니다.
+
+**en**: All data is stored locally in your browser and is never sent to BugShot's servers. Data is only shared with the services you use — your issue tracker or AI provider — and local data is automatically deleted after submission.
 
 ## 성공 기준
 
