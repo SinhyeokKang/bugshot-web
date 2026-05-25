@@ -12,6 +12,7 @@
 - 스텝을 4개에서 **6개**로 확장하여 BugShot의 전체 워크플로우(연동→캡처모드→스타일 수정→AI 초안→제출→추적)를 커버한다.
 - Accordion 선택에 따라 좌측 목업 이미지가 교체되어, 각 스텝의 실제 화면을 보여준다.
 - 모바일에서는 이미지를 숨기고 Accordion만 표시한다.
+- 섹션 헤딩을 ko: "BugShot 사용 방법" / en: "How to use BugShot"으로 변경한다.
 
 ## 비목표 (Non-goals)
 
@@ -55,9 +56,9 @@
 ### 3. 스타일 수정
 
 - **ko title**: 스타일 수정
-- **ko description**: 요소를 클릭해 적용된 스타일을 확인하고, 페이지 위에서 바로 수정할 수 있습니다. 수정 전후 차이가 자동으로 기록되어 리포트에 포함됩니다.
+- **ko description**: 캡처 후 바로 요소를 클릭해 스타일을 수정할 수 있습니다. 수정 전후 차이가 자동으로 기록되어 다음 단계의 AI 초안에 반영됩니다.
 - **en title**: Edit styles
-- **en description**: Click any element to view its applied styles and edit them right on the page. Before-and-after changes are recorded automatically and included in the report.
+- **en description**: Right after capturing, click any element to edit its styles. Before-and-after changes are recorded automatically and fed into the AI draft in the next step.
 
 ### 4. AI 초안
 
@@ -86,5 +87,7 @@
 - [ ] Accordion 항목 전환 시 좌측 이미지가 페이드 전환된다.
 - [ ] 목업 이미지 좌측에 그래디언트 페이드 오버레이가 적용된다.
 - [ ] 모바일(md 미만)에서 Accordion만 표시되고, 이미지 영역은 숨겨진다.
-- [ ] ko.json / en.json에 6스텝 카피가 반영되고, 기존 4스텝 키가 제거된다.
+- [ ] ko.json / en.json에 6스텝 카피 + 헤딩 변경이 반영되고, 기존 4스텝 키가 제거된다.
+- [ ] 6장의 목업 이미지(520×720, webp)가 `/images/how-steps/how-{key}.webp` 네이밍으로 배치된다.
+- [ ] 접근성: 이미지 alt 텍스트, 비활성 이미지 aria-hidden, 키보드(Tab/Enter/Space/Arrow) Accordion 탐색 시 이미지 전환 정상 동작.
 - [ ] 빌드 에러 없음. 타입 에러 없음.

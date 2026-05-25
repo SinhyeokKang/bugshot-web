@@ -12,11 +12,13 @@
 - **현재**: 서버 컴포넌트. `getTranslations` 사용. 4스텝 카드 그리드(`ol > li`).
 - **변경**: 클라이언트 컴포넌트로 전환. `useTranslations` 사용. 좌측 목업 + 우측 Accordion 레이아웃.
   - `"use client"` 추가
-  - `useState`로 활성 스텝 인덱스 관리
+  - `useState`로 활성 스텝 키 관리
   - `Accordion` `onValueChange`로 활성 스텝 동기화
-  - 이미지 전환: `grid` 스택 + `opacity` 토글 (Mockup.tsx의 슬라이드 전환 패턴)
-  - ScrollReveal 유지 (`useScrollReveal` 훅 사용)
-  - 좌측 그래디언트 오버레이: absolute positioned div + `bg-gradient-to-r from-background to-transparent`
+  - 이미지: `<img>` 직접 사용 (기존 패턴). `alt` 텍스트에 스텝 제목 포함. 비활성 이미지에 `aria-hidden` 적용. `width`/`height` 속성 명시.
+  - 이미지 전환: `grid` 스택 + `opacity` + `transition-opacity duration-300 ease-out` (Mockup.tsx 패턴)
+  - ScrollReveal: `useScrollReveal` 훅을 컴포넌트 최상위 `<div>`에 ref로 부착 (전체 단일 reveal, Mockup.tsx 패턴)
+  - heading에 `id="how-heading"` 유지 (page.tsx의 `aria-labelledby` 연결)
+  - 좌측 그래디언트 오버레이: 이미지 컨테이너 **바깥**에 absolute positioned div + `bg-gradient-to-r from-background to-transparent`
 
 #### `src/lib/constants.ts`
 - **현재**: `FAQ_KEYS`, `REVIEW_KEYS` 정의.
@@ -34,11 +36,11 @@
 
 #### `src/lib/i18n/ko.json` — `how` 섹션
 - **현재**: `how.steps`에 4개 키 (`launch`, `recordInspect`, `aiReport`, `submit`).
-- **변경**: 6개 키로 교체. 기존 4키 제거, 새 6키(`connectTracker`, `captureMode`, `editStyles`, `aiDraft`, `submitReport`, `trackIssues`) 추가. heading 유지.
+- **변경**: 6개 키로 교체. 기존 4키 제거, 새 6키(`connectTracker`, `captureMode`, `editStyles`, `aiDraft`, `submitReport`, `trackIssues`) 추가. heading을 "BugShot 사용 방법"으로 변경.
 
 #### `src/lib/i18n/en.json` — `how` 섹션
 - **현재**: 4개 키.
-- **변경**: ko.json과 동일 구조로 6개 키 교체.
+- **변경**: ko.json과 동일 구조로 6개 키 교체. heading은 "How to use BugShot" 유지.
 
 ### 변경 없는 파일
 
@@ -49,6 +51,7 @@
 ### 삭제되는 것
 
 - 기존 `how.steps` i18n 키 4개 모두 제거 (`launch`, `recordInspect`, `aiReport`, `submit`).
+- 기존 목업 이미지 4장 삭제: `HowItWorks-1.webp`, `HowItWorks-2.webp`, `HowItWorks-3.webp`, `HowItWorks-4.webp` (새 이미지 6장 배치 후).
 
 ## 데이터 흐름
 
@@ -76,8 +79,6 @@ export const HOW_KEYS = [
   "submitReport",
   "trackIssues",
 ] as const;
-
-type HowKey = (typeof HOW_KEYS)[number];
 ```
 
 ```ts
@@ -96,12 +97,13 @@ const handleValueChange = (value: string) => {
 
 ```
 container max-w-[1200px]
-├── heading (centered)
+├── heading (centered, id="how-heading")
 └── flex gap-10 (40px)
-    ├── 목업 영역 (w-[520px], relative, hidden md:block)
-    │   ├── image container (rounded-card border-[12px] border-border overflow-hidden)
-    │   │   └── grid 스택 이미지 6장 (opacity 전환)
-    │   └── gradient overlay (absolute left-0 inset-y-0 w-[80px])
+    ├── 목업 영역 (basis-[45%], relative, hidden md:block)
+    │   ├── image container (rounded-card border-[12px] border-border overflow-hidden aspect-[520/720])
+    │   │   └── grid 스택 이미지 6장 (<img>, opacity + duration-300 ease-out 전환)
+    │   │       └── 활성: opacity-100, 비활성: opacity-0 aria-hidden="true"
+    │   └── gradient overlay (컨테이너 바깥, absolute left-0 inset-y-0 w-[80px])
     └── accordion 영역 (flex-1)
         └── Accordion (6 items, single, collapsible)
 ```
@@ -117,11 +119,15 @@ container max-w-[1200px]
 
 ### 목업 이미지 스펙
 
-- 종횡비: 520×800 (실제 제공 이미지 기준)
+- 종횡비: 520×720 (실제 제공 이미지 기준)
 - 포맷: webp
 - 네이밍: `/images/how-steps/how-{key}.webp` (예: `how-connectTracker.webp`)
-- border: Mockup 섹션과 동일 — `rounded-card border-[6px] md:border-[12px] border-border`
-- 좌측 그래디언트: `absolute left-0 inset-y-0 w-[80px] bg-gradient-to-r from-background to-transparent`
+- 렌더링: `<img>` 태그 직접 사용 (Mockup.tsx 패턴). `width={520} height={720}` 명시.
+- `alt`: `t(\`steps.${key}.title\`)` — 스텝 제목을 alt 텍스트로 사용.
+- 비활성 이미지: `aria-hidden="true"` 적용 (Mockup.tsx 패턴).
+- 컨테이너: `rounded-card border-[12px] border-border overflow-hidden aspect-[520/720]` (데스크톱 전용이므로 모바일 분기 없음)
+- 이미지 전환: `transition-opacity duration-300 ease-out` (Mockup.tsx 패턴)
+- 좌측 그래디언트: 이미지 컨테이너 **바깥**에 `absolute left-0 inset-y-0 w-[80px] bg-gradient-to-r from-background to-transparent pointer-events-none`
 
 ### Accordion 스타일
 
@@ -134,13 +140,16 @@ container max-w-[1200px]
 ## 기존 패턴 준수
 
 - **클라이언트 컴포넌트 전환**: Mockup.tsx와 동일한 패턴 — `"use client"` + `useTranslations` + `useState`.
-- **이미지 전환**: Mockup.tsx의 `grid` 스택 + `opacity` 전환 패턴 재사용.
+- **이미지 전환**: Mockup.tsx의 `grid` 스택 + `opacity` + `duration-300 ease-out` 전환 패턴 재사용.
+- **이미지 렌더링**: `<img>` 태그 직접 사용 (Mockup.tsx 패턴). `next/image` 아님.
+- **이미지 접근성**: `alt` 텍스트 + 비활성 `aria-hidden` (Mockup.tsx 패턴).
 - **Accordion 사용**: Faq.tsx의 shadcn Accordion 사용 패턴과 동일.
-- **ScrollReveal**: `useScrollReveal` 훅 사용 (클라이언트 컴포넌트이므로 `ref` 기반).
+- **ScrollReveal**: `useScrollReveal` 훅을 컴포넌트 최상위 `<div>`에 ref로 부착 (전체 단일 reveal).
+- **heading id**: `id="how-heading"` 유지 — page.tsx의 `aria-labelledby="how-heading"`과 연결.
 - **반응형**: `md:` 브레이크포인트만 사용. 모바일 기본 → md에서 데스크톱.
 - **섹션 구조**: outer `<section>`은 page.tsx에서 이미 감싸고 있으므로 컴포넌트 내부는 `<div>`.
 - **이미지 네이밍**: `/images/how-steps/` 디렉터리 유지.
-- **constants 패턴**: `FAQ_KEYS`, `REVIEW_KEYS`와 동일하게 `HOW_KEYS` 정의.
+- **constants 패턴**: `FAQ_KEYS`, `REVIEW_KEYS`와 동일하게 `HOW_KEYS` 정의 (별도 타입 export 없음).
 
 ## 대안 검토
 
