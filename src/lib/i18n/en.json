@@ -70,22 +70,31 @@
   },
   "how": {
     "heading": "How to use BugShot",
+    "nextStep": "Next step",
     "steps": {
-      "launch": {
-        "title": "Launch BugShot",
-        "description": "Click the BugShot icon or open the side panel with a keyboard shortcut."
+      "connectTracker": {
+        "title": "Connect your tracker",
+        "description": "Link Jira, GitHub, Linear, or Notion via OAuth or API key. Projects, labels, assignees, and priorities sync automatically — no reconfiguration needed when filing issues."
       },
-      "recordInspect": {
-        "title": "Record & inspect",
-        "description": "Capture up to 60 seconds with logs, or select any element to edit styles live."
+      "captureMode": {
+        "title": "Choose a capture mode",
+        "description": "Pick from screenshot, up to 60-second recording, element inspection, or freeform. During recording, console logs and network requests are captured automatically — headers and bodies included, with sensitive headers auto-masked."
       },
-      "aiReport": {
-        "title": "AI report",
-        "description": "Get a structured draft with reproduction steps, expected and actual behavior — built from your captured data."
+      "editStyles": {
+        "title": "Edit the styles",
+        "description": "Click any element to edit CSS directly, or ask AI to change styles in plain language. Before-and-after snapshots and a diff table of changed properties are automatically included in the report."
       },
-      "submit": {
-        "title": "Submit or export",
-        "description": "Share via Markdown, your issue tracker, or any format your team prefers."
+      "aiDraft": {
+        "title": "AI generates a draft",
+        "description": "Feeds collected environment info, logs, screenshots, and style diffs into AI to generate a structured report with reproduction steps, expected behavior, and actual behavior. Chrome's built-in AI works instantly; OpenAI, Anthropic, and Gemini just need an API key."
+      },
+      "submitReport": {
+        "title": "Submit your report",
+        "description": "File the report to your tracker with screenshots, recordings, HAR logs, and console logs attached — inline on Jira. No tracker? Copy as Markdown + HTML and paste into Slack or Confluence."
+      },
+      "trackIssues": {
+        "title": "Check issue status",
+        "description": "View issue status in real time right inside BugShot. Transition Jira workflows, toggle GitHub Open/Closed, or change Linear states — all without leaving BugShot to open your tracker."
       }
     }
   },

@@ -14,3 +14,12 @@ export const FAQ_KEYS = [
 ] as const;
 
 export const REVIEW_KEYS = ["qe", "designer"] as const;
+
+export const HOW_KEYS = [
+  "connectTracker",
+  "captureMode",
+  "editStyles",
+  "aiDraft",
+  "submitReport",
+  "trackIssues",
+] as const;

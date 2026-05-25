@@ -33,12 +33,12 @@ export default async function Home({
         <section aria-labelledby="features-heading" className="border-b py-20 md:py-[120px]">
           <FeatureCards />
         </section>
-        <ScrollReveal className="border-b py-20 md:py-[120px]">
-          <Review />
-        </ScrollReveal>
         <section aria-labelledby="how-heading" className="border-b py-20 md:py-[120px]">
           <HowItWorks />
         </section>
+        <ScrollReveal className="border-b py-20 md:py-[120px]">
+          <Review />
+        </ScrollReveal>
         <section aria-labelledby="faq-heading" className="border-b py-20 md:py-[120px]">
           <Faq />
         </section>

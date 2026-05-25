@@ -1,46 +1,100 @@
-import { getTranslations } from "next-intl/server";
-import { ScrollReveal } from "@/components/ScrollReveal";
+"use client";
 
-const steps = [
-  { key: "launch", image: "HowItWorks-1" },
-  { key: "recordInspect", image: "HowItWorks-2" },
-  { key: "aiReport", image: "HowItWorks-3" },
-  { key: "submit", image: "HowItWorks-4" },
-] as const;
+import { useState } from "react";
+import { useTranslations } from "next-intl";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { cn } from "@/lib/utils";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { HOW_KEYS } from "@/lib/constants";
 
-export async function HowItWorks() {
-  const t = await getTranslations("how");
+export function HowItWorks() {
+  const t = useTranslations("how");
+  const { ref, revealed } = useScrollReveal<HTMLDivElement>();
+  const [activeKey, setActiveKey] = useState<string>(HOW_KEYS[0]);
+
+  const handleValueChange = (value: string) => {
+    if (value) setActiveKey(value);
+  };
+
+  const handleNext = () => {
+    const idx = HOW_KEYS.indexOf(activeKey as typeof HOW_KEYS[number]);
+    setActiveKey(HOW_KEYS[(idx + 1) % HOW_KEYS.length]);
+  };
 
   return (
-    <div className="container mx-auto max-w-[1200px]">
-      <ScrollReveal as="div">
-        <h2 id="how-heading" className="text-center text-3xl font-bold leading-tight tracking-tight md:text-[40px] md:leading-[48px]">
-          {t.rich("heading", {
-            brand: (chunks) => <span className="text-brand">{chunks}</span>,
-          })}
-        </h2>
-      </ScrollReveal>
-      <ol className="mt-12 grid list-none grid-cols-1 gap-6 md:grid-cols-4">
-        {steps.map((step, i) => (
-          <ScrollReveal key={step.key} as="li" className="mb-4 flex flex-col">
-            <img
-              src={`/images/how-steps/${step.image}.webp`}
-              alt={t(`steps.${step.key}.title`)}
-              width={528}
-              height={330}
-              className="aspect-[16/10] w-full rounded-2xl border object-cover"
-            />
-            <div className="px-1.5">
-              <h3 className="mt-4 text-[18px] font-semibold leading-snug md:text-[20px]">
-                {i + 1}. {t(`steps.${step.key}.title`)}
-              </h3>
-              <p className="mt-2 text-base leading-snug text-foreground">
-                {t(`steps.${step.key}.description`)}
-              </p>
+    <div
+      ref={ref}
+      className={cn(
+        "container mx-auto max-w-[1200px] transition-all duration-1000 ease-out",
+        revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      )}
+    >
+      <h2
+        id="how-heading"
+        className="text-center text-3xl font-semibold leading-tight tracking-tight md:text-[40px] md:leading-[48px]"
+      >
+        {t("heading")}
+      </h2>
+
+      <div className="mt-12 flex gap-10">
+        <div className="flex-1">
+          <Accordion
+            type="single"
+            value={activeKey}
+            onValueChange={handleValueChange}
+          >
+            {HOW_KEYS.map((key, i) => (
+              <AccordionItem key={key} value={key}>
+                <AccordionTrigger className="text-[18px] font-semibold md:text-[20px]">
+                  {i + 1}. {t(`steps.${key}.title`)}
+                </AccordionTrigger>
+                <AccordionContent className="text-base text-foreground">
+                  <img
+                    src={`/images/how-steps/how-${key}-mobile.webp`}
+                    alt={t(`steps.${key}.title`)}
+                    width={1374}
+                    height={2022}
+                    className="mb-3 w-full max-w-[320px] md:hidden"
+                  />
+                  {t(`steps.${key}.description`)}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+
+        <div className="relative hidden basis-[45%] md:block">
+          <button
+            type="button"
+            onClick={handleNext}
+            aria-label={t("nextStep")}
+            className="w-full cursor-pointer overflow-hidden rounded-r-card border-[12px] border-l-0 border-border aspect-[520/720]"
+          >
+            <div className="grid h-full">
+              {HOW_KEYS.map((key) => (
+                <img
+                  key={key}
+                  src={`/images/how-steps/how-${key}.webp`}
+                  alt={t(`steps.${key}.title`)}
+                  width={508}
+                  height={696}
+                  aria-hidden={key !== activeKey}
+                  className={cn(
+                    "col-start-1 row-start-1 h-full w-full object-cover transition-opacity duration-300 ease-out",
+                    key === activeKey ? "opacity-100" : "opacity-0"
+                  )}
+                />
+              ))}
             </div>
-          </ScrollReveal>
-        ))}
-      </ol>
+          </button>
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-[104px] bg-gradient-to-r from-background to-transparent" />
+        </div>
+      </div>
     </div>
   );
 }

@@ -16,7 +16,7 @@ export async function Faq() {
       <ScrollReveal as="div">
         <h2
           id="faq-heading"
-          className="text-center text-3xl font-bold leading-tight tracking-tight md:text-[40px] md:leading-[48px]"
+          className="text-center text-3xl font-semibold leading-tight tracking-tight md:text-[40px] md:leading-[48px]"
         >
           {t("heading")}
         </h2>
