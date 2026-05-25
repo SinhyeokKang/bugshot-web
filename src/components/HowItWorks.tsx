@@ -83,7 +83,7 @@ export function HowItWorks() {
                   height={696}
                   aria-hidden={key !== activeKey}
                   className={cn(
-                    "col-start-1 row-start-1 h-full w-full object-cover transition-opacity duration-300 ease-out",
+                    "col-start-1 row-start-1 h-full w-full object-contain object-right transition-opacity duration-300 ease-out",
                     key === activeKey ? "opacity-100" : "opacity-0"
                   )}
                 />
