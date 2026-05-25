@@ -117,7 +117,8 @@
   "bottomCta": {
     "heading": "All your Bugs, <brand>One Workflow</brand>.",
     "subcopy": ["From bug discovery to issue submission —", "all without leaving the browser."],
-    "cta": "Add to Chrome"
+    "cta": "Add to Chrome",
+    "copyright": "© 2026 BugShot"
   },
   "faq": {
     "heading": "Frequently Asked Questions",
@@ -145,8 +146,8 @@
     }
   },
   "footer": {
-    "copyright": "© 2026 BugShot",
     "github": "GitHub",
-    "privacy": "Privacy Policy"
+    "privacy": "Privacy Policy",
+    "contact": "Contact"
   }
 }

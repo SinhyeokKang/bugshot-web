@@ -4,6 +4,7 @@ export const CHROME_WEB_STORE_URL =
 export const GITHUB_URL = "https://github.com/SinhyeokKang/bugshot-2";
 export const PRIVACY_POLICY_URL =
   "https://sinhyeokkang.github.io/bugshot-2/privacy";
+export const CONTACT_EMAIL = "ox501501@gmail.com";
 
 export const FAQ_KEYS = [
   "pricing",

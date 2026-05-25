@@ -32,6 +32,9 @@ export async function BottomCta() {
           {t("cta")}
         </a>
       </Button>
+      <span className="mt-4 text-base text-muted-foreground">
+        {t("copyright")}
+      </span>
     </div>
   );
 }
