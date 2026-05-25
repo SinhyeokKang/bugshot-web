@@ -60,7 +60,7 @@ src/
 │   ├── ScrollReveal.tsx    # 스크롤 reveal 래퍼 (client) — section + Intersection Observer 애니메이션
 │   ├── Faq.tsx             # FAQ 아코디언 (서버 컴포넌트, shadcn Accordion)
 │   ├── FeatureCards.tsx    # 기능 카드 6개 (2×2×2 균등 그리드)
-│   ├── HowItWorks.tsx      # 4-step 가로 플로우 (이미지 카드)
+│   ├── HowItWorks.tsx      # 6-step 아코디언 + 이미지 패널 (client)
 │   ├── Review.tsx          # 사용자 리뷰 캐러셀 (client) — grid 스택 opacity 페이드 + dot navigation + 5초 자동 전환
 │   ├── BottomCta.tsx       # 하단 CTA 배너
 │   ├── Footer.tsx          # GitHub·Privacy Policy 링크
@@ -72,7 +72,7 @@ src/
 │   ├── navigation.ts       # createNavigation — locale-aware Link, useRouter, usePathname
 │   └── request.ts          # getRequestConfig — messages 로딩
 └── lib/
-    ├── constants.ts        # 외부 링크 상수 + FAQ_KEYS + REVIEW_KEYS
+    ├── constants.ts        # 외부 링크 상수 + FAQ_KEYS + REVIEW_KEYS + HOW_KEYS
     ├── utils.ts            # cn() 유틸 (clsx + tailwind-merge)
     └── i18n/
         ├── en.json         # 영문 메시지
@@ -81,7 +81,7 @@ public/
 ├── images/
 │   ├── mockup-*.webp       # Mockup 슬라이드 스크린샷
 │   ├── how/                # FeatureCards 카드 미리보기 (PC/Mobile 분기, *-pc.webp / *-mobile.webp)
-│   └── how-steps/          # HowItWorks 스텝별 미리보기 (HowItWorks-1~4.webp)
+│   └── how-steps/          # HowItWorks 스텝별 미리보기 (how-{key}.webp + how-{key}-mobile.webp)
 └── bugshot-symbol.svg      # BugShot 로고 (Hero에서 next/image로 사용)
 vercel.json                 # Vercel rewrite (/ → /ko)
 ```
