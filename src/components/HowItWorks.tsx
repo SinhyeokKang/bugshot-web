@@ -57,9 +57,7 @@ export function HowItWorks() {
                   <img
                     src={`/images/how-steps/how-${key}-mobile.webp`}
                     alt={t(`steps.${key}.title`)}
-                    width={1374}
-                    height={2022}
-                    className="mb-3 w-full max-w-[320px] md:hidden"
+                    className="mb-3 w-full md:hidden"
                   />
                   {t(`steps.${key}.description`)}
                 </AccordionContent>
