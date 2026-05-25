@@ -73,7 +73,7 @@ export function HowItWorks() {
             aria-label={t("nextStep")}
             className="w-full cursor-pointer overflow-hidden rounded-r-card border-[12px] border-l-0 border-border aspect-[520/720]"
           >
-            <div className="grid h-full items-center justify-items-end">
+            <div className="grid h-full">
               {HOW_KEYS.map((key) => (
                 <img
                   key={key}
@@ -83,7 +83,7 @@ export function HowItWorks() {
                   height={696}
                   aria-hidden={key !== activeKey}
                   className={cn(
-                    "col-start-1 row-start-1 max-h-full max-w-full transition-opacity duration-300 ease-out",
+                    "col-start-1 row-start-1 h-full w-full object-contain object-[right_center] transition-opacity duration-300 ease-out",
                     key === activeKey ? "opacity-100" : "opacity-0"
                   )}
                 />
