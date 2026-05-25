@@ -23,9 +23,9 @@
 - **변경**: `HOW_KEYS` 배열 추가.
   ```ts
   export const HOW_KEYS = [
-    "launch",
     "connectTracker",
-    "inspectCaptureRecord",
+    "captureMode",
+    "editStyles",
     "aiDraft",
     "submitReport",
     "trackIssues",
@@ -34,7 +34,7 @@
 
 #### `src/lib/i18n/ko.json` — `how` 섹션
 - **현재**: `how.steps`에 4개 키 (`launch`, `recordInspect`, `aiReport`, `submit`).
-- **변경**: 6개 키로 교체. 기존 4키 제거, 새 6키 추가. heading 유지.
+- **변경**: 6개 키로 교체. 기존 4키 제거, 새 6키(`connectTracker`, `captureMode`, `editStyles`, `aiDraft`, `submitReport`, `trackIssues`) 추가. heading 유지.
 
 #### `src/lib/i18n/en.json` — `how` 섹션
 - **현재**: 4개 키.
@@ -48,7 +48,7 @@
 
 ### 삭제되는 것
 
-- 기존 `how.steps` i18n 키 4개 (`recordInspect`, `aiReport`, `submit` 제거. `launch`는 키 유지하되 description 변경).
+- 기존 `how.steps` i18n 키 4개 모두 제거 (`launch`, `recordInspect`, `aiReport`, `submit`).
 
 ## 데이터 흐름
 
@@ -69,9 +69,9 @@
 ```ts
 // constants.ts
 export const HOW_KEYS = [
-  "launch",
   "connectTracker",
-  "inspectCaptureRecord",
+  "captureMode",
+  "editStyles",
   "aiDraft",
   "submitReport",
   "trackIssues",
@@ -119,7 +119,7 @@ container max-w-[1200px]
 
 - 종횡비: 520×800 (실제 제공 이미지 기준)
 - 포맷: webp
-- 네이밍: `/images/how-steps/how-{key}.webp` (예: `how-launch.webp`)
+- 네이밍: `/images/how-steps/how-{key}.webp` (예: `how-connectTracker.webp`)
 - border: Mockup 섹션과 동일 — `rounded-card border-[6px] md:border-[12px] border-border`
 - 좌측 그래디언트: `absolute left-0 inset-y-0 w-[80px] bg-gradient-to-r from-background to-transparent`
 

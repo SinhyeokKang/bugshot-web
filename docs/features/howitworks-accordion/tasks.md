@@ -3,9 +3,9 @@
 ## 선행 조건
 
 - [ ] 6장의 목업 이미지 준비 (520×800 종횡비, webp, `/images/how-steps/` 디렉터리)
-  - `how-launch.webp`
   - `how-connectTracker.webp`
-  - `how-inspectCaptureRecord.webp`
+  - `how-captureMode.webp`
+  - `how-editStyles.webp`
   - `how-aiDraft.webp`
   - `how-submitReport.webp`
   - `how-trackIssues.webp`
@@ -18,9 +18,9 @@
 - **작업 내용**: `HOW_KEYS` 배열 추가. `FAQ_KEYS`, `REVIEW_KEYS`와 동일한 패턴.
   ```ts
   export const HOW_KEYS = [
-    "launch",
     "connectTracker",
-    "inspectCaptureRecord",
+    "captureMode",
+    "editStyles",
     "aiDraft",
     "submitReport",
     "trackIssues",
@@ -34,7 +34,7 @@
 
 - **변경 대상**: `src/lib/i18n/ko.json`, `src/lib/i18n/en.json`
 - **작업 내용**: `how.steps` 객체를 6개 새 키로 교체. 기존 4개 키 제거. heading 유지.
-  - 새 키: `launch`, `connectTracker`, `inspectCaptureRecord`, `aiDraft`, `submitReport`, `trackIssues`
+  - 새 키: `connectTracker`, `captureMode`, `editStyles`, `aiDraft`, `submitReport`, `trackIssues`
   - 각 키: `{ title, description }`
   - 카피는 PRD의 "6스텝 카피 초안" 참조
 - **검증**:
@@ -86,7 +86,7 @@
 - **수동 테스트 (브라우저)**:
   - [ ] `pnpm dev` → `/ko` 접속 → HowItWorks 섹션까지 스크롤
   - [ ] 데스크톱: 좌측 목업 + 우측 Accordion 레이아웃 확인
-  - [ ] 첫 번째 항목("BugShot 실행") 기본 펼쳐짐 + 해당 이미지 표시
+  - [ ] 첫 번째 항목("트래커 연동") 기본 펼쳐짐 + 해당 이미지 표시
   - [ ] 각 Accordion 항목 클릭 → 이미지 페이드 전환 확인
   - [ ] 펼쳐진 항목 재클릭 → 접힘, 이미지는 유지
   - [ ] 목업 좌측 그래디언트 오버레이 시각 확인
