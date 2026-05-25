@@ -39,4 +39,7 @@
     @apply bg-background text-foreground;
     word-break: keep-all;
   }
+  :lang(ko) .tracking-tight {
+    letter-spacing: 0;
+  }
 }
