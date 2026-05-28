@@ -15,56 +15,74 @@
     "next": "Next slide",
     "slides": {
       "inspect": {
-        "label": "Inspect",
+        "label": "Inspect & Edit",
         "caption": "Click any element to view its applied styles and attributes."
       },
+      "screenshot": {
+        "label": "Capture & Annotate",
+        "caption": "Capture the screen and mark up the issue directly with shapes, highlights, and text."
+      },
       "record": {
-        "label": "Capture & Record",
-        "caption": "Capture screenshots or record up to 60 seconds — with annotations and logs."
+        "label": "Record & Replay",
+        "caption": "Record live, or grab the last 30 seconds from the always-on replay buffer."
       },
       "log": {
-        "label": "Collect Logs",
+        "label": "Live Logs",
         "caption": "View console errors and network requests collected during your session."
       },
       "ai": {
-        "label": "AI Generation",
+        "label": "AI Report",
         "caption": "Turn collected data into a structured bug report with reproduction steps."
       },
-      "submit": {
-        "label": "Submit Issue",
-        "caption": "Submit tickets with full attachments to Jira, GitHub, Linear, or Notion."
+      "logsViewer": {
+        "label": "Log viewer",
+        "caption": "Open the attached log viewer and the video replays in sync with console, network, and action logs."
       }
     }
   },
   "features": {
-    "heading": {
-      "line1": "What you can do",
-      "line2": "with BugShot"
+    "reporter": {
+      "heading": {
+        "line1": "Stop explaining",
+        "line2": "bugs in words"
+      },
+      "items": {
+        "inspect": {
+          "title": "Inspect & Edit",
+          "description": "Click any element to view its styles, then tweak them live in the visual editor."
+        },
+        "screenshot": {
+          "title": "Capture & Annotate",
+          "description": "Capture the screen and mark up the issue right on top with shapes, highlights, and text."
+        },
+        "record": {
+          "title": "Record & Replay",
+          "description": "Record live, or grab the last 30 seconds from the always-on replay — catch the bug even after spotting it."
+        },
+        "ai": {
+          "title": "AI Report",
+          "description": "Turn captured data into a structured report with steps, expected, and actual behavior."
+        }
+      }
     },
-    "items": {
-      "inspect": {
-        "title": "Inspect & Edit CSS",
-        "description": "Click any element to view its styles, then tweak them live in the visual editor."
+    "dev": {
+      "heading": {
+        "line1": "Reports developers",
+        "line2": "actually want"
       },
-      "record": {
-        "title": "Capture & Record",
-        "description": "Take annotated screenshots or record up to 60 seconds to catch the exact moment a bug happens."
-      },
-      "log": {
-        "title": "Console & Network logs",
-        "description": "Console errors and network requests are captured automatically — no need to reproduce the bug."
-      },
-      "autoCollect": {
-        "title": "Auto-collect context",
-        "description": "Browser, resolution, DOM, console, and network logs collected — with noise filtered out."
-      },
-      "ai": {
-        "title": "AI bug reports",
-        "description": "Turn captured data into a structured report with steps, expected, and actual behavior."
-      },
-      "submit": {
-        "title": "One-click issue filing",
-        "description": "Submit tickets with full attachments to Jira, GitHub, Linear, or Notion in one click."
+      "items": {
+        "autoCollect": {
+          "title": "Auto-collect context",
+          "description": "Browser, resolution, and DOM context come with every report — no more asking the reporter what setup they were on."
+        },
+        "logsViewer": {
+          "title": "Log Viewer",
+          "description": "Open the attached log viewer and the video plays in sync with console, network, and action logs."
+        },
+        "submit": {
+          "title": "One-click issue filing",
+          "description": "Submit tickets with full attachments to Jira, GitHub, Linear, or Notion in one click."
+        }
       }
     }
   },
@@ -78,7 +96,7 @@
       },
       "captureMode": {
         "title": "Choose a capture mode",
-        "description": "Pick from screenshot, up to 60-second recording, element inspection, or freeform. During recording, console logs and network requests are captured automatically — headers and bodies included, with sensitive headers auto-masked."
+        "description": "Choose from screenshot, up to 60-second screen recording, an always-on 30s replay, or element inspection. Console logs and network requests are captured automatically while recording, with sensitive headers masked."
       },
       "editStyles": {
         "title": "Edit the styles",

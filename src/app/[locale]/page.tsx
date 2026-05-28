@@ -30,8 +30,11 @@ export default async function Home({
       <main id="main">
         <Hero />
         <Mockup />
-        <section aria-labelledby="features-heading" className="border-b py-20 md:py-[120px]">
-          <FeatureCards />
+        <section aria-labelledby="features-reporter-heading" className="border-b py-20 md:py-[120px]">
+          <FeatureCards group="reporter" />
+        </section>
+        <section aria-labelledby="features-dev-heading" className="border-b py-20 md:py-[120px]">
+          <FeatureCards group="dev" />
         </section>
         <section aria-labelledby="how-heading" className="border-b py-20 md:py-[120px]">
           <HowItWorks />

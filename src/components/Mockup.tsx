@@ -1,17 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { MousePointerClick, Send, SquareTerminal, Video, Wand2 } from "lucide-react";
+import { Camera, Film, MousePointerClick, SquareTerminal, Video, Wand2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const slides = [
   { key: "inspect", icon: MousePointerClick, image: "/images/mockup-inspect.webp" },
+  { key: "screenshot", icon: Camera, image: "/images/mockup-screenshot.webp" },
   { key: "record", icon: Video, image: "/images/mockup-record.webp" },
   { key: "log", icon: SquareTerminal, image: "/images/mockup-log.webp" },
   { key: "ai", icon: Wand2, image: "/images/mockup-ai.webp" },
-  { key: "submit", icon: Send, image: "/images/mockup-submit.webp" },
+  { key: "logsViewer", icon: Film, image: "/images/mockup-logs-viewer.webp" },
 ] as const;
 
 export function Mockup() {

@@ -1,30 +1,47 @@
 import {
   MousePointerClick,
   Video,
-  SquareTerminal,
   Magnet,
   Wand2,
   Send,
+  Camera,
+  Film,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { cn } from "@/lib/utils";
 
-const features = [
-  { key: "inspect", icon: MousePointerClick, image: "inspect" },
-  { key: "record", icon: Video, image: "capture" },
-  { key: "log", icon: SquareTerminal, image: "logs" },
-  { key: "autoCollect", icon: Magnet, image: "auto-collect" },
-  { key: "ai", icon: Wand2, image: "ai-reports" },
-  { key: "submit", icon: Send, image: "integrations" },
-] as const;
+type FeatureGroup = "reporter" | "dev";
 
-export async function FeatureCards() {
-  const t = await getTranslations("features");
+interface FeatureItem {
+  key: string;
+  icon: LucideIcon;
+  image: string;
+  span?: boolean;
+}
+
+const FEATURES_BY_GROUP: Record<FeatureGroup, readonly FeatureItem[]> = {
+  reporter: [
+    { key: "inspect", icon: MousePointerClick, image: "inspect" },
+    { key: "screenshot", icon: Camera, image: "screenshot" },
+    { key: "record", icon: Video, image: "record" },
+    { key: "ai", icon: Wand2, image: "ai-reports" },
+  ],
+  dev: [
+    { key: "autoCollect", icon: Magnet, image: "auto-collect" },
+    { key: "submit", icon: Send, image: "integrations" },
+    { key: "logsViewer", icon: Film, image: "logs-viewer", span: true },
+  ],
+} as const;
+
+export async function FeatureCards({ group }: { group: FeatureGroup }) {
+  const t = await getTranslations(`features.${group}`);
 
   return (
     <div className="container mx-auto max-w-[1200px]">
       <ScrollReveal as="div">
-        <h2 id="features-heading" className="text-center text-3xl font-semibold leading-tight tracking-tight md:text-[40px] md:leading-[48px]">
+        <h2 id={`features-${group}-heading`} className="text-center text-3xl font-semibold leading-tight tracking-tight md:text-[40px] md:leading-[48px]">
           {t.rich("heading.line1", {
             brand: (chunks) => <span className="text-brand">{chunks}</span>,
           })}{" "}
@@ -34,11 +51,14 @@ export async function FeatureCards() {
         </h2>
       </ScrollReveal>
       <div className="mt-12 grid grid-cols-1 gap-6 min-[1200px]:grid-cols-2">
-        {features.map((f) => (
+        {FEATURES_BY_GROUP[group].map((f) => (
           <ScrollReveal
             key={f.key}
             as="article"
-            className="grid w-full grid-cols-1 overflow-hidden rounded-3xl bg-muted md:h-[360px] md:rounded-card md:grid-cols-[1fr_324px]"
+            className={cn(
+              "grid w-full grid-cols-1 overflow-hidden rounded-3xl bg-muted md:h-[360px] md:rounded-card md:grid-cols-[1fr_324px]",
+              f.span && "min-[1200px]:col-span-2"
+            )}
           >
             <div className="flex flex-col p-8 pb-0 md:p-10 md:pr-0">
               <f.icon
