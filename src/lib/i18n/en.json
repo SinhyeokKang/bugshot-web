@@ -35,7 +35,7 @@
         "caption": "Turn collected data into a structured bug report with reproduction steps."
       },
       "logsViewer": {
-        "label": "Log viewer",
+        "label": "Log Viewer",
         "caption": "Open the attached log viewer and the video replays in sync with console, network, and action logs."
       }
     }
@@ -72,7 +72,7 @@
       },
       "items": {
         "autoCollect": {
-          "title": "Auto-collect context",
+          "title": "Auto-Collect Context",
           "description": "Browser, resolution, and DOM context come with every report — no more asking the reporter what setup they were on."
         },
         "logsViewer": {
@@ -80,7 +80,7 @@
           "description": "Open the attached log viewer and the video plays in sync with console, network, and action logs."
         },
         "submit": {
-          "title": "One-click issue filing",
+          "title": "One-Click Issue Filing",
           "description": "Submit tickets with full attachments to Jira, GitHub, Linear, or Notion in one click."
         }
       }

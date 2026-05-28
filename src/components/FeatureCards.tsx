@@ -73,24 +73,20 @@ export async function FeatureCards({ group }: { group: FeatureGroup }) {
               </p>
             </div>
             <div className="aspect-video overflow-hidden md:aspect-auto">
-              {f.image && (
-                <>
-                  <img
-                    src={`/images/how/${f.image}-mobile.webp`}
-                    alt={t(`items.${f.key}.title`)}
-                    width={800}
-                    height={450}
-                    className="h-full w-full object-cover md:hidden"
-                  />
-                  <img
-                    src={`/images/how/${f.image}-pc.webp`}
-                    alt={t(`items.${f.key}.title`)}
-                    width={648}
-                    height={720}
-                    className="hidden h-full w-full object-cover md:block"
-                  />
-                </>
-              )}
+              <img
+                src={`/images/how/${f.image}-mobile.webp`}
+                alt={t(`items.${f.key}.title`)}
+                width={800}
+                height={450}
+                className="h-full w-full object-cover md:hidden"
+              />
+              <img
+                src={`/images/how/${f.image}-pc.webp`}
+                alt={t(`items.${f.key}.title`)}
+                width={648}
+                height={720}
+                className="hidden h-full w-full object-cover md:block"
+              />
             </div>
           </ScrollReveal>
         ))}
