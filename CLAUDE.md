@@ -56,10 +56,10 @@ src/
 ├── components/
 │   ├── ui/                 # shadcn/ui 컴포넌트
 │   ├── Hero.tsx            # 히어로 — 로고·헤드라인·서브카피·CTA
-│   ├── Mockup.tsx          # 제품 미리보기 (client) — 5탭 슬라이드 + 캡션
+│   ├── Mockup.tsx          # 제품 미리보기 (client) — 6탭 슬라이드 + 캡션
 │   ├── ScrollReveal.tsx    # 스크롤 reveal 래퍼 (client) — section + Intersection Observer 애니메이션
 │   ├── Faq.tsx             # FAQ 아코디언 (서버 컴포넌트, shadcn Accordion)
-│   ├── FeatureCards.tsx    # 기능 카드 6개 (2×2×2 균등 그리드)
+│   ├── FeatureCards.tsx    # 기능 카드 — group prop으로 reporter(4장) / dev(3장) 분리
 │   ├── HowItWorks.tsx      # 6-step 아코디언 + 이미지 패널 (client)
 │   ├── Review.tsx          # 사용자 리뷰 캐러셀 (client) — grid 스택 opacity 페이드 + dot navigation + 5초 자동 전환
 │   ├── BottomCta.tsx       # 하단 CTA 배너
