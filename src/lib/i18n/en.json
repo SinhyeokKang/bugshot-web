@@ -111,6 +111,11 @@
         "author": "김**, Product Designer",
         "quote": "During design QA, I used to dig through DevTools to find element positions and capture changes separately. Now I can inspect and share fixes right on the page — the whole process is so much smoother.",
         "source": "Chrome Web Store Review"
+      },
+      "backend": {
+        "author": "성**, Backend Engineer",
+        "quote": "QA tickets that just say “it doesn’t work” are a thing of the past. Network requests and console errors come attached automatically, and the AI drafts the repro steps straight into Jira. As a backend dev, debugging time dropped a lot.",
+        "source": "Chrome Web Store Review"
       }
     }
   },
