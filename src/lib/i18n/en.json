@@ -96,7 +96,7 @@
       },
       "captureMode": {
         "title": "Choose a capture mode",
-        "description": "Choose from screenshot, up to 60-second screen recording, an always-on 30s replay, or element inspection. Console logs and network requests are captured automatically while recording, with sensitive headers masked."
+        "description": "Inspect mode captures the DOM and styles in one click. Add annotations to a screenshot to pinpoint the issue, or record up to 60 seconds to show how to reproduce it. Already missed the bug? The always-on 30-second replay has you covered. Every mode auto-collects console logs and network requests — headers and bodies included, sensitive headers masked."
       },
       "editStyles": {
         "title": "Edit the styles",
