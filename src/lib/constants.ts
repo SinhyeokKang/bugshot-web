@@ -14,7 +14,7 @@ export const FAQ_KEYS = [
   "privacy",
 ] as const;
 
-export const REVIEW_KEYS = ["qe", "designer", "backend"] as const;
+export const REVIEW_KEYS = ["qe", "designer", "backend", "frontend"] as const;
 
 export const HOW_KEYS = [
   "connectTracker",

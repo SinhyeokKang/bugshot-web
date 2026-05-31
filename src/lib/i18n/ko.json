@@ -104,17 +104,22 @@
     "items": {
       "qe": {
         "author": "안**, QA Engineer",
-        "quote": "DevTools 열고, 스크린샷 찍고, Jira에 따로 정리하던 작업을 브라우저 안에서 한 번에 끝낼 수 있어서 편합니다. 수정 결과와 diff, 영상까지 함께 전달되니까 커뮤니케이션 비용도 많이 줄었어요.",
+        "quote": "DevTools 열고, 스크린샷 찍고, Jira에 따로 정리하던 작업을 브라우저 안에서 한 번에 끝낼 수 있어서 편합니다. 수정 결과와 diff, 영상까지 함께 전달되니까 글로 설명할 일이 줄고 커뮤니케이션 비용도 많이 줄었어요.",
         "source": "Chrome Web Store Review"
       },
       "designer": {
         "author": "김**, Product Designer",
-        "quote": "디자인 QA할 때 요소 위치를 찾으려고 DevTools를 뒤지고, 수정 사항을 따로 캡처해서 전달하는 과정이 번거로웠는데 화면 안에서 바로 확인하고 전달할 수 있어서 훨씬 편해졌어요.",
+        "quote": "디자인 QA할 때 요소 위치를 찾으려고 DevTools를 뒤지고, 수정 사항을 따로 캡처해서 전달하는 과정이 번거로웠는데, 이제 화면 안에서 바로 고쳐보고 결과를 그대로 공유할 수 있어서 작업이 훨씬 매끄러워졌어요.",
         "source": "Chrome Web Store Review"
       },
       "backend": {
         "author": "성**, Backend Engineer",
-        "quote": "QA가 ‘이거 안 돼요’ 한 줄만 던지던 시절은 끝났네요. 네트워크 요청과 콘솔 에러가 자동으로 붙어 와서 어느 API에서 터졌는지 바로 보이고, AI가 재현 단계까지 정리해 Jira로 꽂아주니까 백엔드 입장에선 디버깅 시간이 확 줄었어요.",
+        "quote": "QA가 ‘이거 안 돼요’ 한 줄만 던지던 시절은 끝났네요. 네트워크 요청과 콘솔 에러가 자동으로 붙어 와서 어느 API에서 터졌는지 바로 보이고, AI가 재현 단계까지 정리해 Jira로 넘겨줘서 디버깅 시간이 확 줄었어요.",
+        "source": "Chrome Web Store Review"
+      },
+      "frontend": {
+        "author": "문**, Frontend Engineer",
+        "quote": "스샷 한 장만 받아 버그를 직접 재현하느라 시간을 다 까먹곤 했는데, 캡처 한 번에 콘솔 에러·네트워크 로그·환경 정보까지 자동으로 묶여 오니까 받는 순간 원인이 절반은 보여요. 요소 스타일을 바로 고쳐 공유하는 것도 좋고요.",
         "source": "Chrome Web Store Review"
       }
     }
