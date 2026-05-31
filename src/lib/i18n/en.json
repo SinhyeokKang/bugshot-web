@@ -132,7 +132,12 @@
       },
       "backend": {
         "author": "성**, Backend Engineer",
-        "quote": "QA tickets that just say “it doesn’t work” are a thing of the past. Network requests and console errors come attached automatically, and the AI drafts the repro steps straight into Jira. As a backend dev, debugging time dropped a lot.",
+        "quote": "QA tickets that just say “it doesn’t work” are over. Network requests and console errors come attached automatically, so I see which API broke right away, and the AI drafts the repro steps. Debugging time dropped a lot.",
+        "source": "Chrome Web Store Review"
+      },
+      "frontend": {
+        "author": "문**, Frontend Engineer",
+        "quote": "I used to burn time reproducing bugs that came in as a single screenshot. Now one capture bundles console errors, network logs, and environment info automatically, so half the cause is visible the moment it lands.",
         "source": "Chrome Web Store Review"
       }
     }
