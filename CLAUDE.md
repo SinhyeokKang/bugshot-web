@@ -59,7 +59,7 @@ src/
 │   ├── Mockup.tsx          # 제품 미리보기 (client) — 6탭 슬라이드 + 캡션
 │   ├── ScrollReveal.tsx    # 스크롤 reveal 래퍼 (client) — section + Intersection Observer 애니메이션
 │   ├── Faq.tsx             # FAQ 아코디언 (서버 컴포넌트, shadcn Accordion)
-│   ├── FeatureCards.tsx    # 기능 카드 — group prop으로 reporter(4장) / dev(3장) 분리
+│   ├── FeatureCards.tsx    # 기능 카드 — group prop으로 reporter(4장) / dev(4장) 분리
 │   ├── HowItWorks.tsx      # 6-step 아코디언 + 이미지 패널 (client)
 │   ├── Review.tsx          # 사용자 리뷰 캐러셀 (client) — grid 스택 opacity 페이드 + dot navigation + 5초 자동 전환
 │   ├── BottomCta.tsx       # 하단 CTA 배너
@@ -72,7 +72,7 @@ src/
 │   ├── navigation.ts       # createNavigation — locale-aware Link, useRouter, usePathname
 │   └── request.ts          # getRequestConfig — messages 로딩
 └── lib/
-    ├── constants.ts        # 외부 링크 상수 + FAQ_KEYS + REVIEW_KEYS + HOW_KEYS
+    ├── constants.ts        # 외부 링크 상수(GUIDE_URL 등) + FAQ_KEYS/REVIEW_KEYS/HOW_KEYS + 가이드 경로 맵(FAQ_GUIDE_PATHS, HOW_GUIDE_PATHS)
     ├── utils.ts            # cn() 유틸 (clsx + tailwind-merge)
     └── i18n/
         ├── en.json         # 영문 메시지
