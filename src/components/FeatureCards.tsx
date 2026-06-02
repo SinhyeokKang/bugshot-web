@@ -4,8 +4,9 @@ import {
   Magnet,
   Wand2,
   Send,
-  Camera,
+  Palette,
   Film,
+  ListChecks,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
@@ -24,14 +25,15 @@ interface FeatureItem {
 const FEATURES_BY_GROUP: Record<FeatureGroup, readonly FeatureItem[]> = {
   reporter: [
     { key: "inspect", icon: MousePointerClick, image: "inspect" },
-    { key: "screenshot", icon: Camera, image: "screenshot" },
+    { key: "aiStyling", icon: Palette, image: "ai-styling" },
     { key: "record", icon: Video, image: "record" },
     { key: "ai", icon: Wand2, image: "ai-reports" },
   ],
   dev: [
     { key: "autoCollect", icon: Magnet, image: "auto-collect" },
     { key: "submit", icon: Send, image: "integrations" },
-    { key: "logsViewer", icon: Film, image: "logs-viewer", span: true },
+    { key: "logsViewer", icon: Film, image: "logs-viewer" },
+    { key: "trackIssues", icon: ListChecks, image: "issue-tracking" },
   ],
 } as const;
 

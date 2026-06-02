@@ -51,9 +51,9 @@
           "title": "Inspect & Edit",
           "description": "Click any element to view its styles, then tweak them live in the visual editor."
         },
-        "screenshot": {
-          "title": "Capture & Annotate",
-          "description": "Capture the screen and mark up the issue right on top with shapes, highlights, and text."
+        "aiStyling": {
+          "title": "AI Styling",
+          "description": "Describe the change in plain language and AI rewrites the CSS — compare before and after right on the page."
         },
         "record": {
           "title": "Record & Replay",
@@ -81,7 +81,11 @@
         },
         "submit": {
           "title": "One-Click Issue Filing",
-          "description": "Submit tickets with full attachments to Jira, GitHub, Linear, or Notion in one click."
+          "description": "Submit tickets with full attachments to Jira, GitHub, Linear, Notion, and more in one click."
+        },
+        "trackIssues": {
+          "title": "Track Issue Status",
+          "description": "Check the status of submitted issues in real time inside BugShot, and update them without opening your tracker."
         }
       }
     }
@@ -92,7 +96,7 @@
     "steps": {
       "connectTracker": {
         "title": "Connect your tracker",
-        "description": "Link Jira, GitHub, Linear, or Notion via OAuth or API key. Projects, labels, assignees, and priorities sync automatically — no reconfiguration needed when filing issues."
+        "description": "Link Jira, GitHub, Linear, Notion, and more via OAuth or API key. Projects, labels, assignees, and priorities sync automatically — no reconfiguration needed when filing issues. See the <guide>Integrations</guide> docs for details."
       },
       "captureMode": {
         "title": "Choose a capture mode",
@@ -100,15 +104,15 @@
       },
       "editStyles": {
         "title": "Edit the styles",
-        "description": "Click any element to edit CSS directly, or ask AI to change styles in plain language. Before-and-after snapshots and a diff table of changed properties are automatically included in the report."
+        "description": "Click any element to edit CSS directly, or ask AI to change styles in plain language. Before-and-after snapshots and a diff table of changed properties are automatically included in the report. See the <guide>Element Styling</guide> docs for details."
       },
       "aiDraft": {
         "title": "AI generates a draft",
-        "description": "Feeds collected environment info, logs, screenshots, and style diffs into AI to generate a structured report with reproduction steps, expected behavior, and actual behavior. Chrome's built-in AI works instantly; OpenAI, Anthropic, and Gemini just need an API key."
+        "description": "Feeds collected environment info, logs, screenshots, and style diffs into AI to generate a structured report with reproduction steps, expected behavior, and actual behavior. Chrome's built-in AI works instantly; OpenAI, Anthropic, and Gemini just need an API key. See the <guide>AI settings</guide> docs for details."
       },
       "submitReport": {
         "title": "Submit your report",
-        "description": "File the report to your tracker with screenshots, recordings, HAR logs, and console logs attached — inline on Jira. No tracker? Copy as Markdown + HTML and paste into Slack or Confluence."
+        "description": "File the report to your tracker in one click. Screenshots and recordings, console, network, and action logs bundled into a log viewer, plus an AI-ready context Markdown file all come attached — a bug report developers and AI can consume right away."
       },
       "trackIssues": {
         "title": "Check issue status",
@@ -153,19 +157,19 @@
     "items": {
       "browser": {
         "q": "Which browsers are supported?",
-        "a": "BugShot works on Chrome and Chromium-based browsers like Edge, Brave, and Arc. Chrome 116 or later is required."
+        "a": "BugShot works on Chrome and Chromium-based browsers like Edge, Brave, and Arc. Chrome 116 or later is required. New here? See the <guide>Quick Start guide</guide>."
       },
       "pricing": {
         "q": "Is BugShot free?",
-        "a": "Yes, completely free with no sign-up required. Install and start reporting right away."
+        "a": "Yes, completely free with no sign-up required. Install from the <store>Chrome Web Store</store> and start reporting right away."
       },
       "ai": {
         "q": "What do I need to use the AI feature?",
-        "a": "Chrome's built-in AI works out of the box with no setup. To use external LLMs like OpenAI, Anthropic, or Gemini, just enter your own API key."
+        "a": "Chrome's built-in AI works out of the box with no setup. To use external LLMs like OpenAI, Anthropic, or Gemini, just enter your own API key. See the <guide>AI settings guide</guide> for details."
       },
       "integrations": {
         "q": "Which issue trackers are supported?",
-        "a": "Submit reports with attachments directly to Jira, GitHub, Linear, or Notion. You can also copy as Markdown and paste it wherever your team works."
+        "a": "Submit reports with attachments directly to Jira, GitHub, Linear, Notion, GitLab, and Asana. You can also copy as Markdown and paste it wherever your team works. See the <guide>Integrations guide</guide> for setup details."
       },
       "privacy": {
         "q": "How is collected data handled?",
@@ -176,6 +180,7 @@
   "footer": {
     "github": "GitHub",
     "privacy": "Privacy Policy",
-    "contact": "Contact"
+    "contact": "Contact",
+    "guide": "BugShot Guide"
   }
 }

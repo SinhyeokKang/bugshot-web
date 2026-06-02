@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import {
   Accordion,
   AccordionContent,
@@ -6,10 +6,16 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { FAQ_KEYS } from "@/lib/constants";
+import {
+  FAQ_KEYS,
+  FAQ_GUIDE_PATHS,
+  GUIDE_URL,
+  CHROME_WEB_STORE_URL,
+} from "@/lib/constants";
 
 export async function Faq() {
   const t = await getTranslations("faq");
+  const locale = await getLocale();
 
   return (
     <div className="container mx-auto max-w-[960px]">
@@ -29,7 +35,28 @@ export async function Faq() {
                 {t(`items.${key}.q`)}
               </AccordionTrigger>
               <AccordionContent className="text-base text-foreground">
-                {t(`items.${key}.a`)}
+                {t.rich(`items.${key}.a`, {
+                  guide: (chunks) => (
+                    <a
+                      href={`${GUIDE_URL}/${locale}${FAQ_GUIDE_PATHS[key] ?? ""}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium text-brand underline-offset-4 hover:underline"
+                    >
+                      {chunks}
+                    </a>
+                  ),
+                  store: (chunks) => (
+                    <a
+                      href={CHROME_WEB_STORE_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium text-brand underline-offset-4 hover:underline"
+                    >
+                      {chunks}
+                    </a>
+                  ),
+                })}
               </AccordionContent>
             </AccordionItem>
           ))}

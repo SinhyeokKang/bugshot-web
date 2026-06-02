@@ -51,9 +51,9 @@
           "title": "요소 검사 & 편집",
           "description": "요소를 클릭해 스타일을 확인하고, 페이지 위에서 바로 수정할 수 있습니다."
         },
-        "screenshot": {
-          "title": "캡처 & 주석",
-          "description": "필요한 화면을 캡처하고, 도형·형광펜·텍스트로 문제 지점을 그 위에서 바로 표시합니다."
+        "aiStyling": {
+          "title": "AI 스타일링",
+          "description": "고치고 싶은 부분을 자연어로 말하면 AI가 CSS를 바꿔주고, 수정 전후를 화면에서 바로 비교할 수 있습니다."
         },
         "record": {
           "title": "녹화 & 리플레이",
@@ -80,8 +80,12 @@
           "description": "이슈에 첨부된 로그 뷰어를 열면 영상과 콘솔·네트워크·액션 로그가 시간축으로 동기화돼 재생됩니다."
         },
         "submit": {
-          "title": "이슈 트래커 제출",
-          "description": "Jira·GitHub·Linear·Notion으로 리포트와 첨부 파일을 바로 제출할 수 있습니다."
+          "title": "이슈 트래커 연동",
+          "description": "Jira·GitHub·Linear·Notion 등 주요 이슈 트래커와 연동해 리포트와 첨부 파일을 바로 제출할 수 있습니다."
+        },
+        "trackIssues": {
+          "title": "이슈 상태 추적",
+          "description": "제출한 이슈의 상태를 버그샷 안에서 실시간으로 확인하고, 트래커를 따로 열지 않고 바로 변경할 수 있습니다."
         }
       }
     }
@@ -92,7 +96,7 @@
     "steps": {
       "connectTracker": {
         "title": "팀의 이슈 트래커를 연결하세요",
-        "description": "Jira, GitHub, Linear, Notion을 OAuth 또는 API 키로 연결합니다. 프로젝트, 라벨, 담당자, 우선순위가 자동 동기화되어 이후 별도 설정 없이 바로 이슈를 제출할 수 있습니다."
+        "description": "Jira, GitHub, Linear, Notion 등 주요 이슈 트래커를 OAuth 또는 API 키로 연결합니다. 프로젝트, 라벨, 담당자, 우선순위가 자동 동기화되어 이후 별도 설정 없이 바로 이슈를 제출할 수 있습니다. 자세한 방법은 <guide>연동 설정 가이드</guide>를 참고하세요."
       },
       "captureMode": {
         "title": "상황에 맞는 캡처 모드를 고르세요",
@@ -100,15 +104,15 @@
       },
       "editStyles": {
         "title": "화면 위에서 바로 스타일을 수정하세요",
-        "description": "요소를 클릭해 CSS를 직접 수정하거나, AI에게 자연어로 스타일 변경을 요청할 수 있습니다. 수정 전후 스냅샷과 변경된 속성만 모은 diff 테이블이 리포트에 자동 포함됩니다."
+        "description": "요소를 클릭해 CSS를 직접 수정하거나, AI에게 자연어로 스타일 변경을 요청할 수 있습니다. 수정 전후 스냅샷과 변경된 속성만 모은 diff 테이블이 리포트에 자동 포함됩니다. 자세한 방법은 <guide>요소 선택 & 스타일링 가이드</guide>를 참고하세요."
       },
       "aiDraft": {
         "title": "AI가 버그 리포트를 작성합니다",
-        "description": "수집된 환경 정보, 로그, 스크린샷, 스타일 diff를 AI에 전달해 재현 단계·기대 동작·실제 동작이 정리된 버그 리포트를 자동 생성합니다. Chrome 내장 AI는 바로, OpenAI·Anthropic·Gemini는 API 키만 입력하면 사용할 수 있습니다."
+        "description": "수집된 환경 정보, 로그, 스크린샷, 스타일 diff를 AI에 전달해 재현 단계·기대 동작·실제 동작이 정리된 버그 리포트를 자동 생성합니다. Chrome 내장 AI는 바로, OpenAI·Anthropic·Gemini는 API 키만 입력하면 사용할 수 있습니다. 자세한 방법은 <guide>AI 연동 설정 가이드</guide>를 참고하세요."
       },
       "submitReport": {
         "title": "클릭 한 번으로 이슈를 제출하세요",
-        "description": "리포트를 이슈 트래커로 바로 제출합니다. 스크린샷, 녹화 영상, HAR 로그, 콘솔 로그가 함께 전달되며, Jira에서는 인라인 삽입됩니다. 트래커 없이도 Markdown + HTML로 복사해 Slack이나 Confluence에 붙여넣을 수 있습니다."
+        "description": "리포트를 이슈 트래커로 바로 제출합니다. 스크린샷과 녹화 영상, 로그 뷰어로 묶인 콘솔·네트워크·액션 로그가 함께 첨부되고, AI가 바로 읽을 수 있는 컨텍스트 마크다운 파일까지 더해져 개발자와 AI가 곧장 소비할 수 있는 이슈 리포트가 완성됩니다."
       },
       "trackIssues": {
         "title": "제출한 이슈의 진행 상황을 확인하세요",
@@ -153,19 +157,19 @@
     "items": {
       "browser": {
         "q": "어떤 브라우저에서 사용할 수 있나요?",
-        "a": "Chrome 및 Chromium 기반 브라우저(Edge, Brave, Arc 등)에서 사용할 수 있습니다. Chrome 116 이상이 필요합니다."
+        "a": "Chrome 및 Chromium 기반 브라우저(Edge, Brave, Arc 등)에서 사용할 수 있습니다. Chrome 116 이상이 필요합니다. 처음이라면 <guide>빠른 시작 가이드</guide>를 참고해 보세요."
       },
       "pricing": {
         "q": "버그샷은 무료인가요?",
-        "a": "네, 완전히 무료이며 가입도 필요 없습니다. 설치 후 바로 사용할 수 있습니다."
+        "a": "네, 완전히 무료이며 가입도 필요 없습니다. <store>Chrome 웹 스토어</store>에서 설치 후 바로 사용할 수 있습니다."
       },
       "ai": {
         "q": "AI 기능을 쓰려면 무엇이 필요한가요?",
-        "a": "Chrome 내장 AI를 사용하면 별도 설정 없이 바로 쓸 수 있습니다. OpenAI·Anthropic·Gemini 등 외부 LLM을 사용하려면 본인의 API 키만 입력하면 됩니다."
+        "a": "Chrome 내장 AI를 사용하면 별도 설정 없이 바로 쓸 수 있습니다. OpenAI·Anthropic·Gemini 등 외부 LLM을 사용하려면 본인의 API 키만 입력하면 됩니다. 자세한 방법은 <guide>AI 연동 설정 가이드</guide>에서 확인할 수 있습니다."
       },
       "integrations": {
         "q": "어떤 이슈 트래커를 지원하나요?",
-        "a": "Jira·GitHub·Linear·Notion으로 리포트와 첨부 파일을 바로 제출할 수 있습니다. 이슈 트래커를 사용하지 않는 경우 Markdown으로 복사해 원하는 곳에 붙여넣을 수도 있습니다."
+        "a": "Jira·GitHub·Linear·Notion·GitLab·Asana로 리포트와 첨부 파일을 바로 제출할 수 있습니다. 이슈 트래커를 사용하지 않는 경우 Markdown으로 복사해 원하는 곳에 붙여넣을 수도 있습니다. 자세한 방법은 <guide>연동 설정 가이드</guide>에서 확인할 수 있습니다."
       },
       "privacy": {
         "q": "수집된 데이터는 어떻게 처리되나요?",
@@ -176,6 +180,7 @@
   "footer": {
     "github": "GitHub",
     "privacy": "개인정보처리방침",
-    "contact": "문의하기"
+    "contact": "문의하기",
+    "guide": "BugShot 가이드"
   }
 }
