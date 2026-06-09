@@ -2,7 +2,12 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { REVIEW_KEYS, CHROME_WEB_STORE_REVIEWS_URL } from "@/lib/constants";
+import { Star } from "lucide-react";
+import {
+  REVIEW_KEYS,
+  REVIEW_RATINGS,
+  CHROME_WEB_STORE_REVIEWS_URL,
+} from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 export function Review() {
@@ -116,6 +121,18 @@ export function Review() {
             <blockquote className="text-center text-xl font-medium leading-[140%] tracking-tight md:text-[32px]">
               {`“${t(`items.${key}.quote`)}”`}
             </blockquote>
+            <div
+              className="flex gap-1"
+              role="img"
+              aria-label={t("ratingLabel", { rating: REVIEW_RATINGS[key] })}
+            >
+              {Array.from({ length: REVIEW_RATINGS[key] }, (_, s) => (
+                <Star
+                  key={s}
+                  className="h-4 w-4 fill-brand text-brand md:h-5 md:w-5"
+                />
+              ))}
+            </div>
             <cite className="not-italic text-sm text-muted-foreground md:text-base">
               <a
                 href={CHROME_WEB_STORE_REVIEWS_URL}

@@ -123,6 +123,7 @@
   "review": {
     "srHeading": "사용자 리뷰",
     "dotLabel": "리뷰 {index}",
+    "ratingLabel": "5점 만점에 {rating}점",
     "items": {
       "qe": {
         "author": "안**, QA Engineer",

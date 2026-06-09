@@ -123,6 +123,7 @@
   "review": {
     "srHeading": "User reviews",
     "dotLabel": "Review {index}",
+    "ratingLabel": "{rating} out of 5 stars",
     "items": {
       "qe": {
         "author": "안**, QA Engineer",
