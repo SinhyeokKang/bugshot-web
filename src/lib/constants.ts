@@ -1,6 +1,7 @@
 export const SITE_URL = "https://bug-shot.com";
 export const CHROME_WEB_STORE_URL =
   "https://chromewebstore.google.com/detail/bugshot/ohakhekagkodklkickemonmifdcbhmig";
+export const CHROME_WEB_STORE_REVIEWS_URL = `${CHROME_WEB_STORE_URL}/reviews`;
 export const GITHUB_URL = "https://github.com/SinhyeokKang/bugshot-2";
 export const GUIDE_URL = "https://bugshot.gitbook.io";
 export const PRIVACY_POLICY_URL =

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { REVIEW_KEYS } from "@/lib/constants";
+import { REVIEW_KEYS, CHROME_WEB_STORE_REVIEWS_URL } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 export function Review() {
@@ -117,7 +117,15 @@ export function Review() {
               {`“${t(`items.${key}.quote`)}”`}
             </blockquote>
             <cite className="not-italic text-sm text-muted-foreground md:text-base">
-              {t(`items.${key}.source`)}
+              <a
+                href={CHROME_WEB_STORE_REVIEWS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                tabIndex={i === active ? 0 : -1}
+                className="hover:text-brand focus-visible:text-brand focus-visible:outline-none"
+              >
+                {t(`items.${key}.source`)}
+              </a>
             </cite>
           </div>
         ))}
