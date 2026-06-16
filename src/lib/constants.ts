@@ -30,7 +30,7 @@ export const REVIEW_KEYS = ["qe", "designer", "backend", "frontend"] as const;
 export const REVIEW_RATINGS: Record<(typeof REVIEW_KEYS)[number], number> = {
   qe: 5,
   designer: 5,
-  backend: 4,
+  backend: 5,
   frontend: 5,
 };
 
