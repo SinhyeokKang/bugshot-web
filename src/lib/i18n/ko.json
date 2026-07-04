@@ -184,6 +184,10 @@
     "contact": "문의하기",
     "guide": "BugShot 가이드"
   },
+  "docs": {
+    "searchPlaceholder": "문서 검색...",
+    "menu": "문서 목록"
+  },
   "privacy": {
     "home": "홈으로",
     "meta": {

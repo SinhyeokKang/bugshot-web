@@ -11,7 +11,7 @@ const locales: { value: Locale; label: string }[] = [
   { value: "en", label: "EN" },
 ];
 
-export function LocaleSwitcher() {
+export function LocaleSwitcher({ className }: { className?: string }) {
   const active = useLocale() as Locale;
   const pathname = usePathname();
 
@@ -22,7 +22,12 @@ export function LocaleSwitcher() {
   }
 
   return (
-    <div className="fixed top-4 right-4 z-50 md:top-6 md:right-6 flex items-center gap-1 rounded-full border bg-background/80 p-1 backdrop-blur">
+    <div
+      className={cn(
+        className ?? "fixed top-4 right-4 z-50 md:top-6 md:right-6",
+        "flex items-center gap-1 rounded-full border bg-background/80 p-1 backdrop-blur"
+      )}
+    >
       {locales.map(({ value, label }) => (
         <Button
           key={value}

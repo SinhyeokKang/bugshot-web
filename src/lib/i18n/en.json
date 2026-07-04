@@ -184,6 +184,10 @@
     "contact": "Contact",
     "guide": "BugShot Guide"
   },
+  "docs": {
+    "searchPlaceholder": "Search docs...",
+    "menu": "Menu"
+  },
   "privacy": {
     "home": "Home",
     "meta": {
