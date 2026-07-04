@@ -7,6 +7,14 @@
     {
       "source": "/privacy",
       "destination": "/ko/privacy"
+    },
+    {
+      "source": "/docs",
+      "destination": "/ko/docs"
+    },
+    {
+      "source": "/docs/:path*",
+      "destination": "/ko/docs/:path*"
     }
   ]
 }
