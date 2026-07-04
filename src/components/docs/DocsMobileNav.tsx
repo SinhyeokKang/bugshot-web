@@ -32,7 +32,7 @@ export function DocsMobileNav({ nav }: { nav: DocsNavNode[] }) {
       >
         <Menu className="size-5" />
       </SheetTrigger>
-      <SheetContent side="left" className="w-72 overflow-y-auto">
+      <SheetContent side="left" className="w-[60vw] sm:max-w-none overflow-y-auto">
         <SheetTitle className="sr-only">{t("menu")}</SheetTitle>
         <div className="mt-6">
           <DocsSidebar nav={nav} />

@@ -25,7 +25,7 @@ export default async function DocsLayout({
     <>
       <DocsHeader locale={locale} nav={nav} />
       <div className="container mx-auto max-w-[1200px] py-10 md:flex md:gap-12">
-        <aside className="hidden md:block md:w-60 md:shrink-0">
+        <aside className="hidden md:block md:w-[280px] md:shrink-0">
           <div className="sticky top-20">
             <DocsSidebar nav={nav} />
           </div>
