@@ -32,7 +32,7 @@ export function DocsHeader({
         </div>
 
         {nav && (
-          <div className="flex flex-1 justify-center">
+          <div className="hidden flex-1 justify-center md:flex">
             <DocsSearch />
           </div>
         )}
