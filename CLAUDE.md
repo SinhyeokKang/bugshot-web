@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-bugshot-web: BugShot Chrome 확장의 랜딩 페이지. 싱글 페이지 정적 사이트로, 제품 소개 + 웹스토어 설치 CTA를 제공한다.
+bugshot-web: BugShot Chrome 확장의 랜딩 페이지 + 문서 사이트. 정적 사이트로 제품 소개 + 웹스토어 설치 CTA(랜딩), 개인정보처리방침(`/privacy`), 가이드 docs 포털(`/docs`)을 제공한다. privacy·guide 콘텐츠는 bugshot-2 마크다운을 빌드타임 fetch해 내재화(SEO를 `bug-shot.com`에 집중).
 
 사용자는 한국어로 간결한 답변을 선호한다. 불필요한 꾸밈말·서두 금지.
 
@@ -13,19 +13,22 @@ bugshot-web: BugShot Chrome 확장의 랜딩 페이지. 싱글 페이지 정적 
 
 ## 스코프 & 제약
 
-- **스코프 외**: 블로그·docs·프라이싱·뉴스레터 폼 등은 추가 안 함. 폼 같은 동적 기능 필요 시 외부 서비스(Tally 등) 검토.
-- **품질 목표**: Lighthouse Performance ≥ 90, SEO ≥ 90.
-- **정적 export 제약**: `output: 'export'`라 API Routes·서버 동적 기능 사용 불가. `next/image`는 `images.unoptimized: true` 필수.
+- **스코프 외**: 블로그·프라이싱·뉴스레터 폼 등은 추가 안 함. 폼 같은 동적 기능 필요 시 외부 서비스(Tally 등) 검토.
+- **콘텐츠 내재화**: 가이드 docs·개인정보처리방침은 bugshot-2(`docs/privacy.{ko,en}.md`, `guide/{ko,en}/**`)를 빌드타임 fetch. 이 레포엔 미커밋(gitignore). 원본 push 시 Vercel Deploy Hook으로 자동 재배포.
+- **품질 목표**: Lighthouse Performance ≥ 90, SEO ≥ 90. (docs 페이지도 고유 canonical·hreflang·OG·BreadcrumbList JSON-LD.)
+- **정적 export 제약**: `output: 'export'`라 API Routes·서버 동적 기능·미들웨어 사용 불가. bare 경로 locale 감지 불가(→ vercel rewrite로 기본 ko 서빙). `next/image`는 `images.unoptimized: true` 필수.
 
 ## 스택
 
 - Next.js 15 App Router + TypeScript + React 19
 - `output: 'export'` (정적 내보내기) + `images: { unoptimized: true }`
-- Tailwind CSS v3 + shadcn/ui (style `new-york`, base color `gray`)
+- Tailwind CSS v3 + `tailwindcss-animate` + `@tailwindcss/typography` 플러그인 + shadcn/ui (style `new-york`, base color `gray`)
+- 마크다운 렌더: `react-markdown` + `remark-gfm` + `rehype-slug` (privacy·docs 공용 `Markdown` 컴포넌트, shadcn Typography 클래스로 요소별 스타일). 앵커 slug 일치용 `github-slugger`.
+- docs 검색: `cmdk`(shadcn command) + `fuse.js`. 빌드타임 인덱스(`public/search/{locale}.json`) 클라이언트 퍼지 검색.
 - 아이콘: lucide-react (UI 일반), `@icons-pack/react-simple-icons` (브랜드 — `Si{Name}` import, `color="default"` + GitHub만 `dark:invert`)
 - 폰트: DM Sans (next/font/google, Latin) + Pretendard Variable (CDN, 한글). font stack에서 문자 기반 자동 분기.
-- i18n: next-intl (`defaultLocale: "ko"`, `localePrefix: "always"`, routing `/ko`, `/en`). Vercel rewrite로 `/` → `/ko` 서빙.
-- 배포: Vercel (정적 호스팅)
+- i18n: next-intl (`defaultLocale: "ko"`, `localePrefix: "always"`, routing `/ko`, `/en`). Vercel rewrite로 `/`·`/privacy`·`/docs/*` → 기본 ko 서빙.
+- 배포: Vercel (정적 호스팅). bugshot-2 콘텐츠 push → Deploy Hook으로 자동 재빌드.
 - 패키지 매니저: pnpm
 
 ## 명령어
@@ -37,53 +40,52 @@ bugshot-web: BugShot Chrome 확장의 랜딩 페이지. 싱글 페이지 정적 
 | 타입 체크만 | `npx tsc --noEmit` |
 | 린트 | `pnpm lint` |
 
-**빌드는 자동 실행하지 않는다.** 사용자가 명시적으로 요청하거나 `/build` 스킬을 실행할 때만 돌린다.
+`dev`·`build`는 먼저 콘텐츠 fetch + 검색 인덱스 스크립트를 체이닝한다: `fetch-privacy.mjs && fetch-guide.mjs && build-search.mjs && next dev|build`. (bugshot-2 public repo에서 privacy·guide를 받아 `content/`·`public/docs`·`public/search`로 전개 — 전부 gitignore.)
+
+**빌드는 자동 실행하지 않는다.** 사용자가 명시적으로 요청하거나 `/build` 스킬을 실행할 때만 돌린다. ⚠️ **dev 서버 실행 중 `pnpm build` 금지** — 같은 `.next`를 덮어써 dev가 깨진다(복구: dev 종료 → `rm -rf .next` → 재시작).
 
 ## 디렉터리 구조
 
 ```
+scripts/
+├── fetch-privacy.mjs       # 빌드 전: bugshot-2 privacy.{ko,en}.md → content/privacy
+├── fetch-guide.mjs         # 빌드 전: bugshot-2 guide/{ko,en} tarball → content/guide + public/docs/{locale}/assets
+└── build-search.mjs        # 빌드 전: guide 콘텐츠 → public/search/{locale}.json (검색 인덱스)
 src/
 ├── app/
 │   ├── layout.tsx          # 최상위 RootLayout — DM Sans, <html>/<body>, globals.css
-│   ├── globals.css         # Tailwind directives + Pretendard CDN import + shadcn CSS 변수 (light only)
-│   ├── icon.svg            # Favicon (SVG, Next.js metadata file)
-│   ├── favicon.ico         # Favicon (16/32/48 multi-size ICO, Google SERP용)
-│   ├── apple-icon.png      # Apple touch icon (180×180, iOS 자동 라운드 마스킹)
-│   ├── sitemap.ts          # /sitemap.xml — locale별 alternate languages 포함
+│   ├── globals.css         # Tailwind directives + Pretendard CDN import + shadcn CSS 변수 (--sidebar-* 포함, light only)
+│   ├── icon.svg · favicon.ico · apple-icon.png
+│   ├── sitemap.ts          # /sitemap.xml — 랜딩·privacy·docs 전 slug × locale alternates
 │   └── [locale]/
-│       ├── layout.tsx      # NextIntlClientProvider + generateStaticParams + generateMetadata + html lang 설정
-│       └── page.tsx        # 랜딩 페이지 (섹션 컴포넌트 조합)
+│       ├── layout.tsx      # NextIntlClientProvider + generateStaticParams + generateMetadata + html lang
+│       ├── page.tsx        # 랜딩 (섹션 조합 + 랜딩 JSON-LD)
+│       ├── privacy/page.tsx        # 개인정보처리방침 (Markdown + DocsShell, nav 없음)
+│       └── docs/[[...slug]]/page.tsx # 가이드 catch-all (generateStaticParams·metadata·BreadcrumbList JSON-LD + DocsShell)
 ├── components/
-│   ├── ui/                 # shadcn/ui 컴포넌트
-│   ├── Hero.tsx            # 히어로 — 로고·헤드라인·서브카피·CTA
-│   ├── Mockup.tsx          # 제품 미리보기 (client) — 6탭 슬라이드 + 캡션
-│   ├── ScrollReveal.tsx    # 스크롤 reveal 래퍼 (client) — section + Intersection Observer 애니메이션
-│   ├── Faq.tsx             # FAQ 아코디언 (서버 컴포넌트, shadcn Accordion)
-│   ├── FeatureCards.tsx    # 기능 카드 — group prop으로 reporter(4장) / dev(4장) 분리
-│   ├── HowItWorks.tsx      # 6-step 아코디언 + 이미지 패널 (client)
-│   ├── Review.tsx          # 사용자 리뷰 캐러셀 (client) — grid 스택 opacity 페이드 + dot navigation + 5초 자동 전환
-│   ├── BottomCta.tsx       # 하단 CTA 배너
-│   ├── Footer.tsx          # GitHub·Privacy Policy 링크
-│   └── LocaleSwitcher.tsx  # locale 토글 (fixed top-right, shadcn Button 기반)
-├── hooks/
-│   └── useScrollReveal.ts  # Intersection Observer 기반 스크롤 reveal 훅
-├── i18n/
-│   ├── routing.ts          # next-intl routing config (locales, defaultLocale: ko)
-│   ├── navigation.ts       # createNavigation — locale-aware Link, useRouter, usePathname
-│   └── request.ts          # getRequestConfig — messages 로딩
+│   ├── ui/                 # shadcn/ui (accordion·button·dialog·sheet·command·textarea)
+│   ├── Hero·Mockup·FeatureCards·HowItWorks·Review·Faq·BottomCta·ScrollReveal  # 랜딩 섹션
+│   ├── Footer.tsx          # GitHub·가이드(/docs)·개인정보처리방침(/privacy)·문의 링크
+│   ├── LocaleSwitcher.tsx  # locale 토글 (className으로 fixed/인라인 전환)
+│   ├── Markdown.tsx         # 공용 마크다운 렌더 (react-markdown, shadcn Typography 요소 매핑) — privacy·docs
+│   └── docs/               # 문서 사이트 셸·구성요소
+│       ├── DocsShell.tsx    # 헤더 + (옵션)사이드바 + 본문 + 우측 TOC + Footer 단일 셸 (privacy·docs 공용)
+│       ├── DocsHeader.tsx   # sticky 헤더 (로고 / 검색 / LocaleSwitcher, nav 있으면 햄버거)
+│       ├── DocsSidebar.tsx  # SUMMARY nav (client, active 하이라이트)
+│       ├── DocsMobileNav.tsx# 모바일 햄버거 → 좌측 Sheet 드로어
+│       ├── DocsSearch.tsx   # cmdk + fuse.js 검색 다이얼로그 (/ 단축키)
+│       ├── DocsPager.tsx    # 이전/다음 문서
+│       └── TocNav.tsx       # 우측 앵커 TOC (IntersectionObserver 스크롤스파이)
+├── hooks/useScrollReveal.ts
+├── i18n/                   # routing.ts · navigation.ts · request.ts (next-intl)
 └── lib/
-    ├── constants.ts        # 외부 링크 상수(GUIDE_URL 등) + FAQ_KEYS/REVIEW_KEYS/HOW_KEYS + 가이드 경로 맵(FAQ_GUIDE_PATHS, HOW_GUIDE_PATHS)
-    ├── utils.ts            # cn() 유틸 (clsx + tailwind-merge)
-    └── i18n/
-        ├── en.json         # 영문 메시지
-        └── ko.json         # 한글 메시지
-public/
-├── images/
-│   ├── mockup-*.webp       # Mockup 슬라이드 스크린샷
-│   ├── how/                # FeatureCards 카드 미리보기 (PC/Mobile 분기, *-pc.webp / *-mobile.webp)
-│   └── how-steps/          # HowItWorks 스텝별 미리보기 (how-{key}.webp + how-{key}-mobile.webp)
-└── bugshot-symbol.svg      # BugShot 로고 (Hero에서 next/image로 사용)
-vercel.json                 # Vercel rewrite (/ → /ko)
+    ├── constants.ts        # SITE_URL·CHROME_WEB_STORE_URL·GITHUB_URL 등 + FAQ/REVIEW/HOW_KEYS + 내부 docs 경로 맵(FAQ_GUIDE_PATHS, HOW_GUIDE_PATHS)
+    ├── utils.ts            # cn()
+    ├── docs/               # summary(SUMMARY 파서·findParent·flattenNav) · content(slug↔파일) · markdown(정규화) · toc · metadata(docPageMetadata·BreadcrumbList)
+    └── i18n/en.json · ko.json
+public/                     # bugshot-symbol.svg + images/ (+ 빌드 fetch: docs/·search/ = gitignore)
+content/                    # 빌드 fetch: privacy/·guide/ (gitignore)
+vercel.json                 # rewrite: / · /privacy · /docs · /docs/:path* → 기본 ko
 ```
 
 ## 릴리스 & 버전
