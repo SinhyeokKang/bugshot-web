@@ -178,11 +178,15 @@
       }
     }
   },
+  "nav": {
+    "menu": "메뉴",
+    "guide": "유저 가이드",
+    "contact": "문의하기",
+    "addToChrome": "Chrome에 추가"
+  },
   "footer": {
     "github": "GitHub",
-    "privacy": "개인정보처리방침",
-    "contact": "문의하기",
-    "guide": "BugShot 가이드"
+    "privacy": "개인정보처리방침"
   },
   "docs": {
     "menu": "문서 목록",
@@ -191,8 +195,9 @@
     "onThisPage": "이 페이지",
     "titleSuffix": "BugShot 유저 가이드",
     "searchPlaceholder": "문서 검색...",
-    "searchHint": "<kbd>/</kbd>를 눌러 검색하세요",
-    "searchEmpty": "검색 결과가 없습니다"
+    "searchEmpty": "검색 결과가 없습니다",
+    "searchClear": "검색어 지우기",
+    "searchClose": "검색 닫기"
   },
   "privacy": {
     "home": "홈으로",

@@ -1,11 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Menu } from "lucide-react";
+import { ChevronDown, FileText } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -15,13 +13,14 @@ import {
 import { DocsSidebar } from "./DocsSidebar";
 import type { DocsNavNode } from "@/lib/docs/summary";
 
-// Mobile-only hamburger that opens the docs nav in a left drawer.
+// Mobile-only sub-header below the main header: current doc name + chevron,
+// tapping opens the SUMMARY nav in a left drawer.
 export function DocsMobileNav({
   nav,
-  locale,
+  docName,
 }: {
   nav: DocsNavNode[];
-  locale: string;
+  docName: string;
 }) {
   const t = useTranslations("docs");
   const pathname = usePathname();
@@ -36,27 +35,24 @@ export function DocsMobileNav({
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger
         aria-label={t("menu")}
-        className="inline-flex size-9 items-center justify-center rounded-md border bg-background text-foreground shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:hidden"
+        className="sticky top-16 z-30 w-full border-b bg-background/60 text-left backdrop-blur-2xl transition-colors hover:bg-accent md:hidden"
       >
-        <Menu className="size-5" />
+        <div className="container mx-auto flex h-11 max-w-[1200px] items-center justify-between gap-3">
+          <span className="flex min-w-0 items-center gap-2">
+            <FileText className="size-4 shrink-0 text-muted-foreground" />
+            <span className="truncate text-sm font-medium text-foreground">
+              {docName}
+            </span>
+          </span>
+          <ChevronDown className="size-5 shrink-0 text-muted-foreground" />
+        </div>
       </SheetTrigger>
       <SheetContent
-        side="left"
-        className="w-[60vw] overflow-y-auto p-0 sm:max-w-none"
+        side="bottom"
+        className="h-[90dvh] overflow-y-auto rounded-t-2xl p-0"
       >
         <SheetTitle className="sr-only">{t("menu")}</SheetTitle>
-        <div className="flex h-16 items-center px-4">
-          <Link href={`/${locale}`} aria-label="BugShot">
-            <Image
-              src="/bugshot-symbol.svg"
-              alt="BugShot"
-              width={36}
-              height={36}
-              priority
-            />
-          </Link>
-        </div>
-        <div className="px-4 pb-6">
+        <div className="px-4 pb-6 pt-16">
           <DocsSidebar nav={nav} />
         </div>
       </SheetContent>

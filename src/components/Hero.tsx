@@ -9,7 +9,7 @@ export function Hero() {
   const subcopy = t.raw("subcopy") as string[];
 
   return (
-    <section className="pt-20 pb-12 md:pt-[120px] md:pb-[60px]">
+    <section className="pt-4 pb-12 md:pt-14 md:pb-[60px]">
       <div className="container mx-auto flex max-w-[1200px] flex-col items-center text-center">
         <Image
           src="/bugshot-symbol.svg"

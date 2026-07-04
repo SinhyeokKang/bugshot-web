@@ -1,4 +1,5 @@
 import { DocsHeader } from "./DocsHeader";
+import { DocsMobileNav } from "./DocsMobileNav";
 import { DocsSidebar } from "./DocsSidebar";
 import { TocNav } from "./TocNav";
 import { Footer } from "@/components/Footer";
@@ -23,7 +24,10 @@ export function DocsShell({
 }) {
   return (
     <>
-      <DocsHeader locale={locale} nav={nav} />
+      <DocsHeader locale={locale} />
+      {nav && (
+        <DocsMobileNav nav={nav} docName={tocLabel} />
+      )}
       <div className="container mx-auto max-w-[1200px] py-10 md:flex md:gap-10">
         {nav && (
           <aside className="hidden md:block md:w-[200px] md:shrink-0">
