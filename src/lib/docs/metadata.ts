@@ -1,5 +1,47 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/constants";
+import { findParent, type DocsNavNode } from "./summary";
+
+// BreadcrumbList JSON-LD reflecting the SUMMARY hierarchy:
+// BugShot (home) -> ancestor sections -> current doc.
+export function docsBreadcrumbJsonLd({
+  nav,
+  slug,
+  locale,
+  currentTitle,
+  path,
+}: {
+  nav: DocsNavNode[];
+  slug: string[];
+  locale: string;
+  currentTitle: string;
+  path: string;
+}) {
+  const items = [{ name: "BugShot", url: `${SITE_URL}/${locale}` }];
+  const chain: { name: string; url: string }[] = [];
+  let s = slug;
+  for (;;) {
+    const p = findParent(nav, s);
+    if (!p) break;
+    chain.unshift({ name: p.title, url: `${SITE_URL}${p.href}` });
+    s = p.slug;
+  }
+  items.push(...chain, {
+    name: currentTitle,
+    url: `${SITE_URL}/${locale}${path}`,
+  });
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((it, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: it.name,
+      item: it.url,
+    })),
+  };
+}
 
 // Full metadata for a doc-like page (docs + privacy). Next does NOT deep-merge
 // openGraph/twitter from the parent layout, so every field (incl. og-image) is

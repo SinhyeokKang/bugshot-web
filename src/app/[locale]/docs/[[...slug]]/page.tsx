@@ -8,7 +8,7 @@ import { getAllDocSlugs, getDoc } from "@/lib/docs/content";
 import { normalizeMarkdown } from "@/lib/docs/markdown";
 import { parseSummary, findParent, flattenNav } from "@/lib/docs/summary";
 import { extractToc } from "@/lib/docs/toc";
-import { docPageMetadata } from "@/lib/docs/metadata";
+import { docPageMetadata, docsBreadcrumbJsonLd } from "@/lib/docs/metadata";
 import { Markdown } from "@/components/Markdown";
 import { DocsPager } from "@/components/docs/DocsPager";
 import { DocsShell } from "@/components/docs/DocsShell";
@@ -84,8 +84,19 @@ export default async function DocPage({
   const toc = extractToc(doc.markdown);
 
   const markdown = normalizeMarkdown(doc.markdown, locale, doc.docDir);
+  const breadcrumbLd = docsBreadcrumbJsonLd({
+    nav,
+    slug,
+    locale,
+    currentTitle: doc.title,
+    path: slug.length ? `/docs/${slug.join("/")}` : "/docs",
+  });
   return (
     <DocsShell locale={locale} nav={nav} toc={toc} tocLabel={t("onThisPage")}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
       {parent && (
         <Link
           href={parent.href}
