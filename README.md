@@ -1,14 +1,16 @@
 # BugShot Web
 
-Landing page for the [BugShot](https://chromewebstore.google.com/detail/bugshot/ohakhekagkodklkickemonmifdcbhmig) Chrome extension. A single-page static site that introduces the product and drives users to install from the Chrome Web Store.
+Landing page **and docs site** for the [BugShot](https://chromewebstore.google.com/detail/bugshot/ohakhekagkodklkickemonmifdcbhmig) Chrome extension. A static site that introduces the product (landing), and self-hosts the guide (`/docs`) and privacy policy (`/privacy`) — their content is fetched from the bugshot-2 repo at build time so all SEO authority stays on `bug-shot.com`.
 
 ## Stack
 
 - Next.js 15 (App Router, static export) + React 19
-- Tailwind CSS v3 + shadcn/ui
+- Tailwind CSS v3 (+ `@tailwindcss/typography`, `tailwindcss-animate`) + shadcn/ui
+- Markdown: `react-markdown` + `remark-gfm` + `rehype-slug` (shared `Markdown` component)
+- Docs search: `cmdk` + `fuse.js` (build-time index, client-side fuzzy search)
 - DM Sans (Latin) + Pretendard Variable (Korean)
 - next-intl (defaultLocale: `ko`, routes: `/ko`, `/en`)
-- Deployed on Vercel (rewrite `/` → `/ko`)
+- Deployed on Vercel (rewrites `/`, `/privacy`, `/docs/*` → default `ko`)
 
 ## Getting Started
 
@@ -17,7 +19,9 @@ pnpm install
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000). `dev`/`build` first run
+`fetch-privacy` + `fetch-guide` + `build-search` to pull privacy/guide content
+and build the search index from bugshot-2 (all gitignored).
 
 ## Build
 
@@ -25,24 +29,32 @@ Open [http://localhost:3000](http://localhost:3000).
 pnpm build
 ```
 
-Outputs a static site to `out/`.
+Outputs a static site to `out/`. (Don't run `build` while `dev` is running — it overwrites the same `.next`.)
 
 ## Project Structure
 
 ```
+scripts/            — build-time content fetch + search index (privacy, guide)
 src/
 ├── app/
-│   ├── layout.tsx    — Root layout (<html>, <body>, DM Sans)
-│   └── [locale]/     — Localized routes (/ko, /en)
-├── components/       — Section components + shadcn/ui + LocaleSwitcher
-├── i18n/             — next-intl routing, navigation, request config
+│   ├── layout.tsx          — Root layout (<html>, <body>, DM Sans)
+│   └── [locale]/           — Localized routes (/ko, /en)
+│       ├── page.tsx        — Landing
+│       ├── privacy/        — Privacy policy
+│       └── docs/           — Guide portal (catch-all)
+├── components/
+│   ├── Markdown.tsx        — Shared markdown renderer
+│   ├── docs/               — DocsShell, sidebar, header, search, pager, TOC
+│   └── ...                 — Landing sections + shadcn/ui + LocaleSwitcher
+├── i18n/                   — next-intl routing, navigation, request config
 └── lib/
-    ├── i18n/         — Message catalogs (en.json, ko.json)
-    └── ...           — Constants, utilities
+    ├── docs/               — SUMMARY parser, content loader, markdown, TOC, metadata
+    ├── i18n/               — Message catalogs (en.json, ko.json)
+    └── ...                 — Constants, utilities
 ```
 
 ## Links
 
 - [Chrome Web Store](https://chromewebstore.google.com/detail/bugshot/ohakhekagkodklkickemonmifdcbhmig)
 - [GitHub (Extension)](https://github.com/sinhyeokkang/bugshot-2)
-- [Privacy Policy](https://sinhyeokkang.github.io/bugshot-2/privacy)
+- [Privacy Policy](https://bug-shot.com/ko/privacy)
