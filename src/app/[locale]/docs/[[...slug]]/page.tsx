@@ -7,8 +7,10 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllDocSlugs, getDoc } from "@/lib/docs/content";
 import { normalizeMarkdown } from "@/lib/docs/markdown";
 import { parseSummary, findParent, flattenNav } from "@/lib/docs/summary";
+import { extractToc } from "@/lib/docs/toc";
 import { Markdown } from "@/components/Markdown";
 import { DocsPager } from "@/components/docs/DocsPager";
+import { TocNav } from "@/components/docs/TocNav";
 import { SITE_URL } from "@/lib/constants";
 
 export const dynamicParams = false;
@@ -84,25 +86,36 @@ export default async function DocPage({
   const prev = idx > 0 ? flat[idx - 1] : null;
   const next = idx >= 0 && idx < flat.length - 1 ? flat[idx + 1] : null;
   const t = await getTranslations({ locale, namespace: "docs" });
+  const toc = extractToc(doc.markdown);
 
   const markdown = normalizeMarkdown(doc.markdown, locale, doc.docDir);
   return (
-    <>
-      {parent && (
-        <Link
-          href={parent.href}
-          className="mb-2 inline-block text-sm font-semibold text-brand hover:underline"
-        >
-          {parent.title}
-        </Link>
+    // right TOC only when there's room (exception to md:-only, like FeatureCards)
+    <div className="min-[1100px]:flex min-[1100px]:gap-8">
+      <div className="min-w-0 flex-1">
+        {parent && (
+          <Link
+            href={parent.href}
+            className="mb-2 inline-block text-sm font-semibold text-brand hover:underline"
+          >
+            {parent.title}
+          </Link>
+        )}
+        <Markdown>{markdown}</Markdown>
+        <DocsPager
+          prev={prev}
+          next={next}
+          prevLabel={t("prev")}
+          nextLabel={t("next")}
+        />
+      </div>
+      {toc.length > 0 && (
+        <aside className="hidden min-[1100px]:block min-[1100px]:w-40 min-[1100px]:shrink-0">
+          <div className="fixed top-[104px] max-h-[calc(100vh-8rem)] w-40 overflow-y-auto right-[max(1.5rem,calc((100vw-1200px)/2+1.5rem))]">
+            <TocNav items={toc} label={t("onThisPage")} />
+          </div>
+        </aside>
       )}
-      <Markdown>{markdown}</Markdown>
-      <DocsPager
-        prev={prev}
-        next={next}
-        prevLabel={t("prev")}
-        nextLabel={t("next")}
-      />
-    </>
+    </div>
   );
 }

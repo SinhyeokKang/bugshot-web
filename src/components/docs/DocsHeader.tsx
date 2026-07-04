@@ -22,8 +22,8 @@ export function DocsHeader({
             <Image
               src="/bugshot-symbol.svg"
               alt="BugShot"
-              width={32}
-              height={32}
+              width={36}
+              height={36}
               priority
             />
           </Link>

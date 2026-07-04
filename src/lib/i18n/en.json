@@ -187,7 +187,8 @@
   "docs": {
     "menu": "Menu",
     "prev": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "onThisPage": "On this page"
   },
   "privacy": {
     "home": "Home",
