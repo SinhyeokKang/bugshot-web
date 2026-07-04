@@ -2,14 +2,14 @@
 
 ## 개요
 
-빌드 전(prebuild) bugshot-2 raw 파일에서 `docs/privacy.md`(ko)·`docs/privacy.en.md`(en)를 받아 `content/privacy/{locale}.md`로 전개한다. next-intl `[locale]` 아래 정적 `privacy` 라우트가 빌드 시 해당 파일을 `fs`로 읽어 공용 `Markdown` 컴포넌트(react-markdown + remark-gfm + rehype-slug + `@tailwindcss/typography`)로 프리렌더한다. Footer 링크·sitemap·vercel rewrite를 내부 경로로 전환한다. 이 마크다운 렌더 스택은 후속 docs-portal이 그대로 재사용한다.
+빌드 전(prebuild) bugshot-2 raw 파일에서 `docs/privacy.ko.md`(ko)·`docs/privacy.en.md`(en)를 받아 `content/privacy/{locale}.md`로 전개한다. next-intl `[locale]` 아래 정적 `privacy` 라우트가 빌드 시 해당 파일을 `fs`로 읽어 공용 `Markdown` 컴포넌트(react-markdown + remark-gfm + rehype-slug + `@tailwindcss/typography`)로 프리렌더한다. Footer 링크·sitemap·vercel rewrite를 내부 경로로 전환한다. 이 마크다운 렌더 스택은 후속 docs-portal이 그대로 재사용한다.
 
 ## 변경 범위
 
 ### 신규 파일
 
 - `scripts/fetch-privacy.mjs` — 빌드/데브 전 실행. bugshot-2 public repo raw URL 2개를 직접 fetch:
-  - `https://raw.githubusercontent.com/SinhyeokKang/bugshot-2/main/docs/privacy.md` → `content/privacy/ko.md`
+  - `https://raw.githubusercontent.com/SinhyeokKang/bugshot-2/main/docs/privacy.ko.md` → `content/privacy/ko.md`
   - `https://raw.githubusercontent.com/SinhyeokKang/bugshot-2/main/docs/privacy.en.md` → `content/privacy/en.md`
   - 각 응답이 `2xx`·비어있지 않음·`#`로 시작(마크다운 헤딩)인지 assert. 하나라도 실패 시 `process.exit(1)`. (tarball 불필요 — 파일 2개라 raw 직접 fetch가 최소.)
 - `src/components/Markdown.tsx` — react-markdown 래퍼(서버 컴포넌트). `remarkPlugins={[remarkGfm]}`, `rehypePlugins={[rehypeSlug]}`. `prose max-w-none` 래퍼(65ch 제한 해제 — 긴 3컬럼 테이블 대응). **`components={{ table }}`로 각 `<table>`을 `<div className="overflow-x-auto">`로 래핑**(전역 `word-break: keep-all`로 한글 셀이 줄바꿈 안 돼 넓어지므로 필수 — CLAUDE.md "body must never scroll horizontally" 준수). docs-portal이 재사용할 공용 렌더러.
@@ -40,9 +40,9 @@
 
 ### 외부(bugshot-2 레포 + Vercel, 선행)
 
-- `docs/privacy.en.md` **main 커밋·push** — `docs/privacy.md`의 충실한 영문 번역. 구조(헤딩·테이블·앵커)를 한국어판과 대칭으로 유지해 양 로케일 렌더가 동일 동작. (초안이 `dev` 브랜치에 존재하나 **아직 main 미반영·raw URL 404** — Task 1 fetch 전 필수.) 기존 `docs/privacy.md`는 그대로 두어 github.io Jekyll URL 유지.
+- `docs/privacy.ko.md`·`docs/privacy.en.md` **main 커밋·push** — ko 원본은 기존 `privacy.md`에서 `privacy.ko.md`로 리네이밍, en은 그 충실한 영문 번역. 구조(헤딩·테이블·앵커)를 대칭으로 유지해 양 로케일 렌더가 동일 동작. (두 파일 모두 **아직 main 미반영·raw URL 404** — Task 1 fetch 전 필수.) 구 github.io URL은 `docs/privacy.html`(bug-shot.com 리디렉트 스텁)이 담당 — bugshot-2 스코프, 이번 기능은 무시.
 - **Vercel Deploy Hook 생성** — bugshot-web 프로젝트에서 main용 Deploy Hook URL 발급, bugshot-2 repo secret으로 등록.
-- **`.github/workflows/trigger-web-deploy.yml`** (bugshot-2) — `docs/privacy.md`·`docs/privacy.en.md` push 시 Deploy Hook을 `curl`로 호출해 bugshot-web 재빌드 트리거(원본 수정 → 수 분 내 자동 반영). docs-portal이 `guide/**`로 확장할 동일 패턴의 선행 도입.
+- **`.github/workflows/trigger-web-deploy.yml`** (bugshot-2) — `docs/privacy.ko.md`·`docs/privacy.en.md` push 시 Deploy Hook을 `curl`로 호출해 bugshot-web 재빌드 트리거(원본 수정 → 수 분 내 자동 반영). docs-portal이 `guide/**`로 확장할 동일 패턴의 선행 도입.
 
 ## 데이터 흐름
 
@@ -50,7 +50,7 @@
 
 **런타임(정적)**: 브라우저가 `/{locale}/privacy` HTML 로드. 앵커 링크는 페이지 내 스크롤(JS 불필요).
 
-**단일 소스**: privacy 원본 = bugshot-2 `docs/privacy.{md,en.md}`. 이 레포엔 미커밋(gitignore).
+**단일 소스**: privacy 원본 = bugshot-2 `docs/privacy.{ko,en}.md`. 이 레포엔 미커밋(gitignore).
 
 ## 인터페이스 설계
 
@@ -95,7 +95,7 @@ export default async function PrivacyPage(
 - **빌드 네트워크 의존**: raw fetch 실패 시 prod 빌드 실패. fetch 스크립트에 명확한 에러 메시지 + non-zero exit. 부분 성공(한 로케일만)으로 조용히 넘어가지 않도록 두 파일 모두 assert.
 - **ko/en 구조 비대칭**: 영문판 헤딩/앵커가 한국어판과 달라지면 LocaleSwitcher 전환 시 같은 문서인데 앵커가 깨질 수 있음. 번역 시 구조 대칭 유지(선행 조건).
 - **react-markdown RSC 호환**: react-markdown v9는 서버 컴포넌트에서 동작. 클라이언트 지시자 불필요. Next 15 + React 19 조합 빌드 검증.
-- **GFM 테이블 렌더 + 모바일 오버플로우**: `remark-gfm` 없으면 테이블이 리터럴 텍스트로 렌더. 또 privacy.md는 3컬럼 테이블 다수 + 셀 텍스트가 길고 전역 `word-break: keep-all`이라 375px에서 body 가로 스크롤 위험. `components.table`의 `overflow-x-auto` 래퍼로 격리(변경 범위 참조). 375px에서 body 가로 스크롤 없음을 실기기/DevTools로 확인.
+- **GFM 테이블 렌더 + 모바일 오버플로우**: `remark-gfm` 없으면 테이블이 리터럴 텍스트로 렌더. 또 privacy 본문은 3컬럼 테이블 다수 + 셀 텍스트가 길고 전역 `word-break: keep-all`이라 375px에서 body 가로 스크롤 위험. `components.table`의 `overflow-x-auto` 래퍼로 격리(변경 범위 참조). 375px에서 body 가로 스크롤 없음을 실기기/DevTools로 확인.
 - **openGraph 병합 상속**: Next는 canonical만 자식이 덮고 openGraph는 부모와 병합. override 누락 시 privacy 소셜 카드가 랜딩 title·`og:url=홈`을 표시. `generateMetadata`에서 openGraph(title/description/url) override 필수(메타 참조). docs-portal design과 동일 방침.
 - **중복 인덱싱(감수)**: v1은 github.io 원본을 색인 상태로 두므로 동일 privacy 본문이 두 도메인에 색인돼 단기 권위 분산. 명시적 트레이드오프(PRD 참조). 완결은 후속 github.io noindex/301.
 - **Deploy Hook 부재 시 stale**: Deploy Hook·Action 미구성이면 bugshot-2 원본 수정이 라이브에 반영 안 됨. 선행 조건으로 구성(외부 선행 참조). Deploy Hook secret 노출 주의.

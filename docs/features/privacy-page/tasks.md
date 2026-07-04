@@ -2,7 +2,7 @@
 
 ## 선행 조건
 
-- **bugshot-2 `docs/privacy.en.md` main 커밋·push**: 영문 초안이 bugshot-2 `dev` 브랜치에 **untracked(미커밋)** 상태 — raw URL 현재 **404**. main에 커밋·push해야 Task 1 fetch 성공. 헤딩·테이블·앵커 구조를 한국어판과 대칭 유지.
+- **bugshot-2 `docs/privacy.ko.md`·`docs/privacy.en.md` main 커밋·push**: 두 원본이 로컬엔 준비됐으나 **아직 main 미반영 — raw URL 현재 404**. main에 커밋·push해야 Task 1 fetch 성공. 헤딩·테이블·앵커 구조를 ko/en 대칭 유지. (`docs/privacy.html`은 구 URL 리디렉트 스텁 — 무시.)
 - bugshot-2가 public repo 확인(raw.githubusercontent 인증 불필요 — 확인됨).
 - **Vercel Build Command 확인**: 대시보드 Build Command가 비어(기본 `pnpm build`) 있어야 인라인 fetch 발동. `next build` 오버라이드면 fetch 스킵 → 빌드 실패. 확인 후 필요 시 `vercel.json buildCommand` 명시.
 - 신규 deps 설치 권한: `react-markdown`, `remark-gfm`, `rehype-slug`, `@tailwindcss/typography`.
@@ -13,7 +13,7 @@
 ### Task 1: privacy 콘텐츠 fetch 스크립트
 - **변경 대상**: `scripts/fetch-privacy.mjs`(신규), `.gitignore`, `package.json`(scripts)
 - **작업 내용**:
-  - raw URL 2개(`docs/privacy.md`→`content/privacy/ko.md`, `docs/privacy.en.md`→`content/privacy/en.md`) fetch·저장.
+  - raw URL 2개(`docs/privacy.ko.md`→`content/privacy/ko.md`, `docs/privacy.en.md`→`content/privacy/en.md`) fetch·저장.
   - 각 응답 status 2xx + 본문 non-empty + `#`로 시작 assert. 실패 시 `console.error` + `process.exit(1)`.
   - `content/` 디렉터리 없으면 생성.
   - `.gitignore`에 `content/` 추가.
@@ -82,7 +82,7 @@
 - **변경 대상**: Vercel 프로젝트(Deploy Hook), bugshot-2 `.github/workflows/trigger-web-deploy.yml`(신규) + repo secret
 - **작업 내용**:
   - bugshot-web Vercel 프로젝트에서 main용 Deploy Hook URL 발급 → bugshot-2 repo secret(`WEB_DEPLOY_HOOK`)로 등록.
-  - bugshot-2에 GitHub Action 추가: `docs/privacy.md`·`docs/privacy.en.md` push 시 `curl -X POST $WEB_DEPLOY_HOOK` 호출.
+  - bugshot-2에 GitHub Action 추가: `docs/privacy.ko.md`·`docs/privacy.en.md` push 시 `curl -X POST $WEB_DEPLOY_HOOK` 호출.
   - docs-portal이 `guide/**`로 확장할 동일 패턴의 최소 선행 도입.
 - **검증**:
   - [ ] bugshot-2에서 privacy 원본 사소 수정 push → Vercel에 bugshot-web 재빌드 트리거 확인.
@@ -104,7 +104,7 @@
 
 ## 구현 순서 권장
 
-1. **선행**: bugshot-2 `docs/privacy.en.md` **main 커밋·push**(현재 미반영·raw 404, 없으면 Task 1 fetch 실패) + Vercel Build Command 확인.
+1. **선행**: bugshot-2 `docs/privacy.ko.md`·`docs/privacy.en.md` **main 커밋·push**(현재 미반영·raw 404, 없으면 Task 1 fetch 실패) + Vercel Build Command 확인.
 2. **Task 1**(fetch) → **Task 2**(렌더 스택): 병렬 가능하나 Task 3이 둘 다 의존.
 3. **Task 3**(페이지) — Task 1·2 완료 후.
 4. **Task 4**(JSON-LD 이관) — Task 3과 독립, 병렬 가능. privacy 색인 청결을 위해 Task 3과 함께 검증.

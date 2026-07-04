@@ -8,15 +8,15 @@
 
 ## 배경
 
-- 현재 개인정보처리방침은 bugshot-2 레포 `docs/privacy.md`(한국어 전용)를 GitHub Pages(Jekyll)로 발행 → `https://sinhyeokkang.github.io/bugshot-2/privacy`.
+- 현재 개인정보처리방침은 bugshot-2 레포의 마크다운(한국어)을 GitHub Pages(Jekyll)로 발행 → `https://sinhyeokkang.github.io/bugshot-2/privacy`. 원본은 `docs/privacy.ko.md`(ko)·`docs/privacy.en.md`(en)로 정비됨. (구 URL은 `docs/privacy.html`이 bug-shot.com으로 리디렉트 — bugshot-2 스코프, 이번 기능 무시.)
 - 문제: 법적 고지 문서가 제품 도메인(`bug-shot.com`) 밖 `github.io`에 있어 신뢰도·SEO 권위가 제품 도메인에 쌓이지 않는다. 랜딩 Footer가 외부 도메인으로 튕긴다.
 - 다가올 **docs-portal**(가이드 내재화)은 마크다운을 `bug-shot.com` 하위에 정적 렌더하는 인프라(빌드타임 콘텐츠 fetch + 마크다운 렌더 스택)를 필요로 한다. privacy 페이지는 이 인프라의 **최소 선행 도입 대상**이다 — 단일 문서라 복잡도가 낮고, docs-portal이 그대로 재사용할 마크다운 렌더러를 먼저 검증할 수 있다.
-- privacy.md는 순수 GFM(HTML 태그 0)이며 GFM 테이블 다수 + 내부 앵커 링크(예: `[3. 외부 전송](#3-외부-전송)`)를 포함한다.
+- privacy 본문은 순수 GFM(HTML 태그 0)이며 GFM 테이블 다수 + 내부 앵커 링크(예: `[3. 외부 전송](#3-외부-전송)`)를 포함한다.
 
 ## 목표
 
 - `bug-shot.com/{ko,en}/privacy`에 개인정보처리방침을 **인덱싱 가능한 상태로 정적 서빙**한다(고유 canonical·title·description·robots index + sitemap 등록).
-- 한국어(`docs/privacy.md`)·영어(`docs/privacy.en.md`) 양 로케일을 서빙. 영문판은 이번에 신규 작성.
+- 한국어(`docs/privacy.ko.md`)·영어(`docs/privacy.en.md`) 양 로케일을 서빙. 영문판은 이번에 신규 작성.
 - bugshot-2의 privacy 원본을 **빌드타임 fetch**(레포 미커밋)하고, 원본 push 시 **Vercel Deploy Hook + GitHub Action으로 수 분 내 자동 반영**한다(수동 재배포 불필요).
 - docs-portal이 재사용할 **공용 마크다운 렌더 스택**(react-markdown + typography)과 **Deploy Hook 자동 반영 파이프라인**을 최소 형태로 확립한다.
 - **중복 인덱싱 트레이드오프 감수**: v1 배포 직후엔 github.io 원본과 `bug-shot.com`이 동일 본문으로 단기 중복 색인된다. 실질적 권위 이전(github.io noindex/301)은 후속으로 분리한다.
@@ -54,5 +54,5 @@
 - privacy 페이지에 고유 canonical·title·description·openGraph(title/description/url) 메타 + `robots index` + `sitemap.xml` 등록(ko/en `/{locale}/privacy` alternates). 랜딩 JSON-LD(SoftwareApplication·FAQPage) 미주입.
 - GFM 테이블이 스타일과 함께 렌더되고 넓은 테이블은 가로 스크롤로 격리(모바일 body 가로 스크롤 없음), 인라인 앵커 클릭 시 해당 섹션으로 이동.
 - Footer 개인정보처리방침 링크가 내부 `/{locale}/privacy`로 이동(외부 도메인 아님).
-- bugshot-2 `docs/privacy.{md,en.md}` push → Deploy Hook으로 수 분 내 `bug-shot.com/{locale}/privacy` 자동 반영.
+- bugshot-2 `docs/privacy.{ko,en}.md` push → Deploy Hook으로 수 분 내 `bug-shot.com/{locale}/privacy` 자동 반영.
 - (감수) v1 배포 직후 github.io 원본과 단기 중복 색인 — 권위 이전 완결은 후속(github.io noindex/301).
