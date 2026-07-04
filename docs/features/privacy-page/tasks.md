@@ -104,10 +104,11 @@
 
 ## 구현 순서 권장
 
-1. **선행**: bugshot-2 `docs/privacy.ko.md`·`docs/privacy.en.md` **main 커밋·push**(현재 미반영·raw 404, 없으면 Task 1 fetch 실패) + Vercel Build Command 확인.
-2. **Task 1**(fetch) → **Task 2**(렌더 스택): 병렬 가능하나 Task 3이 둘 다 의존.
-3. **Task 3**(페이지) — Task 1·2 완료 후.
-4. **Task 4**(JSON-LD 이관) — Task 3과 독립, 병렬 가능. privacy 색인 청결을 위해 Task 3과 함께 검증.
-5. **Task 5**(Footer/상수) → **Task 6**(sitemap/rewrite) — Task 3의 라우트 존재 후.
-6. **Task 7**(Deploy Hook) — bugshot-web 첫 배포로 privacy 라우트가 라이브가 된 뒤 구성(외부, 병렬 가능).
-7. 마지막에 `pnpm build` 전체 검증.
+> **닭-달걀 주의**: bugshot-web 빌드가 bugshot-2 main의 privacy 원본을 fetch하므로, **bugshot-2 병합이 bugshot-web 첫 배포보다 먼저**여야 한다. 순서 역전 시 첫 배포에서 fetch 404 → 빌드 실패.
+
+1. **[bugshot-2] `privacy.ko.md`·`privacy.en.md` main 병합** — fetch 소스 확보(최우선). raw URL 200 확인.
+2. **[bugshot-web] Vercel Build Command 확인** — 비어있어야(기본 `pnpm build`) 인라인 fetch 발동.
+3. **[bugshot-web] 구현**: **Task 1**(fetch)→**Task 2**(렌더 스택) [Task 3이 둘 다 의존] → **Task 3**(페이지). **Task 4**(JSON-LD 이관)는 Task 3과 독립·병렬, 색인 청결 위해 함께 검증. **Task 5**(Footer/상수)→**Task 6**(sitemap/rewrite)는 Task 3 라우트 존재 후. 로컬 `pnpm build` 전체 검증.
+4. **[bugshot-web] 배포** — 첫 배포에서 빌드타임 fetch 실제 성공 + `/ko,/en/privacy` 라이브 확인(별도 fetch 테스트 단계가 여기에 포함됨).
+5. **[Deploy Hook] Task 7** — 라우트 라이브 후 Vercel Hook 발급 + bugshot-2 Action 구성.
+6. **[검증]** bugshot-2 privacy 원본 사소 수정 push → 자동 재빌드·반영 확인.
