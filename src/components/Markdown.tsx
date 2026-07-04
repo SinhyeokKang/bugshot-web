@@ -46,7 +46,7 @@ const components: Components = {
   a: ({ children, href }) => (
     <a
       href={href}
-      className="text-brand underline underline-offset-4"
+      className="text-brand"
       {...(href?.startsWith("http")
         ? { target: "_blank", rel: "noopener noreferrer" }
         : {})}
@@ -55,7 +55,7 @@ const components: Components = {
     </a>
   ),
   blockquote: ({ children }) => (
-    <blockquote className="my-4 border-l-2 border-border py-2 pl-8 text-muted-foreground [&>p]:mt-0 [&>p]:leading-7">
+    <blockquote className="my-4 border-l-2 border-border bg-muted py-3 pr-4 pl-8 [&>p]:mt-0 [&>p]:leading-7">
       {children}
     </blockquote>
   ),
