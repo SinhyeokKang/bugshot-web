@@ -110,7 +110,7 @@ const components: Components = {
         className="block max-w-full"
       />
       {alt ? (
-        <span className="mt-2 block text-center text-sm text-muted-foreground">
+        <span className="mt-2 block text-center text-xs text-muted-foreground">
           {alt}
         </span>
       ) : null}
