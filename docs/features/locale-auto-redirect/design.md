@@ -71,22 +71,22 @@ next-intl은 URL 경로에서 로케일을 읽는다(`localePrefix: always`, `re
 
 ### `vercel.json` redirects (전체)
 
-각 규칙은 `has`에 `sec-fetch-dest: document`를 AND로 포함한다(에셋 보호). 규칙1은 쿠키(앵커 `^en$`), 규칙2는 쿠키 부재 + 헤더 "ko 아님" 매칭(`^([^kK]|[kK][^oO])`).
+각 규칙은 `has`에 `sec-fetch-dest: document`를 AND로 포함한다(에셋 보호). 규칙1은 쿠키(앵커 `^en$`), 규칙2는 쿠키 부재 + 헤더 "ko 아님" 매칭(`^([^kK]|[kK][^oO]).*`).
 
 ```json
 {
   "redirects": [
     { "source": "/",             "has": [{ "type": "cookie", "key": "NEXT_LOCALE", "value": "^en$" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en", "permanent": false },
-    { "source": "/",             "missing": [{ "type": "cookie", "key": "NEXT_LOCALE" }], "has": [{ "type": "header", "key": "accept-language", "value": "^([^kK]|[kK][^oO])" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en", "permanent": false },
+    { "source": "/",             "missing": [{ "type": "cookie", "key": "NEXT_LOCALE" }], "has": [{ "type": "header", "key": "accept-language", "value": "^([^kK]|[kK][^oO]).*" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en", "permanent": false },
 
     { "source": "/privacy",      "has": [{ "type": "cookie", "key": "NEXT_LOCALE", "value": "^en$" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en/privacy", "permanent": false },
-    { "source": "/privacy",      "missing": [{ "type": "cookie", "key": "NEXT_LOCALE" }], "has": [{ "type": "header", "key": "accept-language", "value": "^([^kK]|[kK][^oO])" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en/privacy", "permanent": false },
+    { "source": "/privacy",      "missing": [{ "type": "cookie", "key": "NEXT_LOCALE" }], "has": [{ "type": "header", "key": "accept-language", "value": "^([^kK]|[kK][^oO]).*" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en/privacy", "permanent": false },
 
     { "source": "/docs",         "has": [{ "type": "cookie", "key": "NEXT_LOCALE", "value": "^en$" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en/docs", "permanent": false },
-    { "source": "/docs",         "missing": [{ "type": "cookie", "key": "NEXT_LOCALE" }], "has": [{ "type": "header", "key": "accept-language", "value": "^([^kK]|[kK][^oO])" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en/docs", "permanent": false },
+    { "source": "/docs",         "missing": [{ "type": "cookie", "key": "NEXT_LOCALE" }], "has": [{ "type": "header", "key": "accept-language", "value": "^([^kK]|[kK][^oO]).*" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en/docs", "permanent": false },
 
     { "source": "/docs/:path*",  "has": [{ "type": "cookie", "key": "NEXT_LOCALE", "value": "^en$" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en/docs/:path*", "permanent": false },
-    { "source": "/docs/:path*",  "missing": [{ "type": "cookie", "key": "NEXT_LOCALE" }], "has": [{ "type": "header", "key": "accept-language", "value": "^([^kK]|[kK][^oO])" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en/docs/:path*", "permanent": false }
+    { "source": "/docs/:path*",  "missing": [{ "type": "cookie", "key": "NEXT_LOCALE" }], "has": [{ "type": "header", "key": "accept-language", "value": "^([^kK]|[kK][^oO]).*" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en/docs/:path*", "permanent": false }
   ],
   "rewrites": [
     { "source": "/",            "destination": "/ko" },
@@ -97,7 +97,8 @@ next-intl은 URL 경로에서 로케일을 읽는다(`localePrefix: always`, `re
 }
 ```
 
-- 헤더 정규식 `^([^kK]|[kK][^oO])`: 첫 글자가 `k/K`가 아니거나, `k/K`인데 둘째가 `o/O`가 아니면 매칭 = "**ko로 시작하지 않음**". `Accept-Language`의 첫 태그가 우선 언어이므로 문자열 시작만 검사. `en-US,...`·`fr-FR,...`·`ja-JP,...` → 매칭(리디렉트), `ko-KR,...`·`Ko-kr,...`·헤더 부재 → 매칭 실패(bare/ko 유지). **negated char class는 lookahead와 달리 RE2·JS·PCRE 모든 엔진이 지원하므로 엔진 종류와 무관하게 안전하다.**
+- 헤더 정규식 `^([^kK]|[kK][^oO]).*`: 첫 글자가 `k/K`가 아니거나, `k/K`인데 둘째가 `o/O`가 아니면 매칭 = "**ko로 시작하지 않음**", 뒤 `.*`로 나머지 전체를 소비. `en-US,...`·`fr-FR,...`·`ja-JP,...` → 매칭(리디렉트), `ko-KR,...`·`Ko-kr,...`·헤더 부재 → 매칭 실패(bare/ko 유지). **negated char class는 lookahead와 달리 RE2·JS·PCRE 모든 엔진이 지원하므로 엔진 종류와 무관하게 안전하다.**
+  - ⚠️ **Vercel `has.value`는 헤더 값 "전체"에 매칭한다**(프리뷰 실측으로 확인). `.*`가 없으면 `^([^kK]|[kK][^oO])`는 앞 1~2글자만 커버해 `en-US,en;q=0.9` 같은 실제 값이 **전체 매칭에 실패**(리디렉트 안 됨). 반면 `*`(1글자)나 쿠키 `^en$`는 전체가 커버돼 정상 동작. 그래서 `.*`로 나머지를 소비해야 한다. (부분 매칭이 아님 — 이게 이 기능 최초 배포에서 잡힌 실제 버그.)
   - 엣지: 빈 값·`*`만 있는 헤더 → 빈 문자열은 최소 1글자를 요구하는 정규식에 불매칭 → ko 유지. `*,...`는 첫 글자 `*`가 `[^kK]`라 매칭 → `/en`(any language를 en으로, 무해). `kok`(콘칸어 등 ko로 시작하는 드문 태그) → ko로 오판되나 실사용 무시 가능.
 - 쿠키 `value: "^en$"`: 값 전체가 정확히 `en`일 때만 매칭(부분 매칭 방지, 위험5 해소).
 - `sec-fetch-dest: document`: 최상위 문서 내비게이션 요청만 매칭. 이미지 요청은 `sec-fetch-dest: image`라 제외되어 `/docs/{locale}/assets/*` 404를 방지(위험6). 이 헤더를 안 보내는 구형 브라우저·일부 크롤러는 리디렉트되지 않고 ko로 서빙(허용 가능한 열화).
@@ -143,7 +144,7 @@ Vercel geo 헤더(`x-vercel-ip-country`)로 KR 여부 판정. 요청이 "브라�
 
 ## 위험 요소
 
-1. **Vercel `has.value` 부정 룩어헤드 미지원 (negated char class로 근본 회피)**: Vercel 프로덕션 라우팅은 RE2 계열이라 `^(?!ko)` 같은 lookahead를 지원하지 않을 가능성이 높다(`next dev`는 JS 정규식이라 로컬만 보면 통과해 속는다). 그러나 RE2가 금지하는 건 lookahead지 **negated character class(`[^...]`)는 지원**한다. 따라서 "ko로 시작 안 함"을 lookahead 없이 `^([^kK]|[kK][^oO])`로 표현해 **"ko 아니면 en" 대전제를 그대로 유지하면서 엔진 종류와 무관하게 안전**하다. 그래도 프리뷰 배포에서 실제 동작을 확인한다(로컬 `next dev`는 `vercel.json` 미적용 → 검증은 `vercel dev`/프리뷰에서만). 만약 그래도 미동작하면 폴백: 대안 A(클라이언트 JS 인라인 리디렉트).
+1. **Vercel `has.value` 정규식 (해소·프리뷰 검증 완료)**: 두 갈래로 나뉜다. (a) 부정 룩어헤드(`^(?!ko)`)는 RE2 미지원 가능성 → **negated char class `[^...]`(전 엔진 지원)로 회피**. (b) 실제로 프리뷰에서 잡힌 함정은 별개였다 — **Vercel은 `has.value`를 헤더 값 "전체"에 매칭**한다. `^([^kK]|[kK][^oO])`는 앞 1~2글자만 커버해 `en-US,en;q=0.9`가 전체 매칭에 실패(리디렉트 안 됨)했고, `.*`를 붙여 나머지를 소비하도록 `^([^kK]|[kK][^oO]).*`로 고쳐 해소. 프리뷰 curl로 en/fr/ja→307, ko→200, 쿠키 오버라이드, 에셋 200 전부 확인됨. **교훈: `vercel.json` `has.value`는 부분 매칭이 아니라 full-match이므로 뒤를 `.*`로 열어둬야 한다.**
 2. **캐시로 인한 오배포**: header/cookie 조건부 리디렉트가 중간 캐시에 URL만으로 캐시되면 오배포 가능. `permanent: false`(307)이라 브라우저 영구 캐시는 없으나, 필요 시 `Vary: Accept-Language, Cookie, Sec-Fetch-Dest` 헤더를 `vercel.json` `headers`로 명시 검토. 프리뷰에서 캐시 오염 여부 확인(tasks Task 2).
 3. **크롤러 Accept-Language 부재**: 헤더가 없으면 리디렉트 없이 ko(bare) 서빙. 의도된 기본값이나, 영어 인덱싱은 sitemap의 `/en` 엔트리·hreflang로 커버됨을 재확인.
 4. **쿠키 미기록 상태의 auto-redirect 사용자**: edge redirect는 쿠키를 쓰지 못하므로, 자동으로 `/en`에 안착한 사용자는 이후에도 매번 헤더로 재판정된다(동일 결과라 무해). 쿠키는 수동 전환 시에만 생김 — 의도된 동작.

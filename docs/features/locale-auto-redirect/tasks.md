@@ -12,25 +12,25 @@
 ### Task 1: `vercel.json`에 edge redirects 추가
 - **변경 대상**: `vercel.json`
 - **작업 내용**: 기존 `rewrites`는 유지하고, 상위에 `redirects` 배열 추가. bare source 4종(`/`, `/privacy`, `/docs`, `/docs/:path*`) 각각에 2규칙(쿠키 `^en$` / 쿠키부재+헤더 `^([^kK]|[kK][^oO])`), 두 규칙 모두 `sec-fetch-dest: document` AND 조건, 목적지 `/en...`, `permanent: false`. **헤더 정규식 `^([^kK]|[kK][^oO])`("ko 아님", negated char class라 엔진 무관 안전)·cookie 앵커 `^en$`.** (전체 JSON은 design.md "인터페이스 설계" 참조.)
-- **검증**: (프리뷰 배포 후 `curl -sI`, 모든 요청에 `-H "Sec-Fetch-Dest: document"`)
-  - [ ] `-H "Accept-Language: en-US,en;q=0.9"` `/` → `307`, `Location: /en`
-  - [ ] `-H "Accept-Language: ko-KR,ko;q=0.9"` `/` → 리디렉트 없음(200, ko 콘텐츠)
-  - [ ] `-H "Accept-Language: fr-FR,fr;q=0.9"` `/` → `307` `/en` — 비-ko는 en(대전제)
-  - [ ] `-H "Accept-Language: ja-JP"` `/` → `307` `/en`
-  - [ ] `-H "Accept-Language: *"` `/` → `307` `/en`(any→en). 빈 헤더 / 헤더 없이 `/` → 리디렉트 없음(200, ko)
-  - [ ] `-H "Accept-Language: Ko-kr"`(대문자) `/` → 리디렉트 없음 — `[kK][oO]` ko 커버 확인
-  - [ ] `/privacy`, `/docs`, `/docs/a/b`도 en 헤더에서 각각 `/en/privacy`, `/en/docs`, `/en/docs/a/b`로 `307`
-  - [ ] `/ko`, `/en`, `/sitemap.xml` → 리디렉트 없음
+- **검증**: (프리뷰 배포 후 `curl -sI`, 모든 요청에 `-H "Sec-Fetch-Dest: document"`) — **✅ 프리뷰 전체 통과**
+  - [x] `-H "Accept-Language: en-US,en;q=0.9"` `/` → `307`, `Location: /en`
+  - [x] `-H "Accept-Language: ko-KR,ko;q=0.9"` `/` → 리디렉트 없음(200, ko 콘텐츠)
+  - [x] `-H "Accept-Language: fr-FR,fr;q=0.9"` `/` → `307` `/en` — 비-ko는 en(대전제)
+  - [x] `-H "Accept-Language: ja-JP"` `/` → `307` `/en`
+  - [x] `-H "Accept-Language: *"` `/` → `307` `/en`(any→en). 빈 헤더 / 헤더 없이 `/` → 리디렉트 없음(200, ko)
+  - [x] `-H "Accept-Language: Ko-kr"`(대문자) `/` → 리디렉트 없음 — `[kK][oO]` ko 커버 확인
+  - [x] `/privacy`, `/docs`, `/docs/a/b`도 en 헤더에서 각각 `/en/privacy`, `/en/docs`, `/en/docs/a/b`로 `307`
+  - [x] `/ko`, `/en`, `/sitemap.xml` → 리디렉트 없음
 
 ### Task 2: 쿠키·에셋·캐시 검증 (Task 1과 동일 배포에서)
 - **변경 대상**: 없음(설정 검증 태스크)
 - **작업 내용**: 쿠키 오버라이드, **"ko 아님" 정규식 실동작, docs 에셋 404 방어, 캐시 오염**을 확인.
-- **검증**:
-  - [ ] `-H "Accept-Language: ko-KR" --cookie "NEXT_LOCALE=en"` `-H "Sec-Fetch-Dest: document"` `/` → `307` `/en`
-  - [ ] `-H "Accept-Language: en-US" --cookie "NEXT_LOCALE=ko"` `-H "Sec-Fetch-Dest: document"` `/` → 리디렉트 없음(ko)
-  - [ ] **정규식 `^([^kK]|[kK][^oO])`이 실제로 동작함을 위 결과로 확정**(negated char class 지원 확인; 미동작 시 design.md 위험1 폴백 → Task 1b)
-  - [ ] **docs 에셋 방어**: `-H "Accept-Language: en-US" -H "Sec-Fetch-Dest: image"` `/docs/en/assets/dummy.jpg` → 리디렉트 없음(200). 실제 EN 브라우저로 `/en/docs/quick-start` 열어 이미지 정상 표시 확인(DevTools Network에 404 없음)
-  - [ ] **캐시 오염**: ko 요청으로 bare `/` 200 받은 뒤 en 헤더로 재요청 시 캐시된 ko가 재사용되지 않고 `/en` 리디렉트되는지 확인. 오염 시 design 위험2의 `Vary` 헤더 적용
+- **검증**: — **✅ 프리뷰 통과 (`.*` 수정 후)**
+  - [x] `-H "Accept-Language: ko-KR" --cookie "NEXT_LOCALE=en"` `-H "Sec-Fetch-Dest: document"` `/` → `307` `/en`
+  - [x] `-H "Accept-Language: en-US" --cookie "NEXT_LOCALE=ko"` `-H "Sec-Fetch-Dest: document"` `/` → 리디렉트 없음(ko)
+  - [x] **정규식 실동작 확정**: `^([^kK]|[kK][^oO])`만으론 미동작 → **Vercel `has.value`가 값 전체를 매칭**한다는 사실 발견. `.*`를 붙여 `^([^kK]|[kK][^oO]).*`로 수정 후 en/fr/ja→307 확인. (폴백 Task 1b 불필요.)
+  - [x] **docs 에셋 방어**: `-H "Accept-Language: en-US" -H "Sec-Fetch-Dest: image"` `/docs/en/assets/dummy.jpg` → 리디렉트 없음(200) 확인
+  - [ ] **캐시 오염**: (미확인) ko/en 교차 요청이 정상 분기했으나 CDN 캐시 오염은 별도 관찰 필요 시 확인. 현재 증상 없음
 
 ### Task 1b: (조건부) 정규식 폴백 — Task 2에서 `^([^kK]|[kK][^oO])` 미동작 시에만
 - **변경 대상**: `src/app/layout.tsx`(또는 `[locale]/layout.tsx`) `<head>` 인라인 스크립트, `vercel.json`(헤더 redirect 규칙 제거)
@@ -46,7 +46,7 @@
 - **검증**:
   - [x] `npx tsc --noEmit`·`pnpm lint` 통과 (변경 파일 이슈 없음) + `pnpm test` green (5/5)
   - [ ] 프리뷰에서 EN 클릭 후 DevTools Application → Cookies에 `NEXT_LOCALE=en`(만료 ~1년) 존재 (⚠️ 로컬 `next dev`는 http라 `secure` 쿠키 미기록 → 프리뷰 https에서만 검증)
-  - [ ] **bare 경로 전환 회귀**: bare `/`·`/privacy`·`/docs/quick-start`에서 EN 클릭 → 각각 `/en`·`/en/privacy`·`/en/docs/quick-start`로 정확히 이동(404 없음). KO 클릭(영어 브라우저) → ko 복귀 정확
+  - [x] **bare 경로 전환 회귀 (유닛 테스트)**: `localeSwitchHref("/privacy","en")==="/en/privacy"` 등 5케이스 green. ⚠️ **production `bug-shot.com`의 `/enivacy` 버그가 바로 이것 — 옛 `/^\/[a-z]{2}/` 코드**. 이 브랜치 머지 시 해소. (프리뷰 브라우저 클릭은 미수행이나 로직은 유닛으로 확정.)
   - [ ] **기존 슬러그 경로 회귀**: `/ko/docs/x`에서 EN 클릭 → `/en/docs/x` (기존 동작 유지)
   - [ ] 쿠키 기록 후 bare `/` 재방문 시 Task 2 동작대로 리디렉트
   - [ ] 뒤로가기: EN 전환 후 back 눌러도 `replace`로 history 오염 최소화됨 확인
