@@ -44,7 +44,7 @@ const components: Components = {
     </h4>
   ),
   p: ({ children }) => (
-    <p className="leading-7 [&:not(:first-child)]:mt-4">{children}</p>
+    <p className="leading-[1.6] [&:not(:first-child)]:mt-4">{children}</p>
   ),
   a: ({ children, href }) => (
     <a
@@ -58,15 +58,15 @@ const components: Components = {
     </a>
   ),
   blockquote: ({ children }) => (
-    <blockquote className="my-4 border-l-2 border-border bg-muted py-3 pr-4 pl-8 [&>p]:mt-0 [&>p]:leading-7">
+    <blockquote className="my-4 border-l-2 border-border bg-muted py-3 pr-4 pl-8 [&>p]:mt-0 [&>p]:leading-[1.6]">
       {children}
     </blockquote>
   ),
   ul: ({ children }) => (
-    <ul className="my-4 list-disc pl-8 leading-7 [&>li]:mt-1">{children}</ul>
+    <ul className="my-4 list-disc pl-8 leading-[1.6] [&>li]:mt-1">{children}</ul>
   ),
   ol: ({ children }) => (
-    <ol className="my-4 list-decimal pl-8 leading-7 [&>li]:mt-1">{children}</ol>
+    <ol className="my-4 list-decimal pl-8 leading-[1.6] [&>li]:mt-1">{children}</ol>
   ),
   strong: ({ children }) => (
     <strong className="font-semibold text-foreground">{children}</strong>
