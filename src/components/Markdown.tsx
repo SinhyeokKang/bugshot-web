@@ -1,6 +1,9 @@
+import { isValidElement, type ReactNode } from "react";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
+import { EmbedCard } from "@/components/docs/EmbedCard";
+import type { EmbedMap } from "@/lib/docs/embeds";
 
 // Shared markdown renderer (privacy + docs). Every element is mapped to
 // shadcn's Typography classes verbatim (ui.shadcn.com/docs/components/typography)
@@ -77,11 +80,6 @@ const components: Components = {
         {children}
       </code>
     ),
-  pre: ({ children }) => (
-    <pre className="my-6 overflow-x-auto rounded-lg border bg-muted p-4">
-      {children}
-    </pre>
-  ),
   table: ({ children }) => (
     <div className="my-4 overflow-hidden rounded-lg border">
       <div className="overflow-x-auto">
@@ -121,12 +119,42 @@ const components: Components = {
   hr: () => <hr className="my-8 border-border" />,
 };
 
-export function Markdown({ children }: { children: string }) {
+// A ```embed fenced block renders as an OG card. Detect it from the <pre>'s
+// <code className="language-embed"> child and pull out the URL text.
+function embedUrl(children: ReactNode): string | null {
+  const code = Array.isArray(children) ? children[0] : children;
+  if (!isValidElement(code)) return null;
+  const props = code.props as { className?: string; children?: ReactNode };
+  if (!/(^|\s)language-embed(\s|$)/.test(props.className ?? "")) return null;
+  const raw = props.children;
+  const text = Array.isArray(raw) ? raw.join("") : String(raw ?? "");
+  return text.trim();
+}
+
+export function Markdown({
+  children,
+  embeds,
+}: {
+  children: string;
+  embeds?: EmbedMap;
+}) {
+  const withEmbeds: Components = {
+    ...components,
+    pre: ({ children }) => {
+      const url = embedUrl(children);
+      if (url) return <EmbedCard url={url} data={embeds?.[url] ?? null} />;
+      return (
+        <pre className="my-6 overflow-x-auto rounded-lg border bg-muted p-4">
+          {children}
+        </pre>
+      );
+    },
+  };
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       rehypePlugins={[rehypeSlug]}
-      components={components}
+      components={withEmbeds}
     >
       {children}
     </ReactMarkdown>

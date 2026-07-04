@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllDocSlugs, getDoc } from "@/lib/docs/content";
 import { normalizeMarkdown } from "@/lib/docs/markdown";
+import { getEmbeds } from "@/lib/docs/embeds";
 import { parseSummary, findParent, flattenNav } from "@/lib/docs/summary";
 import { extractToc } from "@/lib/docs/toc";
 import { docPageMetadata, docsBreadcrumbJsonLd } from "@/lib/docs/metadata";
@@ -84,6 +85,7 @@ export default async function DocPage({
   const toc = extractToc(doc.markdown);
 
   const markdown = normalizeMarkdown(doc.markdown, locale, doc.docDir);
+  const embeds = getEmbeds();
   const breadcrumbLd = docsBreadcrumbJsonLd({
     nav,
     slug,
@@ -105,7 +107,7 @@ export default async function DocPage({
           {parent.title}
         </Link>
       )}
-      <Markdown>{markdown}</Markdown>
+      <Markdown embeds={embeds}>{markdown}</Markdown>
       <DocsPager
         prev={prev}
         next={next}

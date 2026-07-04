@@ -14,7 +14,7 @@ function resolveRel(docDir: string, target: string): string {
 // Normalize guide markdown for internal static rendering:
 // - drop the inline `🌐 [English](gitbook.io...)` language-switch lines
 // - rewrite `assets/x.jpg` image paths to `/docs/{locale}/assets/x.jpg`
-// - convert `{% embed url="X" %}` to a plain markdown link
+// - convert `{% embed url="X" %}` to an `embed` code fence (rendered as an OG card)
 // - rewrite relative `*.md` doc links to `/{locale}/docs/{slug}` routes
 export function normalizeMarkdown(
   md: string,
@@ -26,10 +26,10 @@ export function normalizeMarkdown(
   // language-switch lines (e.g. `🌐 [English](https://bugshot.gitbook.io/en/...)`)
   out = out.replace(/^\s*🌐\s*\[[^\]]*\]\([^)]*\)\s*$/gm, "");
 
-  // gitbook embeds
+  // gitbook embeds -> `embed` code fence (Markdown renders it as an OG card)
   out = out.replace(
     /\{%\s*embed\s+url="([^"]+)"\s*%\}/g,
-    (_m, url) => `[${url}](${url})`
+    (_m, url) => `\n\`\`\`embed\n${url}\n\`\`\`\n`
   );
 
   // images: (../)*assets/FILE -> /docs/{locale}/assets/FILE

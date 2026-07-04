@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node scripts/fetch-privacy.mjs && node scripts/fetch-guide.mjs && node scripts/build-search.mjs && next dev",
-    "build": "node scripts/fetch-privacy.mjs && node scripts/fetch-guide.mjs && node scripts/build-search.mjs && next build",
+    "dev": "node scripts/fetch-privacy.mjs && node scripts/fetch-guide.mjs && node scripts/build-search.mjs && node scripts/build-embeds.mjs && next dev",
+    "build": "node scripts/fetch-privacy.mjs && node scripts/fetch-guide.mjs && node scripts/build-search.mjs && node scripts/build-embeds.mjs && next build",
     "start": "next start",
     "lint": "next lint"
   },

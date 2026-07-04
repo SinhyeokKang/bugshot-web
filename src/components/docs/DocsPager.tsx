@@ -21,12 +21,12 @@ export function DocsPager({
       {prev && (
         <Link
           href={prev.href}
-          className="group flex flex-1 items-center gap-3 rounded-sm border p-4"
+          className="flex flex-1 items-center gap-3 rounded-xs border p-4 shadow-sm transition-colors hover:bg-accent"
         >
-          <ChevronLeft className="size-5 shrink-0 text-muted-foreground transition-colors group-hover:text-brand" />
+          <ChevronLeft className="size-5 shrink-0 text-muted-foreground" />
           <span className="flex flex-1 flex-col text-right">
             <span className="text-sm text-muted-foreground">{prevLabel}</span>
-            <span className="font-medium transition-colors group-hover:text-brand">
+            <span className="font-medium">
               {prev.title}
             </span>
           </span>
@@ -35,15 +35,15 @@ export function DocsPager({
       {next && (
         <Link
           href={next.href}
-          className="group flex flex-1 items-center gap-3 rounded-sm border p-4"
+          className="flex flex-1 items-center gap-3 rounded-xs border p-4 shadow-sm transition-colors hover:bg-accent"
         >
           <span className="flex flex-1 flex-col text-left">
             <span className="text-sm text-muted-foreground">{nextLabel}</span>
-            <span className="font-medium transition-colors group-hover:text-brand">
+            <span className="font-medium">
               {next.title}
             </span>
           </span>
-          <ChevronRight className="size-5 shrink-0 text-muted-foreground transition-colors group-hover:text-brand" />
+          <ChevronRight className="size-5 shrink-0 text-muted-foreground" />
         </Link>
       )}
     </nav>
