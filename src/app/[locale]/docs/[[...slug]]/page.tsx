@@ -1,8 +1,12 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { getAllDocSlugs, getDoc } from "@/lib/docs/content";
 import { normalizeMarkdown } from "@/lib/docs/markdown";
+import { parseSummary, findParent } from "@/lib/docs/summary";
 import { Markdown } from "@/components/Markdown";
 import { SITE_URL } from "@/lib/constants";
 
@@ -68,6 +72,24 @@ export default async function DocPage({
   const doc = getDoc(locale, slug);
   if (!doc) notFound();
 
+  const summary = readFileSync(
+    join(process.cwd(), "content", "guide", locale, "SUMMARY.md"),
+    "utf-8"
+  );
+  const parent = findParent(parseSummary(summary, locale), slug);
+
   const markdown = normalizeMarkdown(doc.markdown, locale, doc.docDir);
-  return <Markdown>{markdown}</Markdown>;
+  return (
+    <>
+      {parent && (
+        <Link
+          href={parent.href}
+          className="mb-2 inline-block text-sm font-semibold text-brand hover:underline"
+        >
+          {parent.title}
+        </Link>
+      )}
+      <Markdown>{markdown}</Markdown>
+    </>
+  );
 }

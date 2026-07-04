@@ -4,12 +4,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { DocsNavNode } from "@/lib/docs/summary";
 
-// shadcn sidebar menu-button classes (ui.shadcn.com sidebar.tsx), trimmed of
-// provider-only collapsible/state selectors.
+// shadcn sidebar menu-button structure, minus the background states:
+// hover = brand color, active = brand color + one step bolder weight.
 const menuButton =
-  "flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-none ring-sidebar-ring transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground";
+  "flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-none transition-colors hover:text-brand focus-visible:ring-2 focus-visible:ring-ring data-[active=true]:font-medium data-[active=true]:text-brand";
 const subButton =
-  "flex h-7 min-w-0 items-center gap-2 overflow-hidden rounded-md px-2 text-sm text-sidebar-foreground outline-none ring-sidebar-ring transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground";
+  "flex h-7 min-w-0 items-center gap-2 overflow-hidden rounded-md px-2 text-sm text-sidebar-foreground outline-none transition-colors hover:text-brand focus-visible:ring-2 focus-visible:ring-ring data-[active=true]:font-medium data-[active=true]:text-brand";
 
 export function DocsSidebar({ nav }: { nav: DocsNavNode[] }) {
   const pathname = usePathname();

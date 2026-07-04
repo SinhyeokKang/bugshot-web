@@ -46,7 +46,7 @@ const components: Components = {
   a: ({ children, href }) => (
     <a
       href={href}
-      className="font-medium text-primary underline underline-offset-4"
+      className="font-medium text-brand underline underline-offset-4"
       {...(href?.startsWith("http")
         ? { target: "_blank", rel: "noopener noreferrer" }
         : {})}
@@ -100,7 +100,7 @@ const components: Components = {
     <img
       src={typeof src === "string" ? src : undefined}
       alt={alt ?? ""}
-      className="my-6 rounded-lg border"
+      className="my-6 max-w-full"
     />
   ),
   hr: () => <hr className="my-8 border-border" />,

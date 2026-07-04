@@ -23,6 +23,28 @@ function href(locale: string, slug: string[]): string {
 
 const LINE = /^(\s*)-\s*\[([^\]]+)\]\(([^)]+)\)/;
 
+// Find the parent node of a given slug within the SUMMARY tree.
+// Returns null for top-level docs (no parent).
+export function findParent(
+  nav: DocsNavNode[],
+  slug: string[]
+): DocsNavNode | null {
+  const key = slug.join("/");
+  let result: DocsNavNode | null = null;
+  const walk = (nodes: DocsNavNode[], parent: DocsNavNode | null): boolean => {
+    for (const n of nodes) {
+      if (n.slug.join("/") === key) {
+        result = parent;
+        return true;
+      }
+      if (walk(n.children, n)) return true;
+    }
+    return false;
+  };
+  walk(nav, null);
+  return result;
+}
+
 export function parseSummary(md: string, locale: string): DocsNavNode[] {
   const roots: DocsNavNode[] = [];
   // stack of [indentDepth, node] to attach children by indentation
