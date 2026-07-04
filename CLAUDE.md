@@ -27,7 +27,8 @@ bugshot-web: BugShot Chrome 확장의 랜딩 페이지 + 문서 사이트. 정�
 - docs 검색: `cmdk`(shadcn command) + `fuse.js`. 빌드타임 인덱스(`public/search/{locale}.json`) 클라이언트 퍼지 검색.
 - 아이콘: lucide-react (UI 일반), `@icons-pack/react-simple-icons` (브랜드 — `Si{Name}` import, `color="default"` + GitHub만 `dark:invert`)
 - 폰트: DM Sans (next/font/google, Latin) + Pretendard Variable (CDN, 한글). font stack에서 문자 기반 자동 분기.
-- i18n: next-intl (`defaultLocale: "ko"`, `localePrefix: "always"`, routing `/ko`, `/en`). Vercel rewrite로 `/`·`/privacy`·`/docs/*` → 기본 ko 서빙.
+- i18n: next-intl (`defaultLocale: "ko"`, `localePrefix: "always"`, routing `/ko`, `/en`). Vercel rewrite로 `/`·`/privacy`·`/docs/*` → 기본 ko 서빙. **비-ko 브라우저는 Vercel edge `redirects`로 `/en` 자동 안내**(`Accept-Language` "ko 아님" + `sec-fetch-dest: document`; 수동 선택은 `NEXT_LOCALE` 쿠키 우선). ⚠️ `vercel.json` `has.value`는 헤더 값 **전체 매칭** — 정규식 뒤에 `.*` 필수.
+- 테스트: Vitest (순수 함수·정규식 회귀만. 컴포넌트·레이아웃은 브라우저 검증). `src/**/__tests__/*.test.ts`.
 - 배포: Vercel (정적 호스팅). bugshot-2 콘텐츠 push → Deploy Hook으로 자동 재빌드.
 - 패키지 매니저: pnpm
 
@@ -39,6 +40,7 @@ bugshot-web: BugShot Chrome 확장의 랜딩 페이지 + 문서 사이트. 정�
 | 빌드 | `pnpm build` |
 | 타입 체크만 | `npx tsc --noEmit` |
 | 린트 | `pnpm lint` |
+| 유닛 테스트 | `pnpm test` (Vitest, `vitest run`) |
 
 `dev`·`build`는 먼저 콘텐츠 fetch + 검색 인덱스 + 임베드 메타 스크립트를 체이닝한다: `fetch-privacy.mjs && fetch-guide.mjs && build-search.mjs && build-embeds.mjs && next dev|build`. (bugshot-2 public repo에서 privacy·guide를 받아 `content/`·`public/docs`·`public/search`로 전개, guide의 `{% embed %}` URL은 OG 메타를 받아 `content/guide/embeds.json`으로 — 전부 gitignore.)
 
@@ -58,6 +60,7 @@ src/
 │   ├── globals.css         # Tailwind directives + Pretendard CDN import + shadcn CSS 변수 (--sidebar-* 포함, light only)
 │   ├── icon.svg · favicon.ico · apple-icon.png
 │   ├── sitemap.ts          # /sitemap.xml — 랜딩·privacy·docs 전 slug × locale alternates
+│   ├── robots.ts           # /robots.txt — allow all + Sitemap 지시문
 │   └── [locale]/
 │       ├── layout.tsx      # NextIntlClientProvider + generateStaticParams + generateMetadata + html lang
 │       ├── page.tsx        # 랜딩 (섹션 조합 + 랜딩 JSON-LD)
@@ -83,11 +86,13 @@ src/
 └── lib/
     ├── constants.ts        # SITE_URL·CHROME_WEB_STORE_URL·GITHUB_URL 등 + FAQ/REVIEW/HOW_KEYS + 내부 docs 경로 맵(FAQ_GUIDE_PATHS, HOW_GUIDE_PATHS)
     ├── utils.ts            # cn()
+    ├── locale-redirect.ts  # localeSwitchHref(pathname, next) — LocaleSwitcher 경로 계산 (Vitest 커버)
     ├── docs/               # summary(SUMMARY 파서·findParent·flattenNav) · content(slug↔파일) · markdown(정규화) · toc · metadata(docPageMetadata·BreadcrumbList) · embeds(embeds.json 로드)
     └── i18n/en.json · ko.json
 public/                     # bugshot-symbol.svg + images/ (+ 빌드 fetch: docs/·search/ = gitignore)
 content/                    # 빌드 fetch: privacy/·guide/ (gitignore)
-vercel.json                 # rewrite: / · /privacy · /docs · /docs/:path* → 기본 ko
+vercel.json                 # redirects(비-ko → /en, 쿠키/sec-fetch-dest 게이팅) + rewrite(/ · /privacy · /docs · /docs/:path* → 기본 ko)
+vitest.config.ts            # Vitest 설정 (@/ alias, src/**/*.test.ts)
 ```
 
 ## 릴리스 & 버전
