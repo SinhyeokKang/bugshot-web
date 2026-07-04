@@ -3,6 +3,10 @@
     {
       "source": "/",
       "destination": "/ko"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/ko/privacy"
     }
   ]
 }

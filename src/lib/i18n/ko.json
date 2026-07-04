@@ -183,5 +183,12 @@
     "privacy": "개인정보처리방침",
     "contact": "문의하기",
     "guide": "BugShot 가이드"
+  },
+  "privacy": {
+    "home": "홈으로",
+    "meta": {
+      "title": "개인정보처리방침 — BugShot",
+      "description": "BugShot이 수집·처리하는 정보와 확장 프로그램 권한을 투명하게 안내합니다."
+    }
   }
 }

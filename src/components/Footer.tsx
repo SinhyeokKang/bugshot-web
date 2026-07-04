@@ -1,10 +1,6 @@
 import { useLocale, useTranslations } from "next-intl";
-import {
-  GITHUB_URL,
-  PRIVACY_POLICY_URL,
-  CONTACT_EMAIL,
-  GUIDE_URL,
-} from "@/lib/constants";
+import { Link } from "@/i18n/navigation";
+import { GITHUB_URL, CONTACT_EMAIL, GUIDE_URL } from "@/lib/constants";
 
 export function Footer() {
   const t = useTranslations("footer");
@@ -29,14 +25,12 @@ export function Footer() {
         >
           {t("guide")}
         </a>
-        <a
-          href={PRIVACY_POLICY_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          href="/privacy"
           className="hover:text-foreground focus-visible:text-foreground focus-visible:outline-none"
         >
           {t("privacy")}
-        </a>
+        </Link>
         <a
           href={`mailto:${CONTACT_EMAIL}`}
           className="hover:text-foreground focus-visible:text-foreground focus-visible:outline-none"

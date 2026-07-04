@@ -183,5 +183,12 @@
     "privacy": "Privacy Policy",
     "contact": "Contact",
     "guide": "BugShot Guide"
+  },
+  "privacy": {
+    "home": "Home",
+    "meta": {
+      "title": "Privacy Policy — BugShot",
+      "description": "How BugShot collects and processes your information, and what extension permissions it uses."
+    }
   }
 }
