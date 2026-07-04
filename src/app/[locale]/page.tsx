@@ -68,12 +68,6 @@ export default async function Home({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-background focus:text-foreground"
-      >
-        Skip to main content
-      </a>
       <LocaleSwitcher />
       <main id="main">
         <Hero />
