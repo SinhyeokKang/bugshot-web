@@ -73,7 +73,7 @@ const components: Components = {
       // fenced block (has language-* class) — styled by <pre>
       <code className={`font-mono text-sm ${className}`}>{children}</code>
     ) : (
-      <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+      <code className="relative mx-1 rounded border bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm">
         {children}
       </code>
     ),

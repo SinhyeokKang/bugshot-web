@@ -31,14 +31,14 @@ export function TocNav({ items, label }: { items: TocItem[]; label: string }) {
 
   return (
     <nav aria-label={label} className="text-sm">
-      <p className="mb-3 font-medium text-foreground">{label}</p>
-      <ul className="space-y-3">
+      <p className="mb-4 font-medium text-foreground">{label}</p>
+      <ul className="space-y-4">
         {items.map((item) => (
           <li key={item.id}>
             <a
               href={`#${item.id}`}
               data-active={activeId === item.id}
-              className={`block text-muted-foreground transition-colors hover:text-brand data-[active=true]:font-medium data-[active=true]:text-brand ${
+              className={`block text-muted-foreground transition-colors hover:text-brand data-[active=true]:text-brand ${
                 item.depth === 3 ? "pl-3" : ""
               }`}
             >

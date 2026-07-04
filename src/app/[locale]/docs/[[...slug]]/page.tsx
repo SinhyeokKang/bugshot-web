@@ -92,7 +92,7 @@ export default async function DocPage({
     path: slug.length ? `/docs/${slug.join("/")}` : "/docs",
   });
   return (
-    <DocsShell locale={locale} nav={nav} toc={toc} tocLabel={t("onThisPage")}>
+    <DocsShell locale={locale} nav={nav} toc={toc} tocLabel={doc.title}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}

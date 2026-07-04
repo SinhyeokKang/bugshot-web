@@ -31,15 +31,15 @@ export default async function PrivacyPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "docs" });
   const markdown = readFileSync(
     join(process.cwd(), "content/privacy", `${locale}.md`),
     "utf-8"
   );
   const toc = extractToc(markdown);
+  const title = markdown.match(/^#\s+(.+)$/m)?.[1]?.trim() ?? "";
 
   return (
-    <DocsShell locale={locale} toc={toc} tocLabel={t("onThisPage")}>
+    <DocsShell locale={locale} toc={toc} tocLabel={title}>
       <Markdown>{markdown}</Markdown>
     </DocsShell>
   );
