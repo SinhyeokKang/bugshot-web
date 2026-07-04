@@ -1,12 +1,10 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Metadata } from "next";
-import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
 import { Markdown } from "@/components/Markdown";
-import { LocaleSwitcher } from "@/components/LocaleSwitcher";
-import { Footer } from "@/components/Footer";
+import { DocsShell } from "@/components/docs/DocsShell";
+import { extractToc } from "@/lib/docs/toc";
 import { SITE_URL } from "@/lib/constants";
 
 export async function generateMetadata({
@@ -45,30 +43,16 @@ export default async function PrivacyPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "privacy" });
+  const t = await getTranslations({ locale, namespace: "docs" });
   const markdown = readFileSync(
     join(process.cwd(), "content/privacy", `${locale}.md`),
     "utf-8"
   );
+  const toc = extractToc(markdown);
 
   return (
-    <>
-      <LocaleSwitcher />
-      <header className="container mx-auto max-w-[900px] py-6">
-        <Link href="/" aria-label={t("home")} className="inline-block">
-          <Image
-            src="/bugshot-symbol.svg"
-            alt="BugShot"
-            width={40}
-            height={40}
-            priority
-          />
-        </Link>
-      </header>
-      <main id="main" className="container mx-auto max-w-[900px] pb-24">
-        <Markdown>{markdown}</Markdown>
-      </main>
-      <Footer />
-    </>
+    <DocsShell locale={locale} toc={toc} tocLabel={t("onThisPage")}>
+      <Markdown>{markdown}</Markdown>
+    </DocsShell>
   );
 }
