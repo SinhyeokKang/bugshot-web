@@ -53,12 +53,6 @@ export default async function PrivacyPage({
 
   return (
     <>
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-background focus:text-foreground"
-      >
-        Skip to main content
-      </a>
       <LocaleSwitcher />
       <header className="container mx-auto max-w-[900px] py-6">
         <Link href="/" aria-label={t("home")} className="inline-block">
