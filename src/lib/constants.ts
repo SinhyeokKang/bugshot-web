@@ -3,7 +3,6 @@ export const CHROME_WEB_STORE_URL =
   "https://chromewebstore.google.com/detail/bugshot/ohakhekagkodklkickemonmifdcbhmig";
 export const CHROME_WEB_STORE_REVIEWS_URL = `${CHROME_WEB_STORE_URL}/reviews`;
 export const GITHUB_URL = "https://github.com/SinhyeokKang/bugshot-2";
-export const GUIDE_URL = "https://bugshot.gitbook.io";
 export const CONTACT_EMAIL = "ox501501@gmail.com";
 
 export const FAQ_KEYS = [
@@ -14,11 +13,11 @@ export const FAQ_KEYS = [
   "privacy",
 ] as const;
 
-// FAQ 답변 inline 링크용 — 가이드 내 세부 문서 경로 (locale prefix 뒤에 붙음)
+// FAQ 답변 inline 링크용 — 내부 docs 경로 (`/docs` 뒤에 붙음)
 export const FAQ_GUIDE_PATHS: Partial<
   Record<(typeof FAQ_KEYS)[number], string>
 > = {
-  browser: "/readme/quick-start",
+  browser: "/quick-start",
   ai: "/settings/ai",
   integrations: "/integrations",
 };
@@ -41,7 +40,7 @@ export const HOW_KEYS = [
   "trackIssues",
 ] as const;
 
-// HowItWorks 스텝 설명 inline 링크용 — 가이드 내 세부 문서 경로 (locale prefix 뒤에 붙음)
+// HowItWorks 스텝 설명 inline 링크용 — 내부 docs 경로 (`/docs` 뒤에 붙음)
 export const HOW_GUIDE_PATHS: Partial<
   Record<(typeof HOW_KEYS)[number], string>
 > = {

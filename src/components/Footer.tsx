@@ -1,10 +1,9 @@
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { GITHUB_URL, CONTACT_EMAIL, GUIDE_URL } from "@/lib/constants";
+import { GITHUB_URL, CONTACT_EMAIL } from "@/lib/constants";
 
 export function Footer() {
   const t = useTranslations("footer");
-  const locale = useLocale();
 
   return (
     <footer className="px-10 py-[60px]">
@@ -17,14 +16,12 @@ export function Footer() {
         >
           {t("github")}
         </a>
-        <a
-          href={`${GUIDE_URL}/${locale}`}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          href="/docs"
           className="font-medium text-foreground hover:text-brand focus-visible:text-brand focus-visible:outline-none"
         >
           {t("guide")}
-        </a>
+        </Link>
         <Link
           href="/privacy"
           className="hover:text-foreground focus-visible:text-foreground focus-visible:outline-none"

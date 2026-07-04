@@ -1,21 +1,20 @@
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Link } from "@/i18n/navigation";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import {
   FAQ_KEYS,
   FAQ_GUIDE_PATHS,
-  GUIDE_URL,
   CHROME_WEB_STORE_URL,
 } from "@/lib/constants";
 
 export async function Faq() {
   const t = await getTranslations("faq");
-  const locale = await getLocale();
 
   return (
     <div className="container mx-auto max-w-[960px]">
@@ -37,14 +36,12 @@ export async function Faq() {
               <AccordionContent className="text-base text-foreground">
                 {t.rich(`items.${key}.a`, {
                   guide: (chunks) => (
-                    <a
-                      href={`${GUIDE_URL}/${locale}${FAQ_GUIDE_PATHS[key] ?? ""}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href={`/docs${FAQ_GUIDE_PATHS[key] ?? ""}`}
                       className="font-medium text-brand underline-offset-4 hover:underline"
                     >
                       {chunks}
-                    </a>
+                    </Link>
                   ),
                   store: (chunks) => (
                     <a

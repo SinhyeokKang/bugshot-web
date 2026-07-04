@@ -1,20 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { HOW_KEYS, HOW_GUIDE_PATHS, GUIDE_URL } from "@/lib/constants";
+import { HOW_KEYS, HOW_GUIDE_PATHS } from "@/lib/constants";
 
 export function HowItWorks() {
   const t = useTranslations("how");
-  const locale = useLocale();
   const { ref, revealed } = useScrollReveal<HTMLDivElement>();
   const [activeKey, setActiveKey] = useState<string>(HOW_KEYS[0]);
 
@@ -62,14 +62,12 @@ export function HowItWorks() {
                   />
                   {t.rich(`steps.${key}.description`, {
                     guide: (chunks) => (
-                      <a
-                        href={`${GUIDE_URL}/${locale}${HOW_GUIDE_PATHS[key] ?? ""}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <Link
+                        href={`/docs${HOW_GUIDE_PATHS[key] ?? ""}`}
                         className="font-medium text-brand underline-offset-4 hover:underline"
                       >
                         {chunks}
-                      </a>
+                      </Link>
                     ),
                   })}
                 </AccordionContent>
