@@ -34,7 +34,7 @@ Outputs a static site to `out/`. (Don't run `build` while `dev` is running — i
 ## Project Structure
 
 ```
-scripts/            — build-time content fetch + search index (privacy, guide)
+scripts/            — build-time content fetch + search index + embed OG meta (privacy, guide)
 src/
 ├── app/
 │   ├── layout.tsx          — Root layout (<html>, <body>, DM Sans)
@@ -44,7 +44,7 @@ src/
 │       └── docs/           — Guide portal (catch-all)
 ├── components/
 │   ├── Markdown.tsx        — Shared markdown renderer
-│   ├── docs/               — DocsShell, sidebar, header, search, pager, TOC
+│   ├── docs/               — DocsShell, sidebar, header, search, pager, TOC, embed card
 │   └── ...                 — Landing sections + shadcn/ui + LocaleSwitcher
 ├── i18n/                   — next-intl routing, navigation, request config
 └── lib/

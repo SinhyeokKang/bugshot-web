@@ -40,7 +40,7 @@ bugshot-web: BugShot Chrome 확장의 랜딩 페이지 + 문서 사이트. 정�
 | 타입 체크만 | `npx tsc --noEmit` |
 | 린트 | `pnpm lint` |
 
-`dev`·`build`는 먼저 콘텐츠 fetch + 검색 인덱스 스크립트를 체이닝한다: `fetch-privacy.mjs && fetch-guide.mjs && build-search.mjs && next dev|build`. (bugshot-2 public repo에서 privacy·guide를 받아 `content/`·`public/docs`·`public/search`로 전개 — 전부 gitignore.)
+`dev`·`build`는 먼저 콘텐츠 fetch + 검색 인덱스 + 임베드 메타 스크립트를 체이닝한다: `fetch-privacy.mjs && fetch-guide.mjs && build-search.mjs && build-embeds.mjs && next dev|build`. (bugshot-2 public repo에서 privacy·guide를 받아 `content/`·`public/docs`·`public/search`로 전개, guide의 `{% embed %}` URL은 OG 메타를 받아 `content/guide/embeds.json`으로 — 전부 gitignore.)
 
 **빌드는 자동 실행하지 않는다.** 사용자가 명시적으로 요청하거나 `/build` 스킬을 실행할 때만 돌린다. ⚠️ **dev 서버 실행 중 `pnpm build` 금지** — 같은 `.next`를 덮어써 dev가 깨진다(복구: dev 종료 → `rm -rf .next` → 재시작).
 
@@ -50,7 +50,8 @@ bugshot-web: BugShot Chrome 확장의 랜딩 페이지 + 문서 사이트. 정�
 scripts/
 ├── fetch-privacy.mjs       # 빌드 전: bugshot-2 privacy.{ko,en}.md → content/privacy
 ├── fetch-guide.mjs         # 빌드 전: bugshot-2 guide/{ko,en} tarball → content/guide + public/docs/{locale}/assets
-└── build-search.mjs        # 빌드 전: guide 콘텐츠 → public/search/{locale}.json (검색 인덱스)
+├── build-search.mjs        # 빌드 전: guide 콘텐츠 → public/search/{locale}.json (검색 인덱스)
+└── build-embeds.mjs        # 빌드 전: guide의 {% embed url %} → OG 메타 fetch → content/guide/embeds.json (링크 카드)
 src/
 ├── app/
 │   ├── layout.tsx          # 최상위 RootLayout — DM Sans, <html>/<body>, globals.css
@@ -67,7 +68,7 @@ src/
 │   ├── Hero·Mockup·FeatureCards·HowItWorks·Review·Faq·BottomCta·ScrollReveal  # 랜딩 섹션
 │   ├── Footer.tsx          # GitHub·가이드(/docs)·개인정보처리방침(/privacy)·문의 링크
 │   ├── LocaleSwitcher.tsx  # locale 토글 (className으로 fixed/인라인 전환)
-│   ├── Markdown.tsx         # 공용 마크다운 렌더 (react-markdown, shadcn Typography 요소 매핑) — privacy·docs
+│   ├── Markdown.tsx         # 공용 마크다운 렌더 (react-markdown, shadcn Typography 요소 매핑) — privacy·docs. embed 코드펜스 → EmbedCard
 │   └── docs/               # 문서 사이트 셸·구성요소
 │       ├── DocsShell.tsx    # 헤더 + (옵션)사이드바 + 본문 + 우측 TOC + Footer 단일 셸 (privacy·docs 공용)
 │       ├── DocsHeader.tsx   # sticky 헤더 (로고 / 검색 / LocaleSwitcher, nav 있으면 햄버거)
@@ -75,13 +76,14 @@ src/
 │       ├── DocsMobileNav.tsx# 모바일 햄버거 → 좌측 Sheet 드로어
 │       ├── DocsSearch.tsx   # cmdk + fuse.js 검색 다이얼로그 (/ 단축키)
 │       ├── DocsPager.tsx    # 이전/다음 문서
+│       ├── EmbedCard.tsx    # GitBook {% embed url %} → OG 링크 카드 (빌드타임 메타)
 │       └── TocNav.tsx       # 우측 앵커 TOC (IntersectionObserver 스크롤스파이)
 ├── hooks/useScrollReveal.ts
 ├── i18n/                   # routing.ts · navigation.ts · request.ts (next-intl)
 └── lib/
     ├── constants.ts        # SITE_URL·CHROME_WEB_STORE_URL·GITHUB_URL 등 + FAQ/REVIEW/HOW_KEYS + 내부 docs 경로 맵(FAQ_GUIDE_PATHS, HOW_GUIDE_PATHS)
     ├── utils.ts            # cn()
-    ├── docs/               # summary(SUMMARY 파서·findParent·flattenNav) · content(slug↔파일) · markdown(정규화) · toc · metadata(docPageMetadata·BreadcrumbList)
+    ├── docs/               # summary(SUMMARY 파서·findParent·flattenNav) · content(slug↔파일) · markdown(정규화) · toc · metadata(docPageMetadata·BreadcrumbList) · embeds(embeds.json 로드)
     └── i18n/en.json · ko.json
 public/                     # bugshot-symbol.svg + images/ (+ 빌드 fetch: docs/·search/ = gitignore)
 content/                    # 빌드 fetch: privacy/·guide/ (gitignore)
