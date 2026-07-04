@@ -39,13 +39,13 @@ const CommandInput = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.Input>,
   React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
 >(({ className, ...props }, ref) => (
-  <div className="p-3" cmdk-input-wrapper="">
-    <div className="flex items-center gap-2 rounded-xl bg-muted px-3.5">
+  <div className="border-b p-3" cmdk-input-wrapper="">
+    <div className="flex h-[42px] items-center gap-2 rounded-md border bg-background px-3 shadow-sm">
       <Search className="size-5 shrink-0 text-muted-foreground" />
       <CommandPrimitive.Input
         ref={ref}
         className={cn(
-          "flex h-12 w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
+          "flex h-full w-full bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
           className
         )}
         {...props}

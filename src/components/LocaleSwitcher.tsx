@@ -25,7 +25,7 @@ export function LocaleSwitcher({ className }: { className?: string }) {
     <div
       className={cn(
         className ?? "fixed top-4 right-4 z-50 md:top-6 md:right-6",
-        "flex items-center gap-1 rounded-full border bg-background/80 p-1 backdrop-blur"
+        "flex items-center gap-1 rounded-full border bg-background/80 p-1 shadow-sm backdrop-blur"
       )}
     >
       {locales.map(({ value, label }) => (

@@ -120,9 +120,9 @@ export function DocsSearch() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex h-10 w-full max-w-[280px] items-center gap-2 rounded-full border bg-background/80 px-4 text-sm text-muted-foreground backdrop-blur transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+        className="flex h-[42px] w-full max-w-[320px] items-center gap-2 rounded-md border bg-background/80 px-3 text-base text-muted-foreground shadow-sm backdrop-blur transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
       >
-        <Search className="size-4 shrink-0" />
+        <Search className="size-5 shrink-0" />
         <span className="flex-1 truncate text-left">
           {t.rich("searchHint", {
             kbd: (chunks) => (
@@ -135,7 +135,7 @@ export function DocsSearch() {
       </button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="top-4 max-w-[540px] translate-y-0 gap-0 overflow-hidden rounded-2xl p-0 shadow-lg [&>button]:hidden">
+        <DialogContent className="top-4 w-[calc(100%-2rem)] max-w-[540px] translate-y-0 gap-0 overflow-hidden rounded-2xl p-0 shadow-lg [&>button]:hidden">
           <DialogTitle className="sr-only">{t("searchPlaceholder")}</DialogTitle>
           <Command shouldFilter={false}>
             <CommandInput
@@ -143,7 +143,7 @@ export function DocsSearch() {
               onValueChange={setQuery}
               placeholder={t("searchPlaceholder")}
             />
-            <CommandList className="h-[400px] max-h-none p-3 pt-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&_[cmdk-list-sizer]]:space-y-1">
+            <CommandList className="h-[400px] max-h-none p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&_[cmdk-list-sizer]]:space-y-1">
               {results.length === 0 ? (
                 <div className="py-10 text-center text-sm text-muted-foreground">
                   {t("searchEmpty")}
@@ -166,7 +166,7 @@ export function DocsSearch() {
                       <div className="truncate text-base font-semibold">
                         {highlight(doc.title, query)}
                       </div>
-                      <div className="truncate text-xs text-muted-foreground">
+                      <div className="truncate text-sm text-muted-foreground">
                         {highlight(snippet(doc, query), query)}
                       </div>
                     </div>
