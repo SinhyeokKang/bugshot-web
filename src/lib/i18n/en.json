@@ -191,6 +191,7 @@
     "onThisPage": "On this page",
     "titleSuffix": "BugShot User Guide",
     "searchPlaceholder": "Search docs...",
+    "searchHint": "Type <kbd>/</kbd> to search",
     "searchEmpty": "No results found"
   },
   "privacy": {

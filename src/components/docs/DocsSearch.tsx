@@ -5,14 +5,9 @@ import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import Fuse from "fuse.js";
 import { ChevronRight, FileText, Search } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import {
   Command,
-  CommandEmpty,
   CommandInput,
   CommandItem,
   CommandList,
@@ -38,7 +33,10 @@ const FUSE_OPTS = {
   minMatchCharLength: 2,
 };
 
-// highlight query occurrences in text
+function escapeRegExp(s: string) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function highlight(text: string, query: string): React.ReactNode {
   const q = query.trim();
   if (!q) return text;
@@ -54,17 +52,22 @@ function highlight(text: string, query: string): React.ReactNode {
   );
 }
 
-function escapeRegExp(s: string) {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
-// excerpt around the first match, falling back to the start
 function snippet(doc: Doc, query: string): string {
   const text = [doc.headings, doc.content].filter(Boolean).join(" — ");
   const idx = text.toLowerCase().indexOf(query.trim().toLowerCase());
-  if (idx < 0) return text.slice(0, 90);
+  if (!query.trim() || idx < 0) return text.slice(0, 90);
   const start = Math.max(0, idx - 24);
   return (start > 0 ? "…" : "") + text.slice(start, start + 90);
+}
+
+function isEditable(el: EventTarget | null): boolean {
+  const t = el as HTMLElement | null;
+  return (
+    !!t &&
+    (t.tagName === "INPUT" ||
+      t.tagName === "TEXTAREA" ||
+      t.isContentEditable === true)
+  );
 }
 
 export function DocsSearch() {
@@ -73,14 +76,15 @@ export function DocsSearch() {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const [query, setQuery] = React.useState("");
+  const [docs, setDocs] = React.useState<Doc[]>([]);
   const [fuse, setFuse] = React.useState<Fuse<Doc> | null>(null);
 
-  // ⌘K / Ctrl+K
+  // "/" opens search (unless typing in a field)
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+      if (e.key === "/" && !isEditable(e.target)) {
         e.preventDefault();
-        setOpen((o) => !o);
+        setOpen(true);
       }
     };
     document.addEventListener("keydown", onKey);
@@ -92,14 +96,19 @@ export function DocsSearch() {
     if (!open || fuse) return;
     fetch(`/search/${locale}.json`)
       .then((r) => r.json())
-      .then((docs: Doc[]) => setFuse(new Fuse(docs, FUSE_OPTS)))
+      .then((data: Doc[]) => {
+        setDocs(data);
+        setFuse(new Fuse(data, FUSE_OPTS));
+      })
       .catch(() => setFuse(new Fuse<Doc>([], FUSE_OPTS)));
   }, [open, fuse, locale]);
 
+  // empty query -> all docs in index order; otherwise fuzzy matches
   const results = React.useMemo(() => {
-    if (!fuse || !query.trim()) return [];
-    return fuse.search(query).slice(0, 8).map((r) => r.item);
-  }, [fuse, query]);
+    if (!query.trim()) return docs;
+    if (!fuse) return [];
+    return fuse.search(query).map((r) => r.item);
+  }, [fuse, docs, query]);
 
   const go = (url: string) => {
     setOpen(false);
@@ -111,17 +120,22 @@ export function DocsSearch() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex h-9 w-full max-w-md items-center gap-2 rounded-md border border-input bg-background px-3 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+        className="flex h-10 w-full max-w-[280px] items-center gap-2 rounded-full border bg-background/80 px-4 text-sm text-muted-foreground backdrop-blur transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
       >
         <Search className="size-4 shrink-0" />
-        <span className="flex-1 text-left">{t("searchPlaceholder")}</span>
-        <kbd className="pointer-events-none hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium sm:flex">
-          ⌘K
-        </kbd>
+        <span className="flex-1 truncate text-left">
+          {t.rich("searchHint", {
+            kbd: (chunks) => (
+              <kbd className="mx-0.5 inline-flex h-5 items-center rounded border bg-muted px-1.5 font-mono text-xs font-medium text-foreground">
+                {chunks}
+              </kbd>
+            ),
+          })}
+        </span>
       </button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="overflow-hidden p-0 shadow-lg">
+        <DialogContent className="top-4 max-w-[540px] translate-y-0 gap-0 overflow-hidden rounded-2xl p-0 shadow-lg [&>button]:hidden">
           <DialogTitle className="sr-only">{t("searchPlaceholder")}</DialogTitle>
           <Command shouldFilter={false}>
             <CommandInput
@@ -129,32 +143,37 @@ export function DocsSearch() {
               onValueChange={setQuery}
               placeholder={t("searchPlaceholder")}
             />
-            <CommandList>
-              {query.trim() && <CommandEmpty>{t("searchEmpty")}</CommandEmpty>}
-              {results.map((doc) => (
-                <CommandItem
-                  key={doc.url}
-                  value={doc.url}
-                  onSelect={() => go(doc.url)}
-                  className="gap-3"
-                >
-                  <FileText className="size-5 shrink-0 text-muted-foreground" />
-                  <div className="min-w-0 flex-1">
-                    {doc.section && (
-                      <div className="truncate text-xs text-muted-foreground">
-                        {doc.section}
+            <CommandList className="h-[400px] max-h-none p-3 pt-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&_[cmdk-list-sizer]]:space-y-1">
+              {results.length === 0 ? (
+                <div className="py-10 text-center text-sm text-muted-foreground">
+                  {t("searchEmpty")}
+                </div>
+              ) : (
+                results.map((doc) => (
+                  <CommandItem
+                    key={doc.url}
+                    value={doc.url}
+                    onSelect={() => go(doc.url)}
+                    className="gap-3 p-3"
+                  >
+                    <FileText className="size-5 shrink-0 text-muted-foreground" />
+                    <div className="flex min-w-0 flex-1 flex-col">
+                      {doc.section && (
+                        <div className="truncate text-xs font-medium text-brand">
+                          {doc.section}
+                        </div>
+                      )}
+                      <div className="truncate text-base font-semibold">
+                        {highlight(doc.title, query)}
                       </div>
-                    )}
-                    <div className="truncate font-semibold">
-                      {highlight(doc.title, query)}
+                      <div className="truncate text-xs text-muted-foreground">
+                        {highlight(snippet(doc, query), query)}
+                      </div>
                     </div>
-                    <div className="truncate text-xs text-muted-foreground">
-                      {highlight(snippet(doc, query), query)}
-                    </div>
-                  </div>
-                  <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
-                </CommandItem>
-              ))}
+                    <ChevronRight className="size-5 shrink-0 text-muted-foreground" />
+                  </CommandItem>
+                ))
+              )}
             </CommandList>
           </Command>
         </DialogContent>

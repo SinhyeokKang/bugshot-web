@@ -191,6 +191,7 @@
     "onThisPage": "이 페이지",
     "titleSuffix": "BugShot 유저 가이드",
     "searchPlaceholder": "문서 검색...",
+    "searchHint": "<kbd>/</kbd>를 눌러 검색하세요",
     "searchEmpty": "검색 결과가 없습니다"
   },
   "privacy": {
