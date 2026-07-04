@@ -1,25 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
-import { DocsMobileNav } from "./DocsMobileNav";
+import { DocsHeaderNav } from "./DocsHeaderNav";
 import { DocsSearch } from "./DocsSearch";
-import type { DocsNavNode } from "@/lib/docs/summary";
+import { HeaderMobileMenu } from "./HeaderMobileMenu";
 
-// Shared docs/privacy top bar: 64px, border-b.
-// With nav: mobile hamburger + logo (left) / locale (right). Without nav
-// (e.g. privacy): logo (left) / locale (right), no mobile drawer.
-export function DocsHeader({
-  locale,
-  nav,
-}: {
-  locale: string;
-  nav?: DocsNavNode[];
-}) {
+// Shared top bar (landing/privacy/docs): 64px. Logo + center nav (left) /
+// search + locale, mobile menu (right).
+export function DocsHeader({ locale }: { locale: string }) {
   return (
-    <header className="sticky top-0 z-40 h-16 border-b bg-background/95 backdrop-blur">
+    <header className="sticky top-0 z-40 h-16 border-b bg-background/60 backdrop-blur-2xl">
       <div className="container mx-auto flex h-full max-w-[1200px] items-center justify-between gap-4">
-        <div className="flex items-center gap-2">
-          {nav && <DocsMobileNav nav={nav} locale={locale} />}
+        <div className="flex items-center gap-8">
           <Link href={`/${locale}`} aria-label="BugShot" className="shrink-0">
             <Image
               src="/bugshot-symbol.svg"
@@ -29,15 +21,17 @@ export function DocsHeader({
               priority
             />
           </Link>
+
+          <DocsHeaderNav locale={locale} />
         </div>
 
-        {nav && (
-          <div className="hidden flex-1 justify-center md:flex">
-            <DocsSearch />
+        <div className="flex items-center gap-2">
+          <DocsSearch />
+          <div className="hidden md:block">
+            <LocaleSwitcher className="shrink-0" />
           </div>
-        )}
-
-        <LocaleSwitcher className="shrink-0" />
+          <HeaderMobileMenu locale={locale} />
+        </div>
       </div>
     </header>
   );

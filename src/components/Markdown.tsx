@@ -58,7 +58,7 @@ const components: Components = {
     </a>
   ),
   blockquote: ({ children }) => (
-    <blockquote className="my-4 border-l-2 border-border bg-muted py-3 pr-4 pl-8 [&>p]:mt-0 [&>p]:leading-[1.6]">
+    <blockquote className="my-4 rounded-sm bg-muted px-6 py-3 [&>p]:mt-0 [&>p]:leading-[1.6]">
       {children}
     </blockquote>
   ),
@@ -90,12 +90,12 @@ const components: Components = {
     </div>
   ),
   th: ({ children }) => (
-    <th className="border-b bg-muted px-5 py-3 text-left font-semibold [&:not(:last-child)]:border-r [&[align=center]]:text-center [&[align=right]]:text-right">
+    <th className="border-b bg-muted px-4 py-3 text-left font-semibold [&:not(:last-child)]:border-r [&[align=center]]:text-center [&[align=right]]:text-right">
       {children}
     </th>
   ),
   td: ({ children }) => (
-    <td className="border-b px-5 py-3 align-top [&:not(:last-child)]:border-r [&[align=center]]:text-center [&[align=right]]:text-right">
+    <td className="border-b px-4 py-3 align-top [&:not(:last-child)]:border-r [&[align=center]]:text-center [&[align=right]]:text-right">
       {children}
     </td>
   ),

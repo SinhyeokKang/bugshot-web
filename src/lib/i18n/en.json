@@ -178,11 +178,15 @@
       }
     }
   },
+  "nav": {
+    "menu": "Menu",
+    "guide": "User Guide",
+    "contact": "Contact",
+    "addToChrome": "Add to Chrome"
+  },
   "footer": {
     "github": "GitHub",
-    "privacy": "Privacy Policy",
-    "contact": "Contact",
-    "guide": "BugShot Guide"
+    "privacy": "Privacy Policy"
   },
   "docs": {
     "menu": "Menu",
@@ -191,8 +195,9 @@
     "onThisPage": "On this page",
     "titleSuffix": "BugShot User Guide",
     "searchPlaceholder": "Search docs...",
-    "searchHint": "Type <kbd>/</kbd> to search",
-    "searchEmpty": "No results found"
+    "searchEmpty": "No results found",
+    "searchClear": "Clear search",
+    "searchClose": "Close search"
   },
   "privacy": {
     "home": "Home",

@@ -4,7 +4,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import Fuse from "fuse.js";
-import { ChevronRight, FileText, Search } from "lucide-react";
+import { ChevronRight, FileText, Search, X } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import {
   Command,
@@ -91,9 +91,11 @@ export function DocsSearch() {
     return () => document.removeEventListener("keydown", onKey);
   }, []);
 
-  // lazy-load the index on first open
-  React.useEffect(() => {
-    if (!open || fuse) return;
+  // load the index once, on first intent (hover/focus/open) so opening is smooth
+  const loadingRef = React.useRef(false);
+  const loadIndex = React.useCallback(() => {
+    if (loadingRef.current) return;
+    loadingRef.current = true;
     fetch(`/search/${locale}.json`)
       .then((r) => r.json())
       .then((data: Doc[]) => {
@@ -101,13 +103,17 @@ export function DocsSearch() {
         setFuse(new Fuse(data, FUSE_OPTS));
       })
       .catch(() => setFuse(new Fuse<Doc>([], FUSE_OPTS)));
-  }, [open, fuse, locale]);
+  }, [locale]);
 
-  // empty query -> all docs in index order; otherwise fuzzy matches
+  React.useEffect(() => {
+    if (open) loadIndex();
+  }, [open, loadIndex]);
+
+  // empty query -> parent docs only (docs that have children nested under
+  // their url); otherwise fuzzy matches
   const results = React.useMemo(() => {
-    if (!query.trim()) return docs;
-    if (!fuse) return [];
-    return fuse.search(query).map((r) => r.item);
+    if (query.trim()) return fuse ? fuse.search(query).map((r) => r.item) : [];
+    return docs.filter((d) => docs.some((o) => o.url.startsWith(`${d.url}/`)));
   }, [fuse, docs, query]);
 
   const go = (url: string) => {
@@ -120,30 +126,46 @@ export function DocsSearch() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex h-[42px] w-full max-w-[320px] items-center gap-2 rounded-md border bg-background/80 px-3 text-base text-muted-foreground shadow-sm backdrop-blur transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+        onPointerEnter={loadIndex}
+        onFocus={loadIndex}
+        aria-label={t("searchPlaceholder")}
+        className="flex size-10 shrink-0 items-center justify-center rounded-md border bg-background/80 text-muted-foreground shadow-sm backdrop-blur transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
       >
-        <Search className="size-5 shrink-0" />
-        <span className="flex-1 truncate text-left">
-          {t.rich("searchHint", {
-            kbd: (chunks) => (
-              <kbd className="mx-0.5 inline-flex h-5 items-center rounded border bg-muted px-1.5 font-mono text-xs font-medium text-foreground">
-                {chunks}
-              </kbd>
-            ),
-          })}
-        </span>
+        <Search className="size-5" />
       </button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="top-4 w-[calc(100%-2rem)] max-w-[540px] translate-y-0 gap-0 overflow-hidden rounded-2xl p-0 shadow-lg [&>button]:hidden">
+        <DialogContent className="left-0 top-0 flex h-[100dvh] w-full max-w-none translate-x-0 translate-y-0 flex-col gap-0 overflow-hidden rounded-none border-0 p-0 shadow-lg [&>button]:hidden md:left-[50%] md:top-4 md:h-auto md:w-[calc(100%-2rem)] md:max-w-[540px] md:-translate-x-1/2 md:rounded-2xl md:border md:data-[state=open]:slide-in-from-left-1/2 md:data-[state=closed]:slide-out-to-left-1/2">
           <DialogTitle className="sr-only">{t("searchPlaceholder")}</DialogTitle>
-          <Command shouldFilter={false}>
+          <Command shouldFilter={false} className="flex min-h-0 flex-1 flex-col">
             <CommandInput
               value={query}
               onValueChange={setQuery}
               placeholder={t("searchPlaceholder")}
+              endSlot={
+                query ? (
+                  <button
+                    type="button"
+                    aria-label={t("searchClear")}
+                    onClick={() => setQuery("")}
+                    className="shrink-0 text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    <X className="size-4" />
+                  </button>
+                ) : null
+              }
+              trailing={
+                <button
+                  type="button"
+                  aria-label={t("searchClose")}
+                  onClick={() => setOpen(false)}
+                  className="inline-flex size-[42px] shrink-0 items-center justify-center rounded-md border bg-background text-foreground shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:hidden"
+                >
+                  <X className="size-5" />
+                </button>
+              }
             />
-            <CommandList className="h-[400px] max-h-none p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&_[cmdk-list-sizer]]:space-y-1">
+            <CommandList className="min-h-0 max-h-none flex-1 px-6 py-4 md:h-[400px] md:flex-none md:p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&_[cmdk-list-sizer]]:space-y-1">
               {results.length === 0 ? (
                 <div className="py-10 text-center text-sm text-muted-foreground">
                   {t("searchEmpty")}

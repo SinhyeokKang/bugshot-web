@@ -12,7 +12,7 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { Review } from "@/components/Review";
 import { BottomCta } from "@/components/BottomCta";
 import { Footer } from "@/components/Footer";
-import { LocaleSwitcher } from "@/components/LocaleSwitcher";
+import { DocsHeader } from "@/components/docs/DocsHeader";
 import { ScrollReveal } from "@/components/ScrollReveal";
 
 export default async function Home({
@@ -68,7 +68,7 @@ export default async function Home({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <LocaleSwitcher />
+      <DocsHeader locale={locale} />
       <main id="main">
         <Hero />
         <Mockup />
