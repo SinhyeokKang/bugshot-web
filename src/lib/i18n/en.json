@@ -188,7 +188,8 @@
     "menu": "Menu",
     "prev": "Previous",
     "next": "Next",
-    "onThisPage": "On this page"
+    "onThisPage": "On this page",
+    "titleSuffix": "BugShot User Guide"
   },
   "privacy": {
     "home": "Home",

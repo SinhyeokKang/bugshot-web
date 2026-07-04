@@ -5,7 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Markdown } from "@/components/Markdown";
 import { DocsShell } from "@/components/docs/DocsShell";
 import { extractToc } from "@/lib/docs/toc";
-import { SITE_URL } from "@/lib/constants";
+import { docPageMetadata } from "@/lib/docs/metadata";
 
 export async function generateMetadata({
   params,
@@ -14,26 +14,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "privacy.meta" });
-  const url = `${SITE_URL}/${locale}/privacy`;
 
-  return {
+  return docPageMetadata({
     title: t("title"),
     description: t("description"),
-    robots: { index: true, follow: true },
-    alternates: {
-      canonical: url,
-      languages: {
-        en: `${SITE_URL}/en/privacy`,
-        ko: `${SITE_URL}/ko/privacy`,
-        "x-default": `${SITE_URL}/ko/privacy`,
-      },
-    },
-    openGraph: {
-      title: t("title"),
-      description: t("description"),
-      url,
-    },
-  };
+    locale,
+    path: "/privacy",
+    type: "website",
+  });
 }
 
 export default async function PrivacyPage({

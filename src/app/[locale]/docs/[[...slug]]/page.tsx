@@ -8,10 +8,10 @@ import { getAllDocSlugs, getDoc } from "@/lib/docs/content";
 import { normalizeMarkdown } from "@/lib/docs/markdown";
 import { parseSummary, findParent, flattenNav } from "@/lib/docs/summary";
 import { extractToc } from "@/lib/docs/toc";
+import { docPageMetadata } from "@/lib/docs/metadata";
 import { Markdown } from "@/components/Markdown";
 import { DocsPager } from "@/components/docs/DocsPager";
 import { DocsShell } from "@/components/docs/DocsShell";
-import { SITE_URL } from "@/lib/constants";
 
 export const dynamicParams = false;
 
@@ -26,7 +26,13 @@ export function generateStaticParams({
 function firstParagraph(md: string): string {
   for (const line of md.split("\n")) {
     const t = line.trim();
-    if (!t || t.startsWith("#") || t.startsWith("![") || t.startsWith(">"))
+    if (
+      !t ||
+      t.startsWith("#") ||
+      t.startsWith("![") ||
+      t.startsWith(">") ||
+      t.startsWith("🌐") // skip the gitbook language-switch line
+    )
       continue;
     // strip markdown emphasis/links to plain-ish text
     const plain = t
@@ -46,23 +52,12 @@ export async function generateMetadata({
   const doc = getDoc(locale, slug);
   if (!doc) return {};
   const path = slug.length ? `/docs/${slug.join("/")}` : "/docs";
-  const url = `${SITE_URL}/${locale}${path}`;
   const description = firstParagraph(doc.markdown);
+  const t = await getTranslations({ locale, namespace: "docs" });
+  // "{doc} | BugShot User Guide" for sub-docs; root README keeps its own title
+  const title = slug.length ? `${doc.title} | ${t("titleSuffix")}` : doc.title;
 
-  return {
-    title: doc.title,
-    description,
-    robots: { index: true, follow: true },
-    alternates: {
-      canonical: url,
-      languages: {
-        ko: `${SITE_URL}/ko${path}`,
-        en: `${SITE_URL}/en${path}`,
-        "x-default": `${SITE_URL}/ko${path}`,
-      },
-    },
-    openGraph: { title: doc.title, description, url },
-  };
+  return docPageMetadata({ title, description, locale, path });
 }
 
 export default async function DocPage({
