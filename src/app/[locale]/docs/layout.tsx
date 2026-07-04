@@ -24,7 +24,7 @@ export default async function DocsLayout({
 
   return (
     <>
-      <DocsHeader locale={locale} searchPlaceholder={t("searchPlaceholder")} />
+      <DocsHeader locale={locale} />
       <div className="container mx-auto max-w-[1200px] py-10 md:flex md:gap-12">
         <aside className="hidden md:block md:w-60 md:shrink-0">
           <div className="sticky top-20">
