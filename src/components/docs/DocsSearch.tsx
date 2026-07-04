@@ -129,7 +129,7 @@ export function DocsSearch() {
         onPointerEnter={loadIndex}
         onFocus={loadIndex}
         aria-label={t("searchPlaceholder")}
-        className="flex size-10 shrink-0 items-center justify-center rounded-md border bg-background/80 text-muted-foreground shadow-sm backdrop-blur transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+        className="flex size-10 shrink-0 items-center justify-center rounded-md border bg-background/80 text-foreground shadow-sm backdrop-blur transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
       >
         <Search className="size-5" />
       </button>

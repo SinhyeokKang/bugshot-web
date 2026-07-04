@@ -12,7 +12,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import { cn } from "@/lib/utils";
 import { CHROME_WEB_STORE_URL, CONTACT_EMAIL } from "@/lib/constants";
 
@@ -76,9 +75,6 @@ export function HeaderMobileMenu({ locale }: { locale: string }) {
             {t("addToChrome")}
           </a>
         </nav>
-        <div className="mt-auto px-5 pb-6">
-          <LocaleSwitcher className="w-fit" />
-        </div>
       </SheetContent>
     </Sheet>
   );
