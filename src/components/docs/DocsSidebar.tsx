@@ -7,9 +7,9 @@ import type { DocsNavNode } from "@/lib/docs/summary";
 // shadcn sidebar menu-button structure, minus the background states:
 // hover = brand color, active = brand color + one step bolder weight.
 const menuButton =
-  "flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-none transition-colors hover:text-brand focus-visible:ring-2 focus-visible:ring-ring data-[active=true]:font-medium data-[active=true]:text-brand";
+  "flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-none transition-colors hover:text-brand focus-visible:ring-2 focus-visible:ring-ring data-[active=true]:font-semibold data-[active=true]:text-brand";
 const subButton =
-  "flex h-7 min-w-0 items-center gap-2 overflow-hidden rounded-md px-2 text-sm text-sidebar-foreground outline-none transition-colors hover:text-brand focus-visible:ring-2 focus-visible:ring-ring data-[active=true]:font-medium data-[active=true]:text-brand";
+  "flex h-7 min-w-0 items-center gap-2 overflow-hidden rounded-md px-2 text-sm text-sidebar-foreground outline-none transition-colors hover:text-brand focus-visible:ring-2 focus-visible:ring-ring data-[active=true]:font-semibold data-[active=true]:text-brand";
 
 export function DocsSidebar({ nav }: { nav: DocsNavNode[] }) {
   const pathname = usePathname();

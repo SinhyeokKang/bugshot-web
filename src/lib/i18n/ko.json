@@ -185,7 +185,9 @@
     "guide": "BugShot 가이드"
   },
   "docs": {
-    "menu": "문서 목록"
+    "menu": "문서 목록",
+    "prev": "이전",
+    "next": "다음"
   },
   "privacy": {
     "home": "홈으로",

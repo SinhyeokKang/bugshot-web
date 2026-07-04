@@ -185,7 +185,9 @@
     "guide": "BugShot Guide"
   },
   "docs": {
-    "menu": "Menu"
+    "menu": "Menu",
+    "prev": "Previous",
+    "next": "Next"
   },
   "privacy": {
     "home": "Home",

@@ -17,7 +17,7 @@ export function DocsHeader({
     <header className="sticky top-0 z-40 h-16 border-b bg-background/95 backdrop-blur">
       <div className="container mx-auto flex h-full max-w-[1200px] items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <DocsMobileNav nav={nav} />
+          <DocsMobileNav nav={nav} locale={locale} />
           <Link href={`/${locale}`} aria-label="BugShot" className="shrink-0">
             <Image
               src="/bugshot-symbol.svg"

@@ -11,7 +11,7 @@ const components: Components = {
   h1: ({ children, id }) => (
     <h1
       id={id}
-      className="scroll-m-20 text-4xl font-semibold tracking-tight"
+      className="mb-6 scroll-m-20 text-4xl font-semibold tracking-tight"
     >
       {children}
     </h1>
@@ -19,7 +19,7 @@ const components: Components = {
   h2: ({ children, id }) => (
     <h2
       id={id}
-      className="mt-12 scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0"
+      className="mt-16 scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0"
     >
       {children}
     </h2>
@@ -41,12 +41,12 @@ const components: Components = {
     </h4>
   ),
   p: ({ children }) => (
-    <p className="leading-7 [&:not(:first-child)]:mt-6">{children}</p>
+    <p className="leading-7 [&:not(:first-child)]:mt-4">{children}</p>
   ),
   a: ({ children, href }) => (
     <a
       href={href}
-      className="font-medium text-brand underline underline-offset-4"
+      className="text-brand underline underline-offset-4"
       {...(href?.startsWith("http")
         ? { target: "_blank", rel: "noopener noreferrer" }
         : {})}
@@ -55,15 +55,15 @@ const components: Components = {
     </a>
   ),
   blockquote: ({ children }) => (
-    <blockquote className="my-6 border-l-2 border-border pl-4 text-muted-foreground [&>p]:mt-0 [&>p]:leading-7">
+    <blockquote className="my-4 border-l-2 border-border py-2 pl-8 text-muted-foreground [&>p]:mt-0 [&>p]:leading-7">
       {children}
     </blockquote>
   ),
   ul: ({ children }) => (
-    <ul className="my-5 ml-6 list-disc [&>li]:mt-2">{children}</ul>
+    <ul className="my-4 list-disc pl-8 leading-7 [&>li]:mt-1">{children}</ul>
   ),
   ol: ({ children }) => (
-    <ol className="my-5 ml-6 list-decimal [&>li]:mt-2">{children}</ol>
+    <ol className="my-4 list-decimal pl-8 leading-7 [&>li]:mt-1">{children}</ol>
   ),
   strong: ({ children }) => (
     <strong className="font-semibold text-foreground">{children}</strong>
@@ -83,18 +83,21 @@ const components: Components = {
     </pre>
   ),
   table: ({ children }) => (
-    <div className="my-6 w-full overflow-x-auto">
-      <table className="w-full border-collapse text-sm">{children}</table>
+    <div className="my-4 overflow-hidden rounded-lg border">
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse text-sm [&_tbody_tr:last-child_td]:border-b-0">
+          {children}
+        </table>
+      </div>
     </div>
   ),
-  tr: ({ children }) => <tr className="border-t">{children}</tr>,
   th: ({ children }) => (
-    <th className="border bg-muted px-4 py-2 text-left font-semibold [&[align=center]]:text-center [&[align=right]]:text-right">
+    <th className="border-b bg-muted px-5 py-3 text-left font-semibold [&:not(:last-child)]:border-r [&[align=center]]:text-center [&[align=right]]:text-right">
       {children}
     </th>
   ),
   td: ({ children }) => (
-    <td className="border px-4 py-2 text-left align-top [&[align=center]]:text-center [&[align=right]]:text-right">
+    <td className="border-b px-5 py-3 align-top [&:not(:last-child)]:border-r [&[align=center]]:text-center [&[align=right]]:text-right">
       {children}
     </td>
   ),
@@ -106,7 +109,7 @@ const components: Components = {
       <img
         src={typeof src === "string" ? src : undefined}
         alt={alt ?? ""}
-        className="my-6 block max-w-full"
+        className="block max-w-full"
       />
       {alt ? (
         <span className="mt-2 block text-center text-sm text-muted-foreground">

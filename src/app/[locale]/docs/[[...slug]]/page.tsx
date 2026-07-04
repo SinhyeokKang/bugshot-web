@@ -3,11 +3,12 @@ import { join } from "node:path";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllDocSlugs, getDoc } from "@/lib/docs/content";
 import { normalizeMarkdown } from "@/lib/docs/markdown";
-import { parseSummary, findParent } from "@/lib/docs/summary";
+import { parseSummary, findParent, flattenNav } from "@/lib/docs/summary";
 import { Markdown } from "@/components/Markdown";
+import { DocsPager } from "@/components/docs/DocsPager";
 import { SITE_URL } from "@/lib/constants";
 
 export const dynamicParams = false;
@@ -76,7 +77,13 @@ export default async function DocPage({
     join(process.cwd(), "content", "guide", locale, "SUMMARY.md"),
     "utf-8"
   );
-  const parent = findParent(parseSummary(summary, locale), slug);
+  const nav = parseSummary(summary, locale);
+  const parent = findParent(nav, slug);
+  const flat = flattenNav(nav);
+  const idx = flat.findIndex((n) => n.slug.join("/") === slug.join("/"));
+  const prev = idx > 0 ? flat[idx - 1] : null;
+  const next = idx >= 0 && idx < flat.length - 1 ? flat[idx + 1] : null;
+  const t = await getTranslations({ locale, namespace: "docs" });
 
   const markdown = normalizeMarkdown(doc.markdown, locale, doc.docDir);
   return (
@@ -90,6 +97,12 @@ export default async function DocPage({
         </Link>
       )}
       <Markdown>{markdown}</Markdown>
+      <DocsPager
+        prev={prev}
+        next={next}
+        prevLabel={t("prev")}
+        nextLabel={t("next")}
+      />
     </>
   );
 }

@@ -23,6 +23,19 @@ function href(locale: string, slug: string[]): string {
 
 const LINE = /^(\s*)-\s*\[([^\]]+)\]\(([^)]+)\)/;
 
+// Flatten the nav tree into SUMMARY reading order (pre-order DFS).
+export function flattenNav(nav: DocsNavNode[]): DocsNavNode[] {
+  const out: DocsNavNode[] = [];
+  const walk = (nodes: DocsNavNode[]) => {
+    for (const n of nodes) {
+      out.push(n);
+      walk(n.children);
+    }
+  };
+  walk(nav);
+  return out;
+}
+
 // Find the parent node of a given slug within the SUMMARY tree.
 // Returns null for top-level docs (no parent).
 export function findParent(
