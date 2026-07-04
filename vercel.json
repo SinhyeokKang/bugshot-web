@@ -1,4 +1,17 @@
 {
+  "redirects": [
+    { "source": "/", "has": [{ "type": "cookie", "key": "NEXT_LOCALE", "value": "^en$" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en", "permanent": false },
+    { "source": "/", "missing": [{ "type": "cookie", "key": "NEXT_LOCALE" }], "has": [{ "type": "header", "key": "accept-language", "value": "^([^kK]|[kK][^oO])" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en", "permanent": false },
+
+    { "source": "/privacy", "has": [{ "type": "cookie", "key": "NEXT_LOCALE", "value": "^en$" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en/privacy", "permanent": false },
+    { "source": "/privacy", "missing": [{ "type": "cookie", "key": "NEXT_LOCALE" }], "has": [{ "type": "header", "key": "accept-language", "value": "^([^kK]|[kK][^oO])" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en/privacy", "permanent": false },
+
+    { "source": "/docs", "has": [{ "type": "cookie", "key": "NEXT_LOCALE", "value": "^en$" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en/docs", "permanent": false },
+    { "source": "/docs", "missing": [{ "type": "cookie", "key": "NEXT_LOCALE" }], "has": [{ "type": "header", "key": "accept-language", "value": "^([^kK]|[kK][^oO])" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en/docs", "permanent": false },
+
+    { "source": "/docs/:path*", "has": [{ "type": "cookie", "key": "NEXT_LOCALE", "value": "^en$" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en/docs/:path*", "permanent": false },
+    { "source": "/docs/:path*", "missing": [{ "type": "cookie", "key": "NEXT_LOCALE" }], "has": [{ "type": "header", "key": "accept-language", "value": "^([^kK]|[kK][^oO])" }, { "type": "header", "key": "sec-fetch-dest", "value": "document" }], "destination": "/en/docs/:path*", "permanent": false }
+  ],
   "rewrites": [
     {
       "source": "/",

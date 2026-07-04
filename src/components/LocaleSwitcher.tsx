@@ -3,6 +3,7 @@
 import { useLocale } from "next-intl";
 import { usePathname } from "next/navigation";
 import { type Locale } from "@/i18n/routing";
+import { localeSwitchHref } from "@/lib/locale-redirect";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -17,8 +18,10 @@ export function LocaleSwitcher({ className }: { className?: string }) {
 
   function switchTo(next: Locale) {
     if (next === active) return;
-    const stripped = pathname.replace(/^\/[a-z]{2}/, "");
-    window.location.href = `/${next}${stripped || ""}`;
+    // 수동 선택을 재방문 시 기억(edge redirect 최우선 판정). 1년.
+    document.cookie = `NEXT_LOCALE=${next}; path=/; max-age=31536000; samesite=lax; secure`;
+    // replace: 뒤로가기 시 쿠키로 재리디렉트되어 back이 먹통되는 것 완화
+    window.location.replace(localeSwitchHref(pathname, next));
   }
 
   return (

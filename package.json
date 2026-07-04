@@ -6,7 +6,8 @@
     "dev": "node scripts/fetch-privacy.mjs && node scripts/fetch-guide.mjs && node scripts/build-search.mjs && node scripts/build-embeds.mjs && next dev",
     "build": "node scripts/fetch-privacy.mjs && node scripts/fetch-guide.mjs && node scripts/build-search.mjs && node scripts/build-embeds.mjs && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "vitest run"
   },
   "dependencies": {
     "@icons-pack/react-simple-icons": "^13.13.0",
@@ -41,6 +42,7 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.9"
   }
 }

@@ -39,11 +39,13 @@ else (ko로 시작 또는 헤더 없음)                    → 리디렉트 없
 - **현재 역할**: 클릭 시 `window.location.href = /{next}{stripped}`로 로케일 전환.
 - **변경 내용 3가지**:
   1. 이동 직전 `document.cookie`에 `NEXT_LOCALE={next}` 기록(1년, `path=/`, `SameSite=Lax`, `Secure`).
-  2. **strip 정규식 버그 수정(필수)**: 현재 `pathname.replace(/^\/[a-z]{2}/, "")`는 로케일 prefix가 항상 있다고 가정하는데, `usePathname`은 `next/navigation`에서 오므로 bare 경로에선 prefix 없는 실제 URL을 반환한다. bare `/privacy`→`ivacy`→`/enivacy`(404), bare `/docs/x`→`/encs/x`(404)로 깨진다. 이 기능의 S3(bare에서 EN 선택)가 이 함수에 의존하므로 실제 로케일 세그먼트만 제거하도록 `/^\/(ko|en)(?=\/|$)/`로 교정.
+  2. **strip 정규식 버그 수정(필수)**: 현재 `pathname.replace(/^\/[a-z]{2}/, "")`는 로케일 prefix가 항상 있다고 가정하는데, `usePathname`은 `next/navigation`에서 오므로 bare 경로에선 prefix 없는 실제 URL을 반환한다. bare `/privacy`→`ivacy`→`/enivacy`(404), bare `/docs/x`→`/encs/x`(404)로 깨진다. 이 기능의 S3(bare에서 EN 선택)가 이 로직에 의존하므로, 경로 계산을 순수 함수 `localeSwitchHref`(아래 새 파일)로 추출해 실제 로케일 세그먼트만 제거하도록 `/^\/(ko|en)(?=\/|$)/`로 교정.
   3. **뒤로가기 트랩 완화**: `window.location.href`(history push) → `window.location.replace`로 변경. 쿠키=en 기록 후 뒤로가기 시 edge가 다시 `/en`으로 보내 back이 먹통이 되는 문제(위험7)를 history 오염 최소화로 완화.
 
 ### 새 파일
-- 없음. (문서 외 프로덕션 신규 파일 없음.)
+- `src/lib/locale-redirect.ts` — `localeSwitchHref(pathname, next)` 순수 함수. LocaleSwitcher의 경로 계산을 추출해 strip 버그를 테스트로 고정(`/tdd`에서 결정). 인라인이던 로직을 순수 함수로 뺀 이유는 테스트 가능성뿐 — 유연성·설정 추가는 없다.
+- `src/lib/__tests__/locale-redirect.test.ts` — 위 함수 회귀 테스트(Vitest). bare 비루트·prefixed·prefix-only·`/enterprise`류 콘텐츠 경로 계약 고정.
+- `vitest.config.ts` + `package.json`의 `test` 스크립트·`vitest` devDep — 이 레포 최초 테스트 하네스. 순수 함수 회귀 가드를 위해 도입.
 
 ## 데이터 흐름
 
@@ -103,14 +105,21 @@ next-intl은 URL 경로에서 로케일을 읽는다(`localePrefix: always`, `re
 ### `LocaleSwitcher.switchTo` (수정 후)
 
 ```ts
+// src/lib/locale-redirect.ts — 경로 계산(테스트 대상 순수 함수)
+function localeSwitchHref(pathname: string, next: Locale): string {
+  const stripped = pathname.replace(/^\/(ko|en)(?=\/|$)/, "");
+  return stripped === "" || stripped === "/" ? `/${next}` : `/${next}${stripped}`;
+}
+
+// src/components/LocaleSwitcher.tsx
 function switchTo(next: Locale) {
   if (next === active) return;
   document.cookie = `NEXT_LOCALE=${next}; path=/; max-age=31536000; samesite=lax; secure`;
-  // 실제 로케일 세그먼트만 제거 (bare 경로엔 prefix가 없음)
-  const stripped = pathname.replace(/^\/(ko|en)(?=\/|$)/, "");
-  window.location.replace(`/${next}${stripped || ""}`);
+  window.location.replace(localeSwitchHref(pathname, next));
 }
 ```
+
+`stripped === "/" ? \`/${next}\``: bare 루트(`/`)·prefix-only(`/ko`)를 트레일링 슬래시 없이 `/en`으로 정규화(`next.config` `trailingSlash: false`와 일치).
 
 `(?=\/|$)`는 positive lookahead지만 **브라우저 JS 정규식**에서 실행되므로(RE2 제약은 Vercel edge에만 적용) 안전하다. `/privacy`(bare)는 `ko|en` prefix가 없어 그대로 유지 → `/en/privacy`. `/ko/docs/x`는 `/ko` 제거 → `/en/docs/x`.
 
@@ -118,7 +127,7 @@ function switchTo(next: Locale) {
 
 - **CLAUDE.md 정적 export 제약**: "미들웨어 사용 불가", "bare 경로 locale 감지 불가(→ vercel rewrite로 기본 ko 서빙)"를 그대로 존중. 본 설계는 rewrite를 유지하고 그 앞단에 edge redirect만 얹는다.
 - **SEO 집중(`bug-shot.com`)**: canonical·hreflang·sitemap 무변경. ko는 bare 유지, 리디렉트 목적지는 슬러그 canonical과 일치하는 `/en`.
-- **외과적 변경**: 프로덕션 코드 변경은 `vercel.json`과 `LocaleSwitcher.tsx` 단 2곳. 컴포넌트·페이지·메타데이터 로직 불변.
+- **외과적 변경**: 프로덕션 코드 변경은 `vercel.json`·`LocaleSwitcher.tsx`와 추출 헬퍼 `lib/locale-redirect.ts` 3곳. 컴포넌트·페이지·메타데이터 로직 불변.
 - **쿠키 네이밍**: `NEXT_LOCALE`(next-intl 관례명). 정적 export라 실제 next-intl 런타임과 충돌 지점 없음. 향후 서버 렌더 전환 시에도 관례와 정합.
 
 ## 대안 검토

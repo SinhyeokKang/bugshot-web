@@ -44,7 +44,7 @@
   2. **strip 정규식 버그 수정(필수)**: `pathname.replace(/^\/[a-z]{2}/, "")` → `pathname.replace(/^\/(ko|en)(?=\/|$)/, "")`. 현재는 bare `/privacy`→`ivacy`→`/enivacy`(404), bare `/docs/x`→`/encs/x`(404)로 깨진다. S3가 이 함수에 의존.
   3. **뒤로가기 트랩 완화**: `window.location.href` → `window.location.replace`.
 - **검증**:
-  - [ ] `npx tsc --noEmit`·`pnpm lint` 통과
+  - [x] `npx tsc --noEmit`·`pnpm lint` 통과 (변경 파일 이슈 없음) + `pnpm test` green (5/5)
   - [ ] 프리뷰에서 EN 클릭 후 DevTools Application → Cookies에 `NEXT_LOCALE=en`(만료 ~1년) 존재 (⚠️ 로컬 `next dev`는 http라 `secure` 쿠키 미기록 → 프리뷰 https에서만 검증)
   - [ ] **bare 경로 전환 회귀**: bare `/`·`/privacy`·`/docs/quick-start`에서 EN 클릭 → 각각 `/en`·`/en/privacy`·`/en/docs/quick-start`로 정확히 이동(404 없음). KO 클릭(영어 브라우저) → ko 복귀 정확
   - [ ] **기존 슬러그 경로 회귀**: `/ko/docs/x`에서 EN 클릭 → `/en/docs/x` (기존 동작 유지)
@@ -65,7 +65,7 @@
 
 ## 테스트 계획
 
-- **단위 테스트**: 순수 함수 신규 없음(설정·1-liner 쿠키). 별도 유닛 테스트 없음.
+- **단위 테스트**: `localeSwitchHref(pathname, next)`(경로 계산 순수 함수)를 Vitest로 회귀 테스트 — bare 비루트·prefixed·prefix-only·`/enterprise`류 콘텐츠 경로 5케이스. (이 레포 최초 테스트 하네스: `vitest`, `vitest.config.ts`, `package.json` `test` 스크립트.) `pnpm test`로 실행. **구현 완료 후 green 확정.**
 - **수동/통합 테스트**: 위 Task 1~4의 `curl` + 브라우저 체크리스트가 사실상의 통합 테스트. 로컬 불가 → 프리뷰 배포 필수.
 
 ## 구현 순서 권장
