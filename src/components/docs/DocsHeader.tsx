@@ -27,8 +27,10 @@ export function DocsHeader({ locale }: { locale: string }) {
 
         <div className="flex items-center gap-2">
           <DocsSearch />
+          <div className="hidden md:block">
+            <LocaleSwitcher className="shrink-0" />
+          </div>
           <HeaderMobileMenu locale={locale} />
-          <LocaleSwitcher className="shrink-0" />
         </div>
       </div>
     </header>

@@ -74,9 +74,9 @@ src/
 │   ├── Markdown.tsx         # 공용 마크다운 렌더 (react-markdown, shadcn Typography 요소 매핑) — privacy·docs. embed 코드펜스 → EmbedCard
 │   └── docs/               # 전역 헤더 + 문서 사이트 셸·구성요소
 │       ├── DocsShell.tsx    # 헤더 + (docs)서브헤더바 + (옵션)사이드바 + 본문 + 우측 TOC + Footer 단일 셸 (privacy·docs 공용)
-│       ├── DocsHeader.tsx   # 전역 sticky 헤더 (랜딩·privacy·docs 공용): 로고+nav(좌) / 검색·모바일메뉴·LocaleSwitcher(우, LocaleSwitcher는 모바일도 인라인 노출)
+│       ├── DocsHeader.tsx   # 전역 sticky 헤더 (랜딩·privacy·docs 공용): 로고+nav(좌) / 검색·LocaleSwitcher·모바일메뉴(우)
 │       ├── DocsHeaderNav.tsx # 데스크톱 중앙 nav (client, Guide·Contact·Add to Chrome, path matching active)
-│       ├── HeaderMobileMenu.tsx # 모바일 우측 Sheet 드로어 (nav 링크)
+│       ├── HeaderMobileMenu.tsx # 모바일 우측 Sheet 드로어 (nav + 하단 LocaleSwitcher)
 │       ├── DocsSidebar.tsx  # SUMMARY nav (client, active 하이라이트)
 │       ├── DocsMobileNav.tsx# docs 모바일 서브헤더 바 ({docName}+chevron) → 하단 Sheet(90dvh)로 SUMMARY
 │       ├── DocsSearch.tsx   # cmdk + fuse.js 전역 검색: 아이콘 버튼 → 다이얼로그(모바일 풀스크린), 빈 쿼리 시 부모 문서만, / 단축키
