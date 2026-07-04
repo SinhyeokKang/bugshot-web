@@ -11,27 +11,28 @@
 
 ### Task 1: `vercel.json`에 edge redirects 추가
 - **변경 대상**: `vercel.json`
-- **작업 내용**: 기존 `rewrites`는 유지하고, 상위에 `redirects` 배열 추가. bare source 4종(`/`, `/privacy`, `/docs`, `/docs/:path*`) 각각에 2규칙(쿠키 `^en$` / 쿠키부재+헤더 `^[Ee][Nn]`), 두 규칙 모두 `sec-fetch-dest: document` AND 조건, 목적지 `/en...`, `permanent: false`. **positive 헤더 정규식 `^[Ee][Nn]`(RE2 안전)·cookie 앵커 `^en$`.** (전체 JSON은 design.md "인터페이스 설계" 참조.)
+- **작업 내용**: 기존 `rewrites`는 유지하고, 상위에 `redirects` 배열 추가. bare source 4종(`/`, `/privacy`, `/docs`, `/docs/:path*`) 각각에 2규칙(쿠키 `^en$` / 쿠키부재+헤더 `^([^kK]|[kK][^oO])`), 두 규칙 모두 `sec-fetch-dest: document` AND 조건, 목적지 `/en...`, `permanent: false`. **헤더 정규식 `^([^kK]|[kK][^oO])`("ko 아님", negated char class라 엔진 무관 안전)·cookie 앵커 `^en$`.** (전체 JSON은 design.md "인터페이스 설계" 참조.)
 - **검증**: (프리뷰 배포 후 `curl -sI`, 모든 요청에 `-H "Sec-Fetch-Dest: document"`)
   - [ ] `-H "Accept-Language: en-US,en;q=0.9"` `/` → `307`, `Location: /en`
   - [ ] `-H "Accept-Language: ko-KR,ko;q=0.9"` `/` → 리디렉트 없음(200, ko 콘텐츠)
-  - [ ] `-H "Accept-Language: fr-FR,fr;q=0.9"` `/` → 리디렉트 없음(200, ko) — 비-en·비-ko는 ko 안착
-  - [ ] `-H "Accept-Language: *"` / 빈 헤더 / 헤더 없이 `/` → 리디렉트 없음(200, ko)
-  - [ ] `-H "Accept-Language: EN-us"`(대문자) `/` → `307` `/en` — `[Ee][Nn]` 커버 확인
+  - [ ] `-H "Accept-Language: fr-FR,fr;q=0.9"` `/` → `307` `/en` — 비-ko는 en(대전제)
+  - [ ] `-H "Accept-Language: ja-JP"` `/` → `307` `/en`
+  - [ ] `-H "Accept-Language: *"` `/` → `307` `/en`(any→en). 빈 헤더 / 헤더 없이 `/` → 리디렉트 없음(200, ko)
+  - [ ] `-H "Accept-Language: Ko-kr"`(대문자) `/` → 리디렉트 없음 — `[kK][oO]` ko 커버 확인
   - [ ] `/privacy`, `/docs`, `/docs/a/b`도 en 헤더에서 각각 `/en/privacy`, `/en/docs`, `/en/docs/a/b`로 `307`
   - [ ] `/ko`, `/en`, `/sitemap.xml` → 리디렉트 없음
 
 ### Task 2: 쿠키·에셋·캐시 검증 (Task 1과 동일 배포에서)
 - **변경 대상**: 없음(설정 검증 태스크)
-- **작업 내용**: 쿠키 오버라이드, **positive 정규식 실동작, docs 에셋 404 방어, 캐시 오염**을 확인.
+- **작업 내용**: 쿠키 오버라이드, **"ko 아님" 정규식 실동작, docs 에셋 404 방어, 캐시 오염**을 확인.
 - **검증**:
   - [ ] `-H "Accept-Language: ko-KR" --cookie "NEXT_LOCALE=en"` `-H "Sec-Fetch-Dest: document"` `/` → `307` `/en`
   - [ ] `-H "Accept-Language: en-US" --cookie "NEXT_LOCALE=ko"` `-H "Sec-Fetch-Dest: document"` `/` → 리디렉트 없음(ko)
-  - [ ] **positive 정규식 `^[Ee][Nn]`이 실제로 동작함을 위 결과로 확정**(미동작 시 design.md 위험1 폴백 → Task 1b)
+  - [ ] **정규식 `^([^kK]|[kK][^oO])`이 실제로 동작함을 위 결과로 확정**(negated char class 지원 확인; 미동작 시 design.md 위험1 폴백 → Task 1b)
   - [ ] **docs 에셋 방어**: `-H "Accept-Language: en-US" -H "Sec-Fetch-Dest: image"` `/docs/en/assets/dummy.jpg` → 리디렉트 없음(200). 실제 EN 브라우저로 `/en/docs/quick-start` 열어 이미지 정상 표시 확인(DevTools Network에 404 없음)
   - [ ] **캐시 오염**: ko 요청으로 bare `/` 200 받은 뒤 en 헤더로 재요청 시 캐시된 ko가 재사용되지 않고 `/en` 리디렉트되는지 확인. 오염 시 design 위험2의 `Vary` 헤더 적용
 
-### Task 1b: (조건부) 정규식 폴백 — Task 2에서 `^[Ee][Nn]` 미동작 시에만
+### Task 1b: (조건부) 정규식 폴백 — Task 2에서 `^([^kK]|[kK][^oO])` 미동작 시에만
 - **변경 대상**: `src/app/layout.tsx`(또는 `[locale]/layout.tsx`) `<head>` 인라인 스크립트, `vercel.json`(헤더 redirect 규칙 제거)
 - **작업 내용**: design.md 대안 A(클라이언트 JS 인라인 리디렉트)로 전환. bare 경로에서 `navigator.languages[0]`가 en이면 `/en`으로 `location.replace`. 쿠키 규칙(Task 1의 규칙1)은 edge에 유지 가능(룩어헤드 없음). **주의**: 클라이언트 리디렉트는 ko 페이지 플래시 가능 → `<head>` 최상단 동기 스크립트로 최소화. Task 3의 쿠키 read 측(edge 쿠키 규칙)이 유지되는지 재확인.
 - **검증**: Task 1·2 체크리스트를 폴백 구현 기준으로 재수행.
@@ -56,7 +57,7 @@
 - **검증**:
   - [ ] 영어 브라우저로 `bug-shot.com/` → `/en` 자동 이동(플래시 없음)
   - [ ] 한국어 브라우저로 bare 경로 → ko 유지, URL 슬러그 없음
-  - [ ] 프랑스어 등 비-en·비-ko 브라우저 → ko 안착(리디렉트 없음)
+  - [ ] 프랑스어·일본어 등 비-ko 브라우저 → `/en` 자동 이동(대전제)
   - [ ] EN 수동 선택 → 쿠키 기록 → 브라우저 언어와 무관하게 bare 재방문 시 `/en` 유지
   - [ ] KO 수동 선택(영어 브라우저, S4) → 재방문 시 ko 유지
   - [ ] `/en/docs` 페이지의 이미지 정상 로드(에셋 404 없음)
@@ -69,7 +70,7 @@
 
 ## 구현 순서 권장
 
-1. **Task 1 → Task 2**: `vercel.json` 작성 후 같은 프리뷰에서 헤더·쿠키·에셋·캐시 검증. **위험1(positive 정규식 실동작)·위험6(에셋 404)을 여기서 조기 확정** — 정규식 미동작 시 Task 1b(폴백) 진행.
+1. **Task 1 → Task 2**: `vercel.json` 작성 후 같은 프리뷰에서 헤더·쿠키·에셋·캐시 검증. **위험1(negated char class 정규식 실동작)·위험6(에셋 404)을 여기서 조기 확정** — 정규식 미동작 시 Task 1b(폴백) 진행.
 2. **Task 3**: 정규식 검증 통과 후 LocaleSwitcher 수정(쿠키 write + strip 버그 수정 + replace). strip 버그는 이 기능의 S3/S4 전제이므로 필수.
 3. **Task 4**: 통합 확인.
 
