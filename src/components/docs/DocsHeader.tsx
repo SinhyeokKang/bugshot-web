@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import { DocsMobileNav } from "./DocsMobileNav";
+import { DocsSearch } from "./DocsSearch";
 import type { DocsNavNode } from "@/lib/docs/summary";
 
 // Shared docs/privacy top bar: 64px, border-b.
@@ -29,6 +30,12 @@ export function DocsHeader({
             />
           </Link>
         </div>
+
+        {nav && (
+          <div className="flex flex-1 justify-center">
+            <DocsSearch />
+          </div>
+        )}
 
         <LocaleSwitcher className="shrink-0" />
       </div>

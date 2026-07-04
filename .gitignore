@@ -16,6 +16,7 @@
 # content fetched from bugshot-2 at build time (privacy + guide)
 /content/
 /public/docs/
+/public/search/
 
 # production
 /build

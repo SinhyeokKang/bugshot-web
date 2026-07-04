@@ -189,7 +189,9 @@
     "prev": "이전",
     "next": "다음",
     "onThisPage": "이 페이지",
-    "titleSuffix": "BugShot 유저 가이드"
+    "titleSuffix": "BugShot 유저 가이드",
+    "searchPlaceholder": "문서 검색...",
+    "searchEmpty": "검색 결과가 없습니다"
   },
   "privacy": {
     "home": "홈으로",

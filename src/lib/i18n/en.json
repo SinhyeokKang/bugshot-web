@@ -189,7 +189,9 @@
     "prev": "Previous",
     "next": "Next",
     "onThisPage": "On this page",
-    "titleSuffix": "BugShot User Guide"
+    "titleSuffix": "BugShot User Guide",
+    "searchPlaceholder": "Search docs...",
+    "searchEmpty": "No results found"
   },
   "privacy": {
     "home": "Home",
