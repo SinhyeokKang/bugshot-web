@@ -13,8 +13,9 @@
 /.next/
 /out/
 
-# privacy content fetched from bugshot-2 at build time
+# content fetched from bugshot-2 at build time (privacy + guide)
 /content/
+/public/docs/
 
 # production
 /build
