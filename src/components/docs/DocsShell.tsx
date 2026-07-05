@@ -31,7 +31,7 @@ export function DocsShell({
       <div className="container mx-auto max-w-[1200px] py-10 md:flex md:gap-10">
         {nav && (
           <aside className="hidden md:block md:w-[200px] md:shrink-0">
-            <div className="fixed top-[104px] max-h-[calc(100vh-104px)] w-[200px] overflow-y-auto left-[max(1.5rem,calc((100vw-1200px)/2+1.5rem))]">
+            <div className="fixed top-[104px] max-h-[calc(100vh-104px)] w-[200px] overflow-y-auto pb-6 left-[max(1.5rem,calc((100vw-1200px)/2+1.5rem))]">
               <DocsSidebar nav={nav} />
             </div>
           </aside>
