@@ -49,10 +49,10 @@ export function DocsMobileNav({
       </SheetTrigger>
       <SheetContent
         side="bottom"
-        className="h-[90dvh] overflow-y-auto rounded-t-2xl p-0"
+        className="flex h-[90dvh] flex-col rounded-t-2xl p-0"
       >
         <SheetTitle className="sr-only">{t("menu")}</SheetTitle>
-        <div className="px-4 pb-6 pt-16">
+        <div className="min-h-0 flex-1 overflow-y-auto px-6 pb-6 pt-16">
           <DocsSidebar nav={nav} />
         </div>
       </SheetContent>
