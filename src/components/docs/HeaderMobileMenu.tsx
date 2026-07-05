@@ -49,7 +49,7 @@ export function HeaderMobileMenu({ locale }: { locale: string }) {
       </SheetTrigger>
       <SheetContent side="right" className="flex w-[80dvw] flex-col p-0">
         <SheetTitle className="sr-only">{t("menu")}</SheetTitle>
-        <div className="flex h-16 items-center px-6">
+        <div className="flex h-16 items-center px-5">
           <Link href={`/${locale}`} aria-label="BugShot">
             <Image
               src="/bugshot-symbol.svg"
@@ -60,7 +60,7 @@ export function HeaderMobileMenu({ locale }: { locale: string }) {
             />
           </Link>
         </div>
-        <nav className="flex flex-col gap-1 px-6">
+        <nav className="flex flex-col gap-1 px-5">
           <Link href={docs} className={itemClass(isDocs)}>
             {t("guide")}
           </Link>
@@ -76,7 +76,7 @@ export function HeaderMobileMenu({ locale }: { locale: string }) {
             {t("addToChrome")}
           </a>
         </nav>
-        <div className="mt-auto px-6 pb-6">
+        <div className="mt-auto px-5 pb-6">
           <LocaleSwitcher className="w-fit" />
         </div>
       </SheetContent>

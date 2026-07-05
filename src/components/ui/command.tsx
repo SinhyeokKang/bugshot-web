@@ -42,7 +42,7 @@ const CommandInput = React.forwardRef<
     trailing?: React.ReactNode; // beside the pill (e.g. close button)
   }
 >(({ className, endSlot, trailing, ...props }, ref) => (
-  <div className="flex items-center gap-2 border-b px-6 py-4 md:p-3" cmdk-input-wrapper="">
+  <div className="flex items-center gap-2 border-b px-5 py-4 md:p-3" cmdk-input-wrapper="">
     <div className="flex h-[42px] flex-1 items-center gap-2 rounded-md border bg-background px-3 shadow-sm">
       <Search className="size-5 shrink-0 text-muted-foreground" />
       <CommandPrimitive.Input

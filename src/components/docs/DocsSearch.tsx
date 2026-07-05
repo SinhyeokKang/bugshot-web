@@ -165,7 +165,7 @@ export function DocsSearch() {
                 </button>
               }
             />
-            <CommandList className="min-h-0 max-h-none flex-1 overscroll-contain px-6 py-4 md:h-[400px] md:flex-none md:p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&_[cmdk-list-sizer]]:space-y-1">
+            <CommandList className="min-h-0 max-h-none flex-1 overscroll-contain px-5 py-4 md:h-[400px] md:flex-none md:p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&_[cmdk-list-sizer]]:space-y-1">
               {results.length === 0 ? (
                 <div className="py-10 text-center text-sm text-muted-foreground">
                   {t("searchEmpty")}

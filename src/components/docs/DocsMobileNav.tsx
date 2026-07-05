@@ -52,7 +52,7 @@ export function DocsMobileNav({
         className="flex h-[90dvh] flex-col rounded-t-2xl p-0"
       >
         <SheetTitle className="sr-only">{t("menu")}</SheetTitle>
-        <div className="min-h-0 flex-1 overflow-y-auto px-6 pb-6 pt-16">
+        <div className="min-h-0 flex-1 overflow-y-auto px-5 pb-6 pt-16">
           <DocsSidebar nav={nav} />
         </div>
       </SheetContent>
