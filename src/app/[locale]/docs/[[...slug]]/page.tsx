@@ -102,7 +102,7 @@ export default async function DocPage({
       {parent && (
         <Link
           href={parent.href}
-          className="mb-3 inline-block text-sm font-semibold text-brand hover:underline"
+          className="mb-3 inline-block text-sm font-medium text-brand hover:underline"
         >
           {parent.title}
         </Link>
