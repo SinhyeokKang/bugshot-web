@@ -57,10 +57,10 @@ export function Mockup() {
               onClick={() => setActive(i)}
               aria-pressed={active === i}
               className={cn(
-                "flex h-10 items-center gap-1.5 rounded-xl px-3 text-sm font-medium transition-colors md:h-[42px] md:gap-2 md:px-4 md:text-base [&_svg]:size-4 md:[&_svg]:size-5",
+                "flex h-10 items-center gap-1.5 rounded-xl border px-3 text-sm font-medium shadow-sm transition-colors md:h-[42px] md:gap-2 md:px-4 md:text-base [&_svg]:size-4 md:[&_svg]:size-5",
                 active === i
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-foreground hover:bg-muted-foreground/10"
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "bg-background text-foreground hover:bg-accent"
               )}
             >
               <slide.icon />
