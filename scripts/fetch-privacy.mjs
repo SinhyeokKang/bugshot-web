@@ -2,6 +2,7 @@
 // content/ is gitignored — the single source of truth stays in bugshot-2.
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
+import { fetchWithRetry } from "./lib/fetch-retry.mjs";
 
 const RAW_BASE =
   "https://raw.githubusercontent.com/SinhyeokKang/bugshot-2/main/docs";
@@ -13,10 +14,7 @@ const SOURCES = [
 ];
 
 async function fetchOne({ url, out }) {
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw new Error(`${res.status} ${res.statusText}: ${url}`);
-  }
+  const res = await fetchWithRetry(url);
   const text = await res.text();
   if (!text.trim().startsWith("#")) {
     throw new Error(`unexpected content (not a markdown heading): ${url}`);
@@ -27,7 +25,8 @@ async function fetchOne({ url, out }) {
 
 try {
   await mkdir(OUT_DIR, { recursive: true });
-  await Promise.all(SOURCES.map(fetchOne));
+  // Sequential (not Promise.all) to avoid hammering GitHub raw rate limits.
+  for (const source of SOURCES) await fetchOne(source);
 } catch (err) {
   console.error(`[fetch-privacy] failed: ${err.message}`);
   process.exit(1);

@@ -53,7 +53,8 @@ scripts/
 ├── fetch-privacy.mjs       # 빌드 전: bugshot-2 privacy.{ko,en}.md → content/privacy
 ├── fetch-guide.mjs         # 빌드 전: bugshot-2 guide/{ko,en} tarball → content/guide + public/docs/{locale}/assets
 ├── build-search.mjs        # 빌드 전: guide 콘텐츠 → public/search/{locale}.json (검색 인덱스)
-└── build-embeds.mjs        # 빌드 전: guide의 {% embed url %} → OG 메타 fetch → content/guide/embeds.json (링크 카드)
+├── build-embeds.mjs        # 빌드 전: guide의 {% embed url %} → OG 메타 fetch → content/guide/embeds.json (링크 카드)
+└── lib/fetch-retry.mjs     # 공용 fetch 헬퍼 (429·5xx·네트워크 오류 지수 백오프 재시도) — 위 세 fetch 스크립트 공용
 src/
 ├── app/
 │   ├── layout.tsx          # 최상위 RootLayout — DM Sans, <html>/<body>, globals.css

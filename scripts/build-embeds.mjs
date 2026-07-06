@@ -8,6 +8,7 @@
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
+import { fetchWithRetry } from "./lib/fetch-retry.mjs";
 
 const GUIDE = join(process.cwd(), "content", "guide");
 const OUT = join(GUIDE, "embeds.json");
@@ -86,11 +87,10 @@ function abs(url, origin) {
 }
 
 async function resolve(url) {
-  const res = await fetch(url, {
+  const res = await fetchWithRetry(url, {
     headers: { "user-agent": "Mozilla/5.0 (compatible; BugShotBot/1.0)" },
     redirect: "follow",
   });
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
   const html = await res.text();
   const origin = new URL(res.url).origin;
   const title =

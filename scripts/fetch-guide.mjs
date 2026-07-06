@@ -6,6 +6,7 @@ import { cp, mkdir, rm, readdir, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { join, sep } from "node:path";
 import { tmpdir } from "node:os";
+import { fetchWithRetry } from "./lib/fetch-retry.mjs";
 
 const REPO = "SinhyeokKang/bugshot-2";
 const BRANCH = "main";
@@ -17,8 +18,7 @@ const CONTENT_DIR = join(process.cwd(), "content", "guide");
 const PUBLIC_DOCS = join(process.cwd(), "public", "docs");
 
 async function main() {
-  const res = await fetch(TARBALL);
-  if (!res.ok) throw new Error(`tarball ${res.status} ${res.statusText}`);
+  const res = await fetchWithRetry(TARBALL);
   const buf = Buffer.from(await res.arrayBuffer());
 
   const work = join(tmpdir(), "bugshot-guide");
