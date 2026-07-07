@@ -16,7 +16,7 @@ bugshot-web: BugShot Chrome 확장의 랜딩 페이지 + 문서 사이트. 정�
 - **스코프 외**: 블로그·프라이싱·뉴스레터 폼 등은 추가 안 함. 폼 같은 동적 기능 필요 시 외부 서비스(Tally 등) 검토.
 - **콘텐츠 내재화**: 가이드 docs·개인정보처리방침은 bugshot-2(`docs/privacy.{ko,en}.md`, `guide/{ko,en}/**`)를 빌드타임 fetch. 이 레포엔 미커밋(gitignore). 원본 push 시 Vercel Deploy Hook으로 자동 재배포.
 - **품질 목표**: Lighthouse Performance ≥ 90, SEO ≥ 90. (docs 페이지도 고유 canonical·hreflang·OG·BreadcrumbList JSON-LD.)
-- **정적 export 제약**: `output: 'export'`라 API Routes·서버 동적 기능·미들웨어 사용 불가. bare 경로 locale 감지 불가(→ vercel rewrite로 기본 ko 서빙). `next/image`는 `images.unoptimized: true` 필수.
+- **정적 export 제약**: `output: 'export'`라 API Routes·서버 동적 기능·미들웨어 사용 불가. bare 경로 locale 감지 불가(→ vercel rewrite로 기본 en 서빙). `next/image`는 `images.unoptimized: true` 필수.
 
 ## 스택
 
@@ -27,7 +27,7 @@ bugshot-web: BugShot Chrome 확장의 랜딩 페이지 + 문서 사이트. 정�
 - docs 검색: `cmdk`(shadcn command) + `fuse.js`. 빌드타임 인덱스(`public/search/{locale}.json`) 클라이언트 퍼지 검색.
 - 아이콘: lucide-react (UI 일반), `@icons-pack/react-simple-icons` (브랜드 — `Si{Name}` import, `color="default"` + GitHub만 `dark:invert`)
 - 폰트: DM Sans (next/font/google, Latin) + Pretendard Variable (CDN, 한글). font stack에서 문자 기반 자동 분기.
-- i18n: next-intl (`defaultLocale: "ko"`, `localePrefix: "always"`, routing `/ko`, `/en`). Vercel rewrite로 `/`·`/privacy`·`/docs/*` → 기본 ko 서빙. **비-ko 브라우저는 Vercel edge `redirects`로 `/en` 자동 안내**(`Accept-Language` "ko 아님" + `sec-fetch-dest: document`; 수동 선택은 `NEXT_LOCALE` 쿠키 우선). ⚠️ `vercel.json` `has.value`는 헤더 값 **전체 매칭** — 정규식 뒤에 `.*` 필수.
+- i18n: next-intl (`defaultLocale: "en"`, `localePrefix: "always"`, routing `/ko`, `/en`). Vercel rewrite로 `/`·`/privacy`·`/docs/*` → 기본 **en** 서빙(크롤러·SEO 기준선 = en, x-default도 `/en`). **ko 브라우저는 Vercel edge `redirects`로 `/ko` 자동 안내**(`Accept-Language`가 "ko로 시작" + `sec-fetch-dest: document`; 수동 선택은 `NEXT_LOCALE` 쿠키 우선). ⚠️ `vercel.json` `has.value`는 헤더 값 **전체 매칭** — 정규식 뒤에 `.*` 필수.
 - 테스트: Vitest (순수 함수·정규식 회귀만. 컴포넌트·레이아웃은 브라우저 검증). `src/**/__tests__/*.test.ts`.
 - 배포: Vercel (정적 호스팅). bugshot-2 콘텐츠 push → Deploy Hook으로 자동 재빌드.
 - 패키지 매니저: pnpm
@@ -94,7 +94,7 @@ src/
     └── i18n/en.json · ko.json
 public/                     # bugshot-symbol.svg + images/ (+ 빌드 fetch: docs/·search/ = gitignore)
 content/                    # 빌드 fetch: privacy/·guide/ (gitignore)
-vercel.json                 # redirects(비-ko → /en, 쿠키/sec-fetch-dest 게이팅) + rewrite(/ · /privacy · /docs · /docs/:path* → 기본 ko)
+vercel.json                 # redirects(ko 브라우저 → /ko, 쿠키/sec-fetch-dest 게이팅) + rewrite(/ · /privacy · /docs · /docs/:path* → 기본 en)
 vitest.config.ts            # Vitest 설정 (@/ alias, src/**/*.test.ts)
 ```
 

@@ -9,8 +9,8 @@ Landing page **and docs site** for the [BugShot](https://chromewebstore.google.c
 - Markdown: `react-markdown` + `remark-gfm` + `rehype-slug` (shared `Markdown` component)
 - Docs search: `cmdk` + `fuse.js` (build-time index, client-side fuzzy search)
 - DM Sans (Latin) + Pretendard Variable (Korean)
-- next-intl (defaultLocale: `ko`, routes: `/ko`, `/en`)
-- Deployed on Vercel (rewrites `/`, `/privacy`, `/docs/*` → default `ko`)
+- next-intl (defaultLocale: `en`, routes: `/ko`, `/en`)
+- Deployed on Vercel (rewrites `/`, `/privacy`, `/docs/*` → default `en`; Korean browsers redirected to `/ko`)
 
 ## Getting Started
 
