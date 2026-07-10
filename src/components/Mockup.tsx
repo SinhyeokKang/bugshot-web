@@ -23,15 +23,19 @@ export function Mockup() {
   const handleNext = () => setActive((prev) => (prev + 1) % slides.length);
 
   return (
-    <section ref={ref} className={cn("border-b pt-12 pb-20 md:pt-[60px] md:pb-[120px] transition-all duration-1000 ease-out", revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-      <div className="container mx-auto max-w-[1200px]">
+    <section ref={ref} className={cn("relative border-b pt-12 pb-20 md:pt-[60px] md:pb-[120px] transition-all duration-1000 ease-out", revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
+      <div className="container relative mx-auto max-w-[1200px]">
         <h2 className="sr-only">{t("srHeading")}</h2>
         <div className="relative">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute left-1/2 top-1/2 aspect-[20/13] w-[200%] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(closest-side,hsl(var(--brand)/0.26),hsl(var(--brand)/0.12)_45%,transparent_72%)]"
+          />
           <button
             type="button"
             onClick={handleNext}
             aria-label={t("next")}
-            className="grid w-full cursor-pointer overflow-hidden rounded-3xl border-[6px] border-border md:rounded-card md:border-[12px]"
+            className="relative grid w-full cursor-pointer overflow-hidden rounded-3xl border-[6px] border-border md:rounded-card md:border-[12px]"
           >
             {slides.map((slide, i) => (
               <img
@@ -49,7 +53,7 @@ export function Mockup() {
             ))}
           </button>
         </div>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
+        <div className="relative mt-6 flex flex-wrap justify-center gap-2">
           {slides.map((slide, i) => (
             <button
               key={slide.key}
@@ -68,7 +72,7 @@ export function Mockup() {
             </button>
           ))}
         </div>
-        <p className="mt-6 text-center text-lg text-foreground md:text-xl">
+        <p className="relative mt-6 text-center text-lg text-foreground md:text-xl">
           {t(`slides.${current.key}.caption`)}
         </p>
       </div>

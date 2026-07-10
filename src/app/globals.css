@@ -47,6 +47,9 @@
     @apply bg-background text-foreground;
     word-break: keep-all;
     overflow-wrap: break-word;
+    /* clip (not hidden) so decorative glows can bleed past the viewport width
+       without creating a scroll container that would break sticky headers. */
+    overflow-x: clip;
   }
   :lang(ko) .tracking-tight {
     letter-spacing: 0;
