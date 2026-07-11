@@ -20,8 +20,9 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000). `dev`/`build` first run
-`fetch-privacy` + `fetch-guide` + `build-search` to pull privacy/guide content
-and build the search index from bugshot-2 (all gitignored).
+`fetch-privacy` + `fetch-guide` + `build-search` + `build-embeds` +
+`build-image-dims` to pull privacy/guide content and build the search index,
+embed OG cards, and image dimensions from bugshot-2 (all gitignored).
 
 ## Build
 
@@ -34,11 +35,11 @@ Outputs a static site to `out/`. (Don't run `build` while `dev` is running — i
 ## Project Structure
 
 ```
-scripts/            — build-time content fetch + search index + embed OG meta (privacy, guide)
+scripts/            — build-time content fetch + search index + embed OG meta + image dims (privacy, guide)
 src/
 ├── app/
-│   ├── layout.tsx          — Root layout (<html>, <body>, DM Sans)
-│   └── [locale]/           — Localized routes (/ko, /en)
+│   ├── layout.tsx          — Root layout (passthrough; <html>/<body>/fonts live in [locale])
+│   └── [locale]/           — Localized routes (/ko, /en); renders <html lang>/<body> + DM Sans + Pretendard
 │       ├── page.tsx        — Landing
 │       ├── privacy/        — Privacy policy
 │       └── docs/           — Guide portal (catch-all)
@@ -48,7 +49,7 @@ src/
 │   └── ...                 — Landing sections + shadcn/ui + LocaleSwitcher
 ├── i18n/                   — next-intl routing, navigation, request config
 └── lib/
-    ├── docs/               — SUMMARY parser, content loader, markdown, TOC, metadata
+    ├── docs/               — SUMMARY parser, content loader, markdown, TOC, metadata, embeds, image dims
     ├── i18n/               — Message catalogs (en.json, ko.json)
     └── ...                 — Constants, utilities
 ```
