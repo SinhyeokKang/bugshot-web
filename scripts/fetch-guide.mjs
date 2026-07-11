@@ -48,9 +48,14 @@ async function main() {
     if (!existsSync(join(srcGuide, "SUMMARY.md"))) {
       throw new Error(`missing SUMMARY.md for ${locale}`);
     }
-    // markdown (preserve tree, skip the assets dir + junk)
+    // markdown (preserve tree, skip the assets dir + junk). preserveTimestamps
+    // keeps the tarball's (tip-commit) mtime instead of resetting to build time,
+    // so sitemap lastModified stays stable across bugshot-web rebuilds and only
+    // moves when bugshot-2 is re-pushed. (Same value for all files — the tarball
+    // stamps the tip commit time, not per-file dates.)
     await cp(srcGuide, join(CONTENT_DIR, locale), {
       recursive: true,
+      preserveTimestamps: true,
       filter: (src) =>
         !src.includes(`${sep}assets`) && !src.endsWith(".DS_Store"),
     });
@@ -59,6 +64,7 @@ async function main() {
     if (existsSync(srcAssets)) {
       await cp(srcAssets, join(PUBLIC_DOCS, locale, "assets"), {
         recursive: true,
+        preserveTimestamps: true,
       });
     }
     const mdCount = (await readdir(join(CONTENT_DIR, locale), {

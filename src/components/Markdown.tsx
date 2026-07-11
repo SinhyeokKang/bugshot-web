@@ -4,6 +4,7 @@ import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import { EmbedCard } from "@/components/docs/EmbedCard";
 import type { EmbedMap } from "@/lib/docs/embeds";
+import type { ImageDimMap } from "@/lib/docs/image-dims";
 
 // Shared markdown renderer (privacy + docs). Every element is mapped to
 // shadcn's Typography classes verbatim (ui.shadcn.com/docs/components/typography)
@@ -99,25 +100,6 @@ const components: Components = {
       {children}
     </td>
   ),
-  // markdown wraps a standalone image in a <p>, so use inline-safe elements
-  // (a block <span> caption) instead of <figure>/<figcaption>.
-  img: ({ src, alt }) => (
-    <>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={typeof src === "string" ? src : undefined}
-        alt={alt ?? ""}
-        loading="lazy"
-        decoding="async"
-        className="block max-w-full"
-      />
-      {alt ? (
-        <span className="mt-2 block text-center text-xs text-muted-foreground">
-          {alt}
-        </span>
-      ) : null}
-    </>
-  ),
   hr: () => <hr className="my-8 border-border" />,
 };
 
@@ -136,11 +118,13 @@ function embedUrl(children: ReactNode): string | null {
 export function Markdown({
   children,
   embeds,
+  imageDims,
 }: {
   children: string;
   embeds?: EmbedMap;
+  imageDims?: ImageDimMap;
 }) {
-  const withEmbeds: Components = {
+  const withOverrides: Components = {
     ...components,
     pre: ({ children }) => {
       const url = embedUrl(children);
@@ -151,12 +135,38 @@ export function Markdown({
         </pre>
       );
     },
+    // markdown wraps a standalone image in a <p>, so use inline-safe elements
+    // (a block <span> caption) instead of <figure>/<figcaption>. Intrinsic
+    // width/height (build-time dims) + h-auto reserve space (CLS) while staying
+    // responsive.
+    img: ({ src, alt }) => {
+      const dim = typeof src === "string" ? imageDims?.[src] : undefined;
+      return (
+        <>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={typeof src === "string" ? src : undefined}
+            alt={alt ?? ""}
+            width={dim?.width}
+            height={dim?.height}
+            loading="lazy"
+            decoding="async"
+            className="block h-auto max-w-full"
+          />
+          {alt ? (
+            <span className="mt-2 block text-center text-xs text-muted-foreground">
+              {alt}
+            </span>
+          ) : null}
+        </>
+      );
+    },
   };
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       rehypePlugins={[rehypeSlug]}
-      components={withEmbeds}
+      components={withOverrides}
     >
       {children}
     </ReactMarkdown>

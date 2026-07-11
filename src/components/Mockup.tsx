@@ -23,7 +23,7 @@ export function Mockup() {
   const handleNext = () => setActive((prev) => (prev + 1) % slides.length);
 
   return (
-    <section ref={ref} className={cn("relative border-b pt-12 pb-20 md:pt-[60px] md:pb-[120px] transition-all duration-1000 ease-out", revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
+    <section ref={ref} className={cn("relative overflow-x-clip border-b pt-12 pb-20 md:pt-[60px] md:pb-[120px] transition-all duration-1000 ease-out", revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
       <div className="container relative mx-auto max-w-[1200px]">
         <h2 className="sr-only">{t("srHeading")}</h2>
         <div className="relative">

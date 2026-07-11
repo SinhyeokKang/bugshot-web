@@ -51,8 +51,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: { languages: privacyLanguages },
     })),
     // docs: only slugs present in EVERY locale — an asymmetric slug would emit
-    // a per-locale URL that 404s. lastModified is per source file so a single
-    // content change doesn't mark every doc URL as modified.
+    // a per-locale URL that 404s. lastModified is the guide's source (commit)
+    // mtime, so a bugshot-web rebuild no longer bumps it — it only changes when
+    // bugshot-2 is re-pushed. (The tarball stamps all files with the tip commit
+    // time, so it's the same value across docs, not per-file.)
     ...docSlugs.flatMap((slug) =>
       routing.locales.map((locale) => ({
         url: docUrl(locale, slug),
