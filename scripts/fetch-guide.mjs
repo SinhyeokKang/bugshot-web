@@ -48,9 +48,12 @@ async function main() {
     if (!existsSync(join(srcGuide, "SUMMARY.md"))) {
       throw new Error(`missing SUMMARY.md for ${locale}`);
     }
-    // markdown (preserve tree, skip the assets dir + junk)
+    // markdown (preserve tree, skip the assets dir + junk). preserveTimestamps
+    // keeps the tarball (source commit) mtime so sitemap lastModified reflects
+    // when the guide content actually changed, not each build.
     await cp(srcGuide, join(CONTENT_DIR, locale), {
       recursive: true,
+      preserveTimestamps: true,
       filter: (src) =>
         !src.includes(`${sep}assets`) && !src.endsWith(".DS_Store"),
     });
@@ -59,6 +62,7 @@ async function main() {
     if (existsSync(srcAssets)) {
       await cp(srcAssets, join(PUBLIC_DOCS, locale, "assets"), {
         recursive: true,
+        preserveTimestamps: true,
       });
     }
     const mdCount = (await readdir(join(CONTENT_DIR, locale), {
