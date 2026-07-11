@@ -2,6 +2,14 @@ export const SITE_URL = "https://bug-shot.com";
 export const CHROME_WEB_STORE_URL =
   "https://chromewebstore.google.com/detail/bugshot/ohakhekagkodklkickemonmifdcbhmig";
 export const CHROME_WEB_STORE_REVIEWS_URL = `${CHROME_WEB_STORE_URL}/reviews`;
+
+// Actual Chrome Web Store aggregate rating (for SoftwareApplication JSON-LD).
+// ratingCount = total ratings; reviewCount = ratings with a written review.
+export const CHROME_WEB_STORE_RATING = {
+  ratingValue: 4.94,
+  ratingCount: 16,
+  reviewCount: 8,
+} as const;
 export const GITHUB_URL = "https://github.com/SinhyeokKang/bugshot-2";
 export const CONTACT_EMAIL = "ox501501@gmail.com";
 

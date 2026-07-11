@@ -11,7 +11,11 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { routing } from "@/i18n/routing";
 import { SITE_URL } from "@/lib/constants";
+import { ogLocale } from "@/lib/og-locale";
 import "../globals.css";
+
+const PRETENDARD_CSS =
+  "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -60,8 +64,10 @@ export async function generateMetadata({
       description: t("description"),
       type: "website",
       siteName: "BugShot",
-      locale,
-      alternateLocale: routing.locales.filter((l) => l !== locale),
+      locale: ogLocale(locale),
+      alternateLocale: routing.locales
+        .filter((l) => l !== locale)
+        .map(ogLocale),
       url,
       images: [
         {
@@ -103,6 +109,11 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={dmSans.variable} suppressHydrationWarning>
       <body className="font-sans antialiased">
+        {/* Pretendard (Korean) via a hoisted <link> + preconnect instead of a
+            CSS @import, so the CDN request runs in parallel off a warm
+            connection rather than serially after globals.css parses. */}
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+        <link rel="stylesheet" href={PRETENDARD_CSS} precedence="default" />
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
           <Analytics />

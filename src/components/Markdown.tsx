@@ -107,6 +107,8 @@ const components: Components = {
       <img
         src={typeof src === "string" ? src : undefined}
         alt={alt ?? ""}
+        loading="lazy"
+        decoding="async"
         className="block max-w-full"
       />
       {alt ? (

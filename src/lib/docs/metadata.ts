@@ -1,6 +1,17 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/constants";
+import { ogLocale } from "@/lib/og-locale";
+import { routing } from "@/i18n/routing";
 import { findParent, type DocsNavNode } from "./summary";
+
+// docs meta description: the doc's first paragraph, or a derived fallback when
+// the doc opens with a heading/image (empty description hurts the SEO≥90 goal).
+export function resolveDocDescription(
+  firstParagraph: string,
+  fallback: string
+): string {
+  return firstParagraph.trim() || fallback;
+}
 
 // BreadcrumbList JSON-LD reflecting the SUMMARY hierarchy:
 // BugShot (home) -> ancestor sections -> current doc.
@@ -81,14 +92,17 @@ export function docPageMetadata({
       description,
       url,
       siteName: "BugShot",
-      locale,
+      locale: ogLocale(locale),
+      alternateLocale: routing.locales
+        .filter((l) => l !== locale)
+        .map(ogLocale),
       images: [{ url: image, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [image],
+      images: [{ url: image, alt: title }],
     },
   };
 }

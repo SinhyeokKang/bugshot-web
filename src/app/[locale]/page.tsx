@@ -2,8 +2,11 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import {
   SITE_URL,
   CHROME_WEB_STORE_URL,
+  CHROME_WEB_STORE_RATING,
+  GITHUB_URL,
   FAQ_KEYS,
 } from "@/lib/constants";
+import { stripRichTags } from "@/lib/jsonld";
 import { Hero } from "@/components/Hero";
 import { Mockup } from "@/components/Mockup";
 import { FeatureCards } from "@/components/FeatureCards";
@@ -42,6 +45,14 @@ export default async function Home({
     },
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     downloadUrl: CHROME_WEB_STORE_URL,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: CHROME_WEB_STORE_RATING.ratingValue,
+      ratingCount: CHROME_WEB_STORE_RATING.ratingCount,
+      reviewCount: CHROME_WEB_STORE_RATING.reviewCount,
+      bestRating: 5,
+      worstRating: 1,
+    },
   };
 
   const faqJsonLd = {
@@ -53,9 +64,28 @@ export default async function Home({
       name: faqT(`items.${key}.q`),
       acceptedAnswer: {
         "@type": "Answer",
-        text: faqT(`items.${key}.a`),
+        text: stripRichTags(faqT(`items.${key}.a`)),
       },
     })),
+  };
+
+  // Organization + WebSite ground BugShot as one entity (sameAs the GitHub repo
+  // and Web Store listing) — disambiguation against the saturated "bugshot" name.
+  const orgJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "BugShot",
+    url: SITE_URL,
+    logo: `${SITE_URL}/bugshot-symbol.svg`,
+    sameAs: [GITHUB_URL, CHROME_WEB_STORE_URL],
+  };
+
+  const webSiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "BugShot",
+    url: SITE_URL,
+    inLanguage: locale,
   };
 
   return (
@@ -63,6 +93,14 @@ export default async function Home({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}
       />
       <script
         type="application/ld+json"
