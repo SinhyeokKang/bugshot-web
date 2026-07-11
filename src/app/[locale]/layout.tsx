@@ -6,10 +6,18 @@ import {
   setRequestLocale,
 } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { DM_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { routing } from "@/i18n/routing";
 import { SITE_URL } from "@/lib/constants";
+import "../globals.css";
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -93,15 +101,14 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `document.documentElement.lang="${locale}"`,
-        }}
-      />
-      {children}
-      <Analytics />
-      <SpeedInsights />
-    </NextIntlClientProvider>
+    <html lang={locale} className={dmSans.variable} suppressHydrationWarning>
+      <body className="font-sans antialiased">
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+          <Analytics />
+          <SpeedInsights />
+        </NextIntlClientProvider>
+      </body>
+    </html>
   );
 }
