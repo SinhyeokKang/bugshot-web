@@ -49,8 +49,10 @@ async function main() {
       throw new Error(`missing SUMMARY.md for ${locale}`);
     }
     // markdown (preserve tree, skip the assets dir + junk). preserveTimestamps
-    // keeps the tarball (source commit) mtime so sitemap lastModified reflects
-    // when the guide content actually changed, not each build.
+    // keeps the tarball's (tip-commit) mtime instead of resetting to build time,
+    // so sitemap lastModified stays stable across bugshot-web rebuilds and only
+    // moves when bugshot-2 is re-pushed. (Same value for all files — the tarball
+    // stamps the tip commit time, not per-file dates.)
     await cp(srcGuide, join(CONTENT_DIR, locale), {
       recursive: true,
       preserveTimestamps: true,
