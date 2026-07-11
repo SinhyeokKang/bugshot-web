@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, existsSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { pathToSlug } from "./summary";
 
@@ -28,6 +28,24 @@ function listMarkdownFiles(dir: string, base = ""): string[] {
 
 export function getAllDocSlugs(locale: string): string[][] {
   return listMarkdownFiles(localeDir(locale)).map(pathToSlug);
+}
+
+// Keep only slugs present in every locale. sitemap emits per-locale URLs for
+// each slug, so a slug missing in one locale would yield a 404 URL. Guards
+// against asymmetric guides (a doc added/renamed in only one language).
+export function intersectSlugs(...perLocale: string[][][]): string[][] {
+  if (perLocale.length === 0) return [];
+  const key = (s: string[]) => s.join("/");
+  const [first, ...rest] = perLocale;
+  const restSets = rest.map((list) => new Set(list.map(key)));
+  return first.filter((s) => restSets.every((set) => set.has(key(s))));
+}
+
+// mtime of a doc's source file, for per-page sitemap lastModified (so a single
+// content change doesn't mark every URL as modified). null if the file is gone.
+export function docMtime(locale: string, slug: string[]): Date | null {
+  const file = slugToFile(locale, slug);
+  return file ? statSync(file).mtime : null;
 }
 
 // inverse of pathToSlug: [] -> README.md, ['integrations'] -> integrations/README.md,

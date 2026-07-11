@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { SITE_URL } from "@/lib/constants";
-import { getAllDocSlugs } from "@/lib/docs/content";
+import { getAllDocSlugs, intersectSlugs, docMtime } from "@/lib/docs/content";
 
 export const dynamic = "force-static";
 
@@ -27,6 +27,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     routing.locales.map((l) => [l, privacyUrl(l)])
   );
 
+  const koSlugs = getAllDocSlugs("ko");
+  const docSlugs = intersectSlugs(koSlugs, getAllDocSlugs("en"));
+  if (docSlugs.length < koSlugs.length) {
+    console.warn(
+      `[sitemap] dropped ${koSlugs.length - docSlugs.length} doc slug(s) absent in some locale`
+    );
+  }
+
   return [
     ...routing.locales.map((locale) => ({
       url: localeUrl(locale),
@@ -42,11 +50,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
       alternates: { languages: privacyLanguages },
     })),
-    // docs (ko/en slugs are symmetric — enumerate from ko)
-    ...getAllDocSlugs("ko").flatMap((slug) =>
+    // docs: only slugs present in EVERY locale — an asymmetric slug would emit
+    // a per-locale URL that 404s. lastModified is per source file so a single
+    // content change doesn't mark every doc URL as modified.
+    ...docSlugs.flatMap((slug) =>
       routing.locales.map((locale) => ({
         url: docUrl(locale, slug),
-        lastModified: new Date(),
+        lastModified: docMtime(locale, slug) ?? new Date(),
         changeFrequency: "weekly" as const,
         priority: slug.length ? 0.7 : 0.8,
         alternates: {

@@ -58,6 +58,9 @@ export function HowItWorks() {
                   <img
                     src={`/images/how-steps/how-${key}-mobile.webp`}
                     alt={t(`steps.${key}.title`)}
+                    width={1374}
+                    height={777}
+                    loading="lazy"
                     className="mb-3 w-full md:hidden"
                   />
                   {t.rich(`steps.${key}.description`, {

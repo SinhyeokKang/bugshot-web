@@ -9,7 +9,11 @@ import { normalizeMarkdown } from "@/lib/docs/markdown";
 import { getEmbeds } from "@/lib/docs/embeds";
 import { parseSummary, findParent, flattenNav } from "@/lib/docs/summary";
 import { extractToc } from "@/lib/docs/toc";
-import { docPageMetadata, docsBreadcrumbJsonLd } from "@/lib/docs/metadata";
+import {
+  docPageMetadata,
+  docsBreadcrumbJsonLd,
+  resolveDocDescription,
+} from "@/lib/docs/metadata";
 import { Markdown } from "@/components/Markdown";
 import { DocsPager } from "@/components/docs/DocsPager";
 import { DocsShell } from "@/components/docs/DocsShell";
@@ -53,10 +57,13 @@ export async function generateMetadata({
   const doc = getDoc(locale, slug);
   if (!doc) return {};
   const path = slug.length ? `/docs/${slug.join("/")}` : "/docs";
-  const description = firstParagraph(doc.markdown);
   const t = await getTranslations({ locale, namespace: "docs" });
   // "{doc} | BugShot User Guide" for sub-docs; root README keeps its own title
   const title = slug.length ? `${doc.title} | ${t("titleSuffix")}` : doc.title;
+  const description = resolveDocDescription(
+    firstParagraph(doc.markdown),
+    `${doc.title} · ${t("titleSuffix")}`
+  );
 
   return docPageMetadata({ title, description, locale, path });
 }

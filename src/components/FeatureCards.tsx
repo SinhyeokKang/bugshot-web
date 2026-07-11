@@ -80,6 +80,7 @@ export async function FeatureCards({ group }: { group: FeatureGroup }) {
                 alt={t(`items.${f.key}.title`)}
                 width={800}
                 height={450}
+                loading="lazy"
                 className="h-full w-full object-cover md:hidden"
               />
               <img
@@ -87,6 +88,7 @@ export async function FeatureCards({ group }: { group: FeatureGroup }) {
                 alt={t(`items.${f.key}.title`)}
                 width={648}
                 height={720}
+                loading="lazy"
                 className="hidden h-full w-full object-cover md:block"
               />
             </div>
