@@ -1,22 +1,13 @@
 import type { ReactNode } from "react";
 import type { Viewport } from "next";
-import { DM_Sans } from "next/font/google";
-import "./globals.css";
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-dm-sans",
-  display: "swap",
-});
 
 export const viewport: Viewport = {
   themeColor: "#2563EB",
 };
 
+// <html>/<body> live in app/[locale]/layout.tsx so `lang` is resolved
+// server-side from the route locale (next-intl [locale] pattern). This root
+// layout is a passthrough.
 export default function RootLayout({ children }: { children: ReactNode }) {
-  return (
-    <html className={dmSans.variable} suppressHydrationWarning>
-      <body className="font-sans antialiased">{children}</body>
-    </html>
-  );
+  return children;
 }
