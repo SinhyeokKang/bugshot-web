@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import {
   SITE_URL,
   CHROME_WEB_STORE_URL,
+  CHROME_WEB_STORE_RATING,
   GITHUB_URL,
   FAQ_KEYS,
 } from "@/lib/constants";
@@ -44,6 +45,14 @@ export default async function Home({
     },
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     downloadUrl: CHROME_WEB_STORE_URL,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: CHROME_WEB_STORE_RATING.ratingValue,
+      ratingCount: CHROME_WEB_STORE_RATING.ratingCount,
+      reviewCount: CHROME_WEB_STORE_RATING.reviewCount,
+      bestRating: 5,
+      worstRating: 1,
+    },
   };
 
   const faqJsonLd = {
