@@ -72,7 +72,7 @@ export function docPageMetadata({
       languages: {
         ko: langUrl("ko"),
         en: langUrl("en"),
-        "x-default": langUrl("ko"),
+        "x-default": langUrl("en"),
       },
     },
     openGraph: {
