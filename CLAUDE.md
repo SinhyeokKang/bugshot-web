@@ -42,7 +42,7 @@ bugshot-web: BugShot Chrome 확장의 랜딩 페이지 + 문서 사이트. 정�
 | 린트 | `pnpm lint` |
 | 유닛 테스트 | `pnpm test` (Vitest, `vitest run`) |
 
-`dev`·`build`는 먼저 콘텐츠 fetch + 검색 인덱스 + 임베드 메타 스크립트를 체이닝한다: `fetch-privacy.mjs && fetch-guide.mjs && build-search.mjs && build-embeds.mjs && next dev|build`. (bugshot-2 public repo에서 privacy·guide를 받아 `content/`·`public/docs`·`public/search`로 전개, guide의 `{% embed %}` URL은 OG 메타를 받아 `content/guide/embeds.json`으로 — 전부 gitignore.)
+`dev`·`build`는 먼저 콘텐츠 fetch + 검색 인덱스 + 임베드 메타 + 이미지 치수 스크립트를 체이닝한다: `fetch-privacy.mjs && fetch-guide.mjs && build-search.mjs && build-embeds.mjs && build-image-dims.mjs && next dev|build`. (bugshot-2 public repo에서 privacy·guide를 받아 `content/`·`public/docs`·`public/search`로 전개, guide의 `{% embed %}` URL은 OG 메타를 받아 `content/guide/embeds.json`으로, guide 이미지(.jpg)는 치수를 측정해 `content/guide/image-dims.json`으로 — 전부 gitignore.)
 
 **빌드는 자동 실행하지 않는다.** 사용자가 명시적으로 요청하거나 `/build` 스킬을 실행할 때만 돌린다. ⚠️ **dev 서버 실행 중 `pnpm build` 금지** — 같은 `.next`를 덮어써 dev가 깨진다(복구: dev 종료 → `rm -rf .next` → 재시작).
 
@@ -54,13 +54,16 @@ scripts/
 ├── fetch-guide.mjs         # 빌드 전: bugshot-2 guide/{ko,en} tarball → content/guide + public/docs/{locale}/assets
 ├── build-search.mjs        # 빌드 전: guide 콘텐츠 → public/search/{locale}.json (검색 인덱스)
 ├── build-embeds.mjs        # 빌드 전: guide의 {% embed url %} → OG 메타 fetch → content/guide/embeds.json (링크 카드)
-└── lib/fetch-retry.mjs     # 공용 fetch 헬퍼 (429·5xx·네트워크 오류 지수 백오프 재시도) — 위 세 fetch 스크립트 공용
+├── build-image-dims.mjs    # 빌드 전: guide 이미지(.jpg) 치수 측정 → content/guide/image-dims.json (마크다운 img width/height = CLS 방어)
+└── lib/
+    ├── fetch-retry.mjs     # 공용 fetch 헬퍼 (429·5xx·네트워크 오류 지수 백오프 재시도) — fetch 스크립트 공용
+    └── image-size.mjs      # JPEG 치수 파서 (jpegSize, build-image-dims 전용 · 순수 함수 · 유닛 테스트)
 src/
 ├── app/
 │   ├── layout.tsx          # 최상위 RootLayout — passthrough (viewport/metadata만; <html>/<body>·DM Sans·globals.css는 [locale]/layout으로 이동)
 │   ├── globals.css         # Tailwind directives + shadcn CSS 변수 (--sidebar-* 포함, light only). Pretendard는 [locale]/layout의 hoisted <link rel=stylesheet>+preconnect로 로드(구 @import 대체)
 │   ├── icon.svg · favicon.ico · apple-icon.png
-│   ├── sitemap.ts          # /sitemap.xml — 랜딩·privacy·docs 전 slug × locale alternates
+│   ├── sitemap.ts          # /sitemap.xml — 랜딩·privacy·docs(로케일 공통 slug만) × locale alternates, docs는 소스 파일 mtime 기반 lastmod
 │   ├── robots.ts           # /robots.txt — allow all + Sitemap 지시문
 │   └── [locale]/
 │       ├── layout.tsx      # <html lang>/<body> + DM Sans + Pretendard link + NextIntlClientProvider + generateStaticParams + generateMetadata
@@ -72,7 +75,7 @@ src/
 │   ├── Hero·Mockup·FeatureCards·HowItWorks·Review·Faq·BottomCta·ScrollReveal  # 랜딩 섹션
 │   ├── Footer.tsx          # © + GitHub·개인정보처리방침(/privacy) 링크
 │   ├── LocaleSwitcher.tsx  # locale 토글 캡슐 (인라인, className으로 위치 조정)
-│   ├── Markdown.tsx         # 공용 마크다운 렌더 (react-markdown, shadcn Typography 요소 매핑) — privacy·docs. embed 코드펜스 → EmbedCard
+│   ├── Markdown.tsx         # 공용 마크다운 렌더 (react-markdown, shadcn Typography 요소 매핑) — privacy·docs. embed 코드펜스 → EmbedCard, 이미지 width/height 주입(image-dims, CLS)
 │   └── docs/               # 전역 헤더 + 문서 사이트 셸·구성요소
 │       ├── DocsShell.tsx    # 헤더 + (docs)서브헤더바 + (옵션)사이드바 + 본문 + 우측 TOC + Footer 단일 셸 (privacy·docs 공용)
 │       ├── DocsHeader.tsx   # 전역 sticky 헤더 (랜딩·privacy·docs 공용): 로고+nav(좌) / 검색·LocaleSwitcher·모바일메뉴(우)
@@ -87,10 +90,12 @@ src/
 ├── hooks/useScrollReveal.ts
 ├── i18n/                   # routing.ts · navigation.ts · request.ts (next-intl)
 └── lib/
-    ├── constants.ts        # SITE_URL·CHROME_WEB_STORE_URL·GITHUB_URL 등 + FAQ/REVIEW/HOW_KEYS + 내부 docs 경로 맵(FAQ_GUIDE_PATHS, HOW_GUIDE_PATHS)
+    ├── constants.ts        # SITE_URL·CHROME_WEB_STORE_URL·CHROME_WEB_STORE_RATING·GITHUB_URL 등 + FAQ/REVIEW/HOW_KEYS + 내부 docs 경로 맵(FAQ_GUIDE_PATHS, HOW_GUIDE_PATHS)
     ├── utils.ts            # cn()
+    ├── jsonld.ts           # stripRichTags — FAQ JSON-LD용 next-intl 리치 태그(<guide>/<store>) 제거
+    ├── og-locale.ts        # ogLocale — en→en_US, ko→ko_KR (OG language_TERRITORY)
     ├── locale-redirect.ts  # localeSwitchHref(pathname, next) — LocaleSwitcher 경로 계산 (Vitest 커버)
-    ├── docs/               # summary(SUMMARY 파서·findParent·flattenNav) · content(slug↔파일) · markdown(정규화) · toc · metadata(docPageMetadata·BreadcrumbList) · embeds(embeds.json 로드)
+    ├── docs/               # summary(SUMMARY 파서·findParent·flattenNav) · content(slug↔파일·intersectSlugs·docMtime) · markdown(정규화) · toc · metadata(docPageMetadata·BreadcrumbList·resolveDocDescription) · embeds(embeds.json) · image-dims(image-dims.json 로드)
     └── i18n/en.json · ko.json
 public/                     # bugshot-symbol.svg + images/ (+ 빌드 fetch: docs/·search/ = gitignore)
 content/                    # 빌드 fetch: privacy/·guide/ (gitignore)
