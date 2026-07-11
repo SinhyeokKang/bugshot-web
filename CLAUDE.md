@@ -57,13 +57,13 @@ scripts/
 └── lib/fetch-retry.mjs     # 공용 fetch 헬퍼 (429·5xx·네트워크 오류 지수 백오프 재시도) — 위 세 fetch 스크립트 공용
 src/
 ├── app/
-│   ├── layout.tsx          # 최상위 RootLayout — DM Sans, <html>/<body>, globals.css
-│   ├── globals.css         # Tailwind directives + Pretendard CDN import + shadcn CSS 변수 (--sidebar-* 포함, light only)
+│   ├── layout.tsx          # 최상위 RootLayout — passthrough (viewport/metadata만; <html>/<body>·DM Sans·globals.css는 [locale]/layout으로 이동)
+│   ├── globals.css         # Tailwind directives + shadcn CSS 변수 (--sidebar-* 포함, light only). Pretendard는 [locale]/layout의 hoisted <link rel=stylesheet>+preconnect로 로드(구 @import 대체)
 │   ├── icon.svg · favicon.ico · apple-icon.png
 │   ├── sitemap.ts          # /sitemap.xml — 랜딩·privacy·docs 전 slug × locale alternates
 │   ├── robots.ts           # /robots.txt — allow all + Sitemap 지시문
 │   └── [locale]/
-│       ├── layout.tsx      # NextIntlClientProvider + generateStaticParams + generateMetadata + html lang
+│       ├── layout.tsx      # <html lang>/<body> + DM Sans + Pretendard link + NextIntlClientProvider + generateStaticParams + generateMetadata
 │       ├── page.tsx        # 랜딩 (전역 DocsHeader + 섹션 조합 + 랜딩 JSON-LD)
 │       ├── privacy/page.tsx        # 개인정보처리방침 (Markdown + DocsShell, nav 없음)
 │       └── docs/[[...slug]]/page.tsx # 가이드 catch-all (generateStaticParams·metadata·BreadcrumbList JSON-LD + DocsShell)
