@@ -150,8 +150,7 @@
   "bottomCta": {
     "heading": "모든 버그 리포팅을, 단 <brand>하나의 흐름</brand>으로",
     "subcopy": ["버그 발견부터 이슈 제출까지,", "브라우저 안에서 한 번에 끝내세요."],
-    "cta": "Chrome에 추가",
-    "rating": "{rating} · {count} reviews on the Chrome Web Store"
+    "cta": "Chrome에 추가"
   },
   "faq": {
     "heading": "자주 묻는 질문",

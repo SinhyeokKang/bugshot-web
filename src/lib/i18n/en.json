@@ -150,8 +150,7 @@
   "bottomCta": {
     "heading": "All your Bugs, <brand>One Workflow</brand>.",
     "subcopy": ["From bug discovery to issue submission —", "all without leaving the browser."],
-    "cta": "Add to Chrome",
-    "rating": "{rating} · {count} reviews on the Chrome Web Store"
+    "cta": "Add to Chrome"
   },
   "faq": {
     "heading": "Frequently Asked Questions",
