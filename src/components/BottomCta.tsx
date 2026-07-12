@@ -1,7 +1,12 @@
 import { SiGooglechrome } from "@icons-pack/react-simple-icons";
 import { getTranslations } from "next-intl/server";
+import { Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CHROME_WEB_STORE_URL } from "@/lib/constants";
+import {
+  CHROME_WEB_STORE_URL,
+  CHROME_WEB_STORE_REVIEWS_URL,
+  CHROME_WEB_STORE_RATING,
+} from "@/lib/constants";
 
 export async function BottomCta() {
   const t = await getTranslations("bottomCta");
@@ -32,9 +37,18 @@ export async function BottomCta() {
           {t("cta")}
         </a>
       </Button>
-      <span className="mt-4 text-base text-muted-foreground">
-        {t("copyright")}
-      </span>
+      <a
+        href={CHROME_WEB_STORE_REVIEWS_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-4 inline-flex items-center gap-1.5 text-base text-muted-foreground transition-colors hover:text-brand focus-visible:text-brand focus-visible:outline-none"
+      >
+        <Star className="h-4 w-4 fill-brand text-brand md:h-5 md:w-5" />
+        {t("rating", {
+          rating: CHROME_WEB_STORE_RATING.ratingValue.toFixed(1),
+          count: CHROME_WEB_STORE_RATING.ratingCount,
+        })}
+      </a>
     </div>
   );
 }

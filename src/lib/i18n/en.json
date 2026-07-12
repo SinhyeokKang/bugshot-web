@@ -151,7 +151,7 @@
     "heading": "All your Bugs, <brand>One Workflow</brand>.",
     "subcopy": ["From bug discovery to issue submission —", "all without leaving the browser."],
     "cta": "Add to Chrome",
-    "copyright": "© 2026 BugShot"
+    "rating": "{rating} · {count} reviews on the Chrome Web Store"
   },
   "faq": {
     "heading": "Frequently Asked Questions",
