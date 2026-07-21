@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "BugShot — Bug Reports in One Shot",
-    "description": "From design review and bug reporting to style fixes and issue creation. Stop jumping between DevTools, screenshot tools, and issue trackers."
+    "description": "Free Chrome extension for bug reporting and QA. Capture bugs from the side panel and automatically attach screenshots, console and network logs, and environment details. AI drafts a complete report. All data is processed locally in your browser."
   },
   "hero": {
     "logoAlt": "BugShot logo",
