@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "BugShot — Bug Reports in One Shot",
+    "title": "BugShot — Bug Reporting in One Shot",
     "description": "Free Chrome extension for bug reporting and QA. Capture bugs from the side panel and automatically attach screenshots, console and network logs, and environment details. AI drafts a complete report. All data is processed locally in your browser."
   },
   "hero": {
