@@ -5,7 +5,7 @@
   },
   "hero": {
     "logoAlt": "BugShot logo",
-    "heading": "Bug Reports in <brand>One Shot</brand>.",
+    "heading": "Bug Reporting in <brand>One Shot</brand>.",
     "subcopy": ["Discover, fix, capture, and report bugs", "— all with BugShot."],
     "cta": "Add to Chrome",
     "note": "No sign-up required. Just install and go."
