@@ -1,0 +1,10 @@
+# BugShot — security contact
+# Policy and scope: https://github.com/SinhyeokKang/bugshot-2/blob/main/SECURITY.md
+# Please don't open a public issue for a security problem.
+
+Contact: https://github.com/SinhyeokKang/bugshot-2/security/advisories/new
+Contact: mailto:ox501501@gmail.com
+Expires: 2027-08-29T00:00:00.000Z
+Policy: https://github.com/SinhyeokKang/bugshot-2/blob/main/SECURITY.md
+Preferred-Languages: en, ko
+Canonical: https://bug-shot.com/.well-known/security.txt
